@@ -5,7 +5,8 @@ namespace App\Controllers;
 class LandingPageController extends BaseController {
     
     public function index() {
-        if (session('USER_ID')) {
+        // Redirect to dashboard if user is logged in
+        if (session('USER') && session('GROUP')) {
             return redirect('dashboard');
         }
 
@@ -30,6 +31,7 @@ class LandingPageController extends BaseController {
             }
             array_push($data, ['slot' => $slot, 'projects' => $projects]);
         }
+        
         return $this->view('LandingPageView', ['data' => $data]);
     }
 }
