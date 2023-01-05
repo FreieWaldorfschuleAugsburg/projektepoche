@@ -2,38 +2,20 @@
 
 namespace App\Controllers;
 
-class DashboardController extends BaseController {
-    
-    public function index() {
-        if (!session('USER') || !session('GROUP')){
+use function App\Helpers\getSlotsWithProjectAndUser;
+
+class DashboardController extends BaseController
+{
+
+    public function index()
+    {
+        if (!session('USER') || !session('GROUP')) {
             return redirect('login')->with('error', 'Sitzung abgelaufen. Erneut anmelden!');
         }
-
-        $data = [];
         $db = db_connect('default');
-        $data = [];
-        $slotResults = $db->table('projektepoche_slots')->select('*')->get()->getResult();
-        foreach ($slotResults as $slot) {
-            $projects = [];
-            $projectResults = $db->table('projektepoche_projects')->select('*')->where('slot_id', $slot->id)->get()->getResult();
-
-            foreach ($projectResults as $project) {
-                $teachers = [];
-                
-                $userIdResults = $db->table('projektepoche_projects_teachers_mapping')->select('user_id')->where('project_id', $project->id)->get()->getResult();
-                foreach ($userIdResults as $userId) {
-                    $user = $db->table('projektepoche_users')->select('name')->where('id', $userId->user_id)->get()->getRow();
-                    $first = substr($user->name, 0, 1);
-                    array_push($teachers, $first . '. ' . explode(' ', $user->name)[1]);
-                }
-
-                array_push($projects, ['handle' => $project, 'teachers' => $teachers]);
-            }
-            array_push($data, ['slot' => $slot, 'projects' => $projects]);
-        }
-
+        $data = [...getSlotsWithProjectAndUser()];
         $votes = [];
-        $voteRow = $db->query('SELECT * FROM projektepoche_votes WHERE voter_id = ?', [session('USER')->id]);
+        $voteRow = $db->query('SELECT * FROM projektepoche_votes WHERE user_id = ?', [session('USER')->id]);
         $voteCount = $voteRow->getNumRows();
         foreach ($voteRow->getResult() as $vote) {
             $slot = $db->table('projektepoche_slots')->select('*')->where('id', $vote->slot_id)->get()->getRow();

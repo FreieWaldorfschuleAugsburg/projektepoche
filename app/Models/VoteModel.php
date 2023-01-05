@@ -12,7 +12,7 @@ class VoteModel extends Model
     protected $primaryKey = "id";
     protected $returnType = Vote::class;
     protected $allowedFields = [
-        'id', 'voter_id', 'slot_id', 'vote_id', 'project_id'
+        'id', 'user_id', 'slot_id', 'vote_id', 'project_id'
     ];
 
 }

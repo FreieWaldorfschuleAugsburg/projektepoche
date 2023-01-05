@@ -8,15 +8,13 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
 
-    protected $table = \App\Constants\USERS;
+    protected $table = USERS;
     protected $primaryKey = "id";
     protected $returnType = User::class;
 
     protected $allowedFields = [
         'id', 'name', 'password', 'group_id'
     ];
-
-
 
 
 }

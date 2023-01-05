@@ -62,7 +62,7 @@ class VoteController extends BaseController {
 
         for ($slotId = 1; $slotId <= count($inputData); $slotId++) { 
             for ($voteId = 1; $voteId <= count($inputData[$slotId]); $voteId++) {
-                $db->table('projektepoche_votes')->insert(['voter_id' => session('USER')->id, 'slot_id' => $slotId <= $slotRow->getNumRows() ? $slotId : null, 'vote_id' => $voteId, 
+                $db->table('projektepoche_votes')->insert(['user_id' => session('USER')->id, 'slot_id' => $slotId <= $slotRow->getNumRows() ? $slotId : null, 'vote_id' => $voteId, 
                 'project_id' => $inputData[$slotId][$voteId] != 0 ? $inputData[$slotId][$voteId] : null]);
             }
         }

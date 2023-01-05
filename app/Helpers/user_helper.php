@@ -1,6 +1,9 @@
 <?php
 
+use App\Entities\User;
+
 use App\Models\UserModel;
+
 
 function getUserModel(): UserModel
 {
@@ -28,6 +31,20 @@ function getUsers(): array
     return getUserModel()->findAll();
 }
 
+
+function getUser(int $userId): object|array|null
+{
+    return getUserModel()->find($userId);
+}
+
+function getShortName(User $user): string
+{
+    $firstLetter = substr($user->name, 0, 1);
+    return $firstLetter . '. ' . explode(' ', $user->name)[1];
+
+
+}
+
 /**
  * @param int $id
  * @return UserModel
@@ -45,4 +62,16 @@ function getUserById(int $id): object
 function getUserByUsernameAndPassword(string $name, string $password): object
 {
     return getUserModel()->where('name', $name)->where('password', $password)->find();
+}
+
+
+function getUsersForProjectWithShortName(int $projectId): array
+{
+    $users = getUsersForProject($projectId);
+    $shortNamedUsers = [];
+    foreach ($users as $user) {
+        $shortNamedUsers[] = getShortName($user);
+    }
+
+    return $shortNamedUsers;
 }

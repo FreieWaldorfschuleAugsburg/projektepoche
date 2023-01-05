@@ -26,7 +26,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['db', 'slot', 'project'];
+    protected $helpers = ['db', 'slot', 'project', 'mapping', 'user', 'group', 'teacher'];
 
     /**
      * Constructor.
@@ -60,13 +60,13 @@ class BaseController extends Controller
      */
     public function view($name, $data = null)
     {
-        echo view('components/top');
+        echo view('components/header');
         echo view('components/navbar');
         if (isset($data)) {
             echo view($name, $data);
         } else {
             echo view($name);
         }
-        echo view('components/bottom');
+        echo view('components/footer');
     }
 }
