@@ -2,51 +2,57 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\HTTP\RedirectResponse;
+
 class AuthenticationController extends BaseController {
     
-    public function login() {
-        return $this->view('LoginView');
+    public function login(): string
+    {
+        return $this->render('LoginView');
     }
 
-    public function handleCredentials() {
-        $db = db_connect('default');
-        
+    public function handleCredentials(): RedirectResponse
+    {
         $name = trim($this->request->getPost('name'));
-        $accessToken = trim($this->request->getPost('password'));
+        $password = trim($this->request->getPost('password'));
+        $user = getUserByUsernameAndPassword($name, $password);
 
-        // Check user existance
-        $userRow = $db->query('SELECT * FROM projektepoche_users WHERE name LIKE ? AND password = ?', [$name, strtoupper($accessToken)])->getRow();
-        if (!isset($userRow)) {
+        // Check user existence
+        if (!$user) {
             return $this->errorRedirect($name, 'Ungültige Zugangsdaten!');
         }
 
         // Bind user to session
-        session()->set('USER', $userRow);
+        session()->set('USER', $user);
 
-        // Check group existance
-        $groupRow = $db->query('SELECT * FROM projektepoche_groups WHERE id = ?', [$userRow->group_id])->getRow();
-        if (!isset($groupRow)) {
+        // Check group existence
+        $group = getGroupById($user->group_id);
+        if (!$group) {
             return $this->errorRedirect($name, 'Ungültige Benutzergruppe!');
         }
 
         // Bind group to session
-        session()->set('GROUP', $groupRow);
+        session()->set('GROUP', $group);
+
+        // Redirect to dashboard
         return redirect('dashboard');
     }
 
-    public function update() {
-        session()->remove('USER', 1);
-        session()->remove('GROUP', 1);
+    public function update(): RedirectResponse
+    {
+        session()->remove('USER');
+        session()->remove('GROUP');
         return redirect('/');
     }
 
-    public function logout() {
-        session()->remove('USER', 1);
-        session()->remove('GROUP', 1);
+    public function logout(): RedirectResponse
+    {
+        session()->remove('USER');
+        session()->remove('GROUP');
         return redirect('/');
     }
 
-    public function errorRedirect($name, $error) {
+    public function errorRedirect($name, $error): RedirectResponse {
         return redirect('login')->with('name', $name)->with('error', $error);
     }
 }

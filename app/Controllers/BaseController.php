@@ -36,9 +36,32 @@ class BaseController extends Controller
         parent::initController($request, $response, $logger);
     }
 
+    public function render($name, $data = null, $renderNavbar = true): string
+    {
+        $renderedContent = view('components/header');
+
+        if ($renderNavbar) {
+            helper('auth');
+            $renderedContent .= view('components/navbar', ['user' => getCurrentUser()]);
+        }
+
+        if (!is_null($data)) {
+            $renderedContent .= view($name, $data);
+        } else {
+            $renderedContent .= view($name);
+        }
+
+        $renderedContent .= view('components/footer');
+        return $renderedContent;
+    }
+
+    /**
+     * @deprecated use render()
+     */
     public function view($name, $data = null)
     {
         echo view('components/top');
+        echo view('components/navbar');
         if (isset($data)) {
             echo view($name, $data);
         } else {
