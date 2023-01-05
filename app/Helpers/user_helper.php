@@ -1,7 +1,14 @@
 <?php
+use App\Models\UserModel;
 
+
+
+function getUserModel(): UserModel
+{
+    return new UserModel();
+}
 
 function getUsers(): array
 {
-    return getBuilder(USERS)->get()->getResult();
+    return getUserModel()->findAll();
 }
