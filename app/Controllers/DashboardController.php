@@ -2,16 +2,10 @@
 
 namespace App\Controllers;
 
-use function App\Helpers\getSlotsWithProjectAndUser;
-
-class DashboardController extends BaseController
-{
-
-    public function index()
-    {
-        if (!session('USER') || !session('GROUP')) {
-            return redirect('login')->with('error', 'Sitzung abgelaufen. Erneut anmelden!');
-        }
+class DashboardController extends BaseController {
+    
+    public function index() {
+        $data = [];
         $db = db_connect('default');
         $data = [...getSlotsWithProjectAndUser()];
         $votes = [];
@@ -24,6 +18,6 @@ class DashboardController extends BaseController
         }
 
         $voteOpen = $db->table('projektepoche_settings')->select('*')->get()->getRow()->vote;
-        return $this->view('DashboardView', ['data' => $data, 'votes' => $votes, 'mayVote' => $voteCount == 0, 'voteOpen' => $voteOpen]);
+        return $this->render('DashboardView', ['data' => $data, 'votes' => $votes, 'mayVote' => $voteCount == 0, 'voteOpen' => $voteOpen]);
     }
 }

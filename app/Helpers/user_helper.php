@@ -1,9 +1,7 @@
 <?php
 
-use App\Entities\User;
-
 use App\Models\UserModel;
-
+use App\Entities\User;
 
 function getUserModel(): UserModel
 {
@@ -11,7 +9,7 @@ function getUserModel(): UserModel
 }
 
 /**
- * @return ?UserModel
+ * @return ?User
  */
 function getCurrentUser(): ?object
 {
@@ -24,7 +22,7 @@ function getCurrentUser(): ?object
 }
 
 /**
- * @return UserModel[]
+ * @return User[]
  */
 function getUsers(): array
 {
@@ -47,7 +45,7 @@ function getShortName(User $user): string
 
 /**
  * @param int $id
- * @return UserModel
+ * @return User
  */
 function getUserById(int $id): object
 {
@@ -57,7 +55,7 @@ function getUserById(int $id): object
 /**
  * @param string $name
  * @param string $password
- * @return UserModel
+ * @return User
  */
 function getUserByUsernameAndPassword(string $name, string $password): object
 {

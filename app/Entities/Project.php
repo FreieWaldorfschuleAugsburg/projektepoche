@@ -4,8 +4,8 @@ namespace App\Entities;
 
 class Project
 {
-    protected int $id;
-    protected int $slot_id;
-    protected string $name;
-    protected string $description;
+    public int $id;
+    public int $slot_id;
+    public string $name;
+    public string $description;
 }
