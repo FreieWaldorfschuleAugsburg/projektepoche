@@ -3,6 +3,7 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
+use CodeIgniter\Session\Handlers\FileHandler;
 
 class App extends BaseConfig
 {
@@ -36,14 +37,14 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $indexPage = '';
+    public $indexPage = 'index.php';
 
     /**
      * --------------------------------------------------------------------------
      * URI PROTOCOL
      * --------------------------------------------------------------------------
      *
-     * This item determines which getServer global should be used to retrieve the
+     * This item determines which server global should be used to retrieve the
      * URI string.  The default setting of 'REQUEST_URI' works for most servers.
      * If your links do not seem to work, try one of the other delicious flavors:
      *
@@ -69,7 +70,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $defaultLocale = 'de';
+    public $defaultLocale = 'en';
 
     /**
      * --------------------------------------------------------------------------
@@ -96,7 +97,7 @@ class App extends BaseConfig
      *
      * @var string[]
      */
-    public $supportedLocales = ['de'];
+    public $supportedLocales = ['en'];
 
     /**
      * --------------------------------------------------------------------------
@@ -108,7 +109,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $appTimezone = 'Europe/Berlin';
+    public $appTimezone = 'America/Chicago';
 
     /**
      * --------------------------------------------------------------------------
@@ -151,7 +152,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
+    public $sessionDriver = FileHandler::class;
 
     /**
      * --------------------------------------------------------------------------
@@ -318,7 +319,7 @@ class App extends BaseConfig
      * (empty string) means default SameSite attribute set by browsers (`Lax`)
      * will be set on cookies. If set to `None`, `$cookieSecure` must also be set.
      *
-     * @var string
+     * @var string|null
      *
      * @deprecated use Config\Cookie::$samesite property instead.
      */
@@ -331,18 +332,21 @@ class App extends BaseConfig
      *
      * If your server is behind a reverse proxy, you must whitelist the proxy
      * IP addresses from which CodeIgniter should trust headers such as
-     * HTTP_X_FORWARDED_FOR and HTTP_CLIENT_IP in order to properly identify
+     * X-Forwarded-For or Client-IP in order to properly identify
      * the visitor's IP address.
      *
-     * You can use both an array or a comma-separated list of proxy addresses,
-     * as well as specifying whole subnets. Here are a few examples:
+     * You need to set a proxy IP address or IP address with subnets and
+     * the HTTP header for the client IP address.
      *
-     * Comma-separated:	'10.0.1.200,192.168.5.0/24'
-     * Array: ['10.0.1.200', '192.168.5.0/24']
+     * Here are some examples:
+     *     [
+     *         '10.0.1.200'     => 'X-Forwarded-For',
+     *         '192.168.5.0/24' => 'X-Real-IP',
+     *     ]
      *
-     * @var string|string[]
+     * @var array<string, string>
      */
-    public $proxyIPs = '';
+    public $proxyIPs = [];
 
     /**
      * --------------------------------------------------------------------------
@@ -436,7 +440,8 @@ class App extends BaseConfig
      * Defaults to `Lax` as recommended in this link:
      *
      * @see https://portswigger.net/web-security/csrf/samesite-cookies
-     * @deprecated Use `Config\Security` $samesite property instead of using this property.
+     *
+     * @deprecated `Config\Cookie` $samesite property is used.
      *
      * @var string
      */
