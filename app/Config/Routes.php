@@ -3,6 +3,9 @@
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
+use App\Filters\AdminFilter;
+use App\Filters\LoggedInFilter;
+
 $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
@@ -37,18 +40,18 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'LandingPageController::index');
+
 $routes->get('/login', 'AuthenticationController::login');
 $routes->post('/login', 'AuthenticationController::handleCredentials');
 $routes->get('/logout', 'AuthenticationController::logout');
 
-$routes->get('/dashboard', 'DashboardController::index');
-$routes->post('/vote', 'VoteController::index');
+$routes->get('/dashboard', 'DashboardController::index', ['filter' => LoggedInFilter::class]);
+$routes->post('/vote', 'VoteController::index', ['filter' => LoggedInFilter::class]);
 
-$routes->get('/users', 'UsersController::index');
-$routes->get('/user/lock', 'UsersController::toggleLocked');
-$routes->get('/user/print', 'UsersController::print');
+$routes->get('/users', 'UsersController::index', ['filter' => AdminFilter::class]);
+$routes->get('/user/print', 'UsersController::print', ['filter' => AdminFilter::class]);
 
-$routes->get('/votes', 'VotesController::index');
+$routes->get('/votes', 'VotesController::index', ['filter' => AdminFilter::class]);
 
 /*
  * --------------------------------------------------------------------

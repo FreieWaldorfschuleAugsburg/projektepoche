@@ -6,9 +6,9 @@ use CodeIgniter\Entity\Entity;
 
 class Vote extends Entity
 {
-    protected int $id;
-    protected int $voter_id;
-    protected int $slot_id;
-    protected int $vote_id;
-    protected int $project_id;
+    public int $id;
+    public int $voter_id;
+    public int $slot_id;
+    public int $vote_id;
+    public int $project_id;
 }

@@ -7,8 +7,8 @@ use CodeIgniter\Entity\Entity;
 class User extends Entity
 
 {
-    protected int $id;
-    protected string $name;
-    protected string $password;
-    protected int $group_id;
+    public int $id;
+    public string $name;
+    public string $password;
+    public int $group_id;
 }

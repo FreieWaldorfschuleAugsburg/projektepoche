@@ -6,7 +6,7 @@ use CodeIgniter\Entity\Entity;
 
 class Group extends Entity
 {
-    protected int $id;
-    protected string $name;
-    protected bool $admin;
+    public int $id;
+    public string $name;
+    public bool $admin;
 }

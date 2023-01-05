@@ -9,11 +9,6 @@ class LandingPageController extends BaseController
 
     public function index()
     {
-        // Redirect to dashboard if user is logged in
-        if (session('USER') && session('GROUP')) {
-            return redirect('dashboard');
-        }
-
         $db = db_connect('default');
         $data = [];
         $slots = getSlots();
