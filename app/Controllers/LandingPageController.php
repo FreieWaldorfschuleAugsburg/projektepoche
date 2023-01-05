@@ -2,9 +2,13 @@
 
 namespace App\Controllers;
 
-class LandingPageController extends BaseController {
-    
-    public function index() {
+use function App\Helpers\getSlots;
+
+class LandingPageController extends BaseController
+{
+
+    public function index()
+    {
         // Redirect to dashboard if user is logged in
         if (session('USER') && session('GROUP')) {
             return redirect('dashboard');
@@ -12,14 +16,12 @@ class LandingPageController extends BaseController {
 
         $db = db_connect('default');
         $data = [];
-        $slotResults = $db->table('projektepoche_slots')->select('*')->get()->getResult();
-        foreach ($slotResults as $slot) {
+        $slots = getSlots();
+        foreach ($slots as $slot) {
             $projects = [];
-            $projectResults = $db->table('projektepoche_projects')->select('*')->where('slot_id', $slot->id)->get()->getResult();
-
+            $projectResults = getProjectsBySlotId($slot->id);
             foreach ($projectResults as $project) {
                 $teachers = [];
-                
                 $userIdResults = $db->table('projektepoche_projects_teachers_mapping')->select('user_id')->where('project_id', $project->id)->get()->getResult();
                 foreach ($userIdResults as $userId) {
                     $user = $db->table('projektepoche_users')->select('name')->where('id', $userId->user_id)->get()->getRow();

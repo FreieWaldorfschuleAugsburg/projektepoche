@@ -92,3 +92,12 @@ define('EVENT_PRIORITY_NORMAL', 100);
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_HIGH instead.
  */
 define('EVENT_PRIORITY_HIGH', 10);
+
+
+const PREFIX = "projektepoche_";
+const SLOTS = PREFIX . "slots";
+const PROJECTS = PREFIX . "projects";
+
+const MAPPING = "mapping";
+const GROUPS = PREFIX . "groups";
+const USERS = PREFIX . "users";

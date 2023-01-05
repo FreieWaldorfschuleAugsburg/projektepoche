@@ -18,6 +18,7 @@ class BaseController extends Controller
      */
     protected $request;
 
+
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -25,7 +26,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['db', 'slot', 'project'];
 
     /**
      * Constructor.
@@ -35,7 +36,8 @@ class BaseController extends Controller
         parent::initController($request, $response, $logger);
     }
 
-    public function view($name, $data = null) {
+    public function view($name, $data = null)
+    {
         echo view('components/top');
         if (isset($data)) {
             echo view($name, $data);
