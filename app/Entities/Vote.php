@@ -11,5 +11,4 @@ class Vote extends Entity
     protected int $slot_id;
     protected int $vote_id;
     protected int $project_id;
-
 }

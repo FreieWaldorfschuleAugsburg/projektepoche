@@ -1,11 +1,12 @@
 <?php
 
-
 namespace App\Entities;
-class Group extends \CodeIgniter\Entity\Entity
+
+use CodeIgniter\Entity\Entity;
+
+class Group extends Entity
 {
     protected int $id;
     protected string $name;
     protected bool $admin;
-
 }

@@ -8,5 +8,4 @@ class Project
     protected int $slot_id;
     protected string $name;
     protected string $description;
-
 }
