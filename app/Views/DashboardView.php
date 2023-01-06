@@ -1,5 +1,5 @@
 <center class="mb-5">
-    <h1>Willkommen <?= session('USER')->name ?></h1>
+    <h1>Willkommen <?= getCurrentUser()->getName() ?></h1>
     <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
         aria-controls="collapseExample">
         <i class="fas fa-list-alt"></i> Alle Kurse anzeigen
@@ -28,7 +28,7 @@
                         echo '<div class="col-lg-4 mb-3"><div class="card"><div class="card-header"><b>Zeitschiene ' . $item['slot']->id . ':</b> ' . convert($item['slot']->start_time) . ' - ' . convert($item['slot']->end_time) . ' Uhr</div>
                               <div class="card-body">';
                         
-                        if($item['slot']->id == 1 && session('USER')->group_id == 4) {
+                        if($item['slot']->id == 1 && getCurrentUser()->getGroupId() == 4) {
                             echo '<div class="alert alert-danger mb-3">' . '<b>Blockiert!</b> Eurythmieabschluss.' . '</div>';
                         } else {
                             for ($i=1; $i <= 3; $i++) {
@@ -141,7 +141,7 @@
                             echo '<div class="col-lg-4 mb-3"><div class="card"><div class="card-header"><b>Zeitschiene ' . $slotId. '</b></div>
                                   <div class="card-body">';
                             
-                            if($slotId == 1 && session('USER')->group_id == 4) {
+                            if($slotId == 1 && getCurrentUser()->getGroupId() == 4) {
                                     echo '<div class="alert alert-danger mb-3">' . '<b>Blockiert!</b> Eurythmieabschluss.' . '</div>';
                                 } else {
                                     for ($voteId = 1; $voteId <= count($voteData); $voteId++) {

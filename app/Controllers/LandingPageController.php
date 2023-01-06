@@ -2,15 +2,17 @@
 
 namespace App\Controllers;
 
-use function App\Helpers\getSlots;
+use CodeIgniter\HTTP\RedirectResponse;
 use function App\Helpers\getSlotsWithProjectAndUser;
 
 class LandingPageController extends BaseController
 {
-
-    public function index(): string
+    public function index(): string|RedirectResponse
     {
-        // Redirect to dashboard if user is logged in
+        if (getCurrentUser()) {
+            return redirect('dashboard');
+        }
+
         $slots = getSlotsWithProjectAndUser();
         return $this->render('LandingPageView', ['data' => $slots]);
     }

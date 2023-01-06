@@ -10,6 +10,8 @@ class LoggedInFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        helper(['user', 'group']);
+
         $currentUser = getCurrentUser();
         if (is_null($currentUser)) {
             return redirect('login');

@@ -19,20 +19,11 @@ class AuthenticationController extends BaseController {
 
         // Check user existence
         if (!$user) {
-            return $this->errorRedirect($name, 'Ungültige Zugangsdaten!');
+            return $this->errorRedirect($name, 'login.error.invalidCredentials');
         }
 
-        // Bind user to session
-        session()->set('USER', $user);
-
-        // Check group existence
-        $group = getGroupById($user->group_id);
-        if (!$group) {
-            return $this->errorRedirect($name, 'Ungültige Benutzergruppe!');
-        }
-
-        // Bind group to session
-        session()->set('GROUP', $group);
+        // Bind user id to session
+        session()->set('user_id', $user->getId());
 
         // Redirect to dashboard
         return redirect('dashboard');
@@ -40,15 +31,13 @@ class AuthenticationController extends BaseController {
 
     public function update(): RedirectResponse
     {
-        session()->remove('USER');
-        session()->remove('GROUP');
+        session()->remove('user_id');
         return redirect('/');
     }
 
     public function logout(): RedirectResponse
     {
-        session()->remove('USER');
-        session()->remove('GROUP');
+        session()->remove('user_id');
         return redirect('/');
     }
 

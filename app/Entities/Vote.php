@@ -6,9 +6,59 @@ use CodeIgniter\Entity\Entity;
 
 class Vote extends Entity
 {
-    public int $id;
-    public int $user_id;
-    public int $slot_id;
-    public int $vote_id;
-    public int $project_id;
+    protected $attributes = [
+        'id' => null,
+        'user_id' => null,
+        'slot_id' => null,
+        'vote_id' => null,
+        'project_id' => null
+    ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'slot_id' => 'integer',
+        'vote_id' => 'integer',
+        'project_id' => 'integer'
+    ];
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->attributes['id'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->attributes['user_id'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getSlotId(): int
+    {
+        return $this->attributes['slot_id'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getVoteId(): int
+    {
+        return $this->attributes['vote_id'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getProjectId(): int
+    {
+        return $this->attributes['project_id'];
+    }
 }

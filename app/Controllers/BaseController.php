@@ -26,7 +26,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['db', 'slot', 'project', 'mapping', 'user', 'group', 'teacher'];
+    protected $helpers = ['db', 'slot', 'project', 'mapping', 'user', 'group', 'vote'];
 
     /**
      * Constructor.
@@ -41,8 +41,7 @@ class BaseController extends Controller
         $renderedContent = view('components/header');
 
         if ($renderNavbar) {
-            helper('auth');
-            $renderedContent .= view('components/navbar', ['user' => getCurrentUser()]);
+            $renderedContent .= view('components/navbar');
         }
 
         if (!is_null($data)) {
@@ -53,20 +52,5 @@ class BaseController extends Controller
 
         $renderedContent .= view('components/footer');
         return $renderedContent;
-    }
-
-    /**
-     * @deprecated use render()
-     */
-    public function view($name, $data = null)
-    {
-        echo view('components/header');
-        echo view('components/navbar');
-        if (isset($data)) {
-            echo view($name, $data);
-        } else {
-            echo view($name);
-        }
-        echo view('components/footer');
     }
 }

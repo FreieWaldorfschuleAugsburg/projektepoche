@@ -1,21 +1,27 @@
 <?php
 
+use App\Entities\Vote;
+use App\Models\VoteModel;
 
-use App\Models\GroupModel;
-
-function getGroupModel(): GroupModel
+/**
+ * @param int $userId
+ * @return bool
+ */
+function hasVoted(int $userId): bool
 {
-    return new GroupModel();
+    return getVoteModel()->where(['user_id' => $userId])->countAllResults() > 0;
 }
 
-
-function getGroupByName(string $name): array
+/**
+ * @param int $userId
+ * @return Vote[]
+ */
+function getVotesByUserId(int $userId): array
 {
-    return getGroupModel()->where('name', $name)->find();
+    return getVoteModel()->where(['user_id' => $userId])->findAll();
 }
 
-function getGroupById(int $groupId): object|array|null
+function getVoteModel(): VoteModel
 {
-    return getGroupModel()->find($groupId);
-
+    return new VoteModel();
 }

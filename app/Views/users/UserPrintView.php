@@ -16,8 +16,8 @@
                 Deine Zugangsdaten
             </div>
             <div class="card-body text-center">
-                <h4>Benutzername: <?= $row->name ?></h4>
-                <h4>Passwort: <?= $row->password ?></h4>
+                <h4>Benutzername: <?= $user->getName() ?></h4>
+                <h4>Passwort: <?= $user->getPassword() ?></h4>
             </div>
         </div>
     </div>

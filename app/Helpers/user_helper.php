@@ -18,7 +18,7 @@ function getCurrentUser(): ?object
         return null;
     }
 
-    return getGroupById($user_id);
+    return getUserById($user_id);
 }
 
 /**
@@ -29,27 +29,13 @@ function getUsers(): array
     return getUserModel()->findAll();
 }
 
-
-function getUser(int $userId): object|array|null
-{
-    return getUserModel()->find($userId);
-}
-
-function getShortName(User $user): string
-{
-    $firstLetter = substr($user->name, 0, 1);
-    return $firstLetter . '. ' . explode(' ', $user->name)[1];
-
-
-}
-
 /**
  * @param int $id
  * @return User
  */
 function getUserById(int $id): object
 {
-    return getUserModel()->where('id', $id)->find();
+    return getUserModel()->find($id);
 }
 
 /**
@@ -59,16 +45,15 @@ function getUserById(int $id): object
  */
 function getUserByUsernameAndPassword(string $name, string $password): object
 {
-    return getUserModel()->where('name', $name)->where('password', $password)->find();
+    return getUserModel()->where(['name' => $name, 'password' => $password])->first();
 }
-
 
 function getUsersForProjectWithShortName(int $projectId): array
 {
     $users = getUsersForProject($projectId);
     $shortNamedUsers = [];
     foreach ($users as $user) {
-        $shortNamedUsers[] = getShortName($user);
+        $shortNamedUsers[] = $user->getShortName();
     }
 
     return $shortNamedUsers;

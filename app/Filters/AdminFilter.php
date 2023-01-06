@@ -10,8 +10,10 @@ class AdminFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        helper(['user', 'group']);
+
         $currentUser = getCurrentUser();
-        if (is_null($currentUser) || !$currentUser->admin) {
+        if (!getCurrentUser() || !$currentUser->getGroup()->isAdmin()) {
             return redirect('login');
         }
     }

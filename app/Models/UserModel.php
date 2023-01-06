@@ -7,7 +7,6 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-
     protected $table = USERS;
     protected $primaryKey = "id";
     protected $returnType = User::class;
@@ -15,6 +14,4 @@ class UserModel extends Model
     protected $allowedFields = [
         'id', 'name', 'password', 'group_id'
     ];
-
-
 }
