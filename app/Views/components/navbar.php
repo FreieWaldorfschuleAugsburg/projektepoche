@@ -14,6 +14,7 @@
                     </a>
                     <ul class="dropdown-menu rounded-3" aria-labelledby="Submenu-Dropdown">
                         <li><a class="dropdown-item" href="<?= base_url('/users') ?>"><i class="fas fa-users"></i> <?= lang('user.headline') ?></a></li>
+                        <li><a class="dropdown-item" href="<?= base_url('/projects') ?>"><i class="fas fa-puzzle-piece"></i> <?= lang('project.headline') ?></a></li>
                         <li><a class="dropdown-item" href="<?= base_url('/votes') ?>"><i class="fas fa-poll"></i> <?= lang('vote.headline') ?></a></li>
                     </ul>
                 </li>

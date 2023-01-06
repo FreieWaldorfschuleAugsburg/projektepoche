@@ -46,12 +46,14 @@ $routes->post('/login', 'AuthenticationController::handleCredentials');
 $routes->get('/logout', 'AuthenticationController::logout');
 
 $routes->get('/dashboard', 'DashboardController::index', ['filter' => LoggedInFilter::class]);
-$routes->post('/vote', 'VoteController::index', ['filter' => LoggedInFilter::class]);
+$routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter::class]);
 
-$routes->get('/users', 'UsersController::index', ['filter' => AdminFilter::class]);
-$routes->get('/user/print', 'UsersController::print', ['filter' => AdminFilter::class]);
+$routes->get('/users', 'UserController::index', ['filter' => AdminFilter::class]);
+$routes->get('/user/print', 'UserController::print', ['filter' => AdminFilter::class]);
 
-$routes->get('/votes', 'VotesController::index', ['filter' => AdminFilter::class]);
+$routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);
+
+$routes->get('/votes', 'VoteController::index', ['filter' => AdminFilter::class]);
 
 /*
  * --------------------------------------------------------------------

@@ -97,13 +97,7 @@ define('EVENT_PRIORITY_HIGH', 10);
 const PREFIX = "projektepoche_";
 const SLOTS = PREFIX . "slots";
 const PROJECTS = PREFIX . "projects";
-
-const MAPPING = "mapping";
 const GROUPS = PREFIX . "groups";
 const USERS = PREFIX . "users";
-
-
-const PROJECTS_TEACHERS_MAPPING = PREFIX . "projects_teachers_mapping";
-const TEACHERS = PREFIX . "teachers";
-
+const LEADERS = PREFIX . "leaders";
 const VOTES = PREFIX . "votes";

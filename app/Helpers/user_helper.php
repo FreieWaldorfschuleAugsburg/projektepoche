@@ -48,13 +48,12 @@ function getUserByUsernameAndPassword(string $name, string $password): object
     return getUserModel()->where(['name' => $name, 'password' => $password])->first();
 }
 
-function getUsersForProjectWithShortName(int $projectId): array
+function getUserShortNamesByProjectId(int $projectId): array
 {
-    $users = getUsersForProject($projectId);
-    $shortNamedUsers = [];
-    foreach ($users as $user) {
-        $shortNamedUsers[] = $user->getShortName();
+    $leaders = getProjectLeadersByProjectId($projectId);
+    $shortNames = [];
+    foreach ($leaders as $leader) {
+        $shortNames[] = $leader->getShortName();
     }
-
-    return $shortNamedUsers;
+    return $shortNames;
 }

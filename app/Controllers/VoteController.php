@@ -3,8 +3,13 @@
 namespace App\Controllers;
 
 class VoteController extends BaseController {
-    
-    public function index() {
+
+    public function index(): string
+    {
+        return $this->render('vote/VotesView');
+    }
+
+    public function handleVote() {
         $db = db_connect('default');
         
         $inputData = [];
