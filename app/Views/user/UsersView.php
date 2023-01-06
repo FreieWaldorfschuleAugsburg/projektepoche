@@ -1,5 +1,17 @@
 <div class="row gx-4 mt-3 justify-content-center">
     <div class="col-lg-10">
+        <?php if ($error = session('error')): ?>
+        <div class="alert alert-danger">
+            <i class="fas fa-triangle-exclamation"></i> <?= $error ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($success = session('success')): ?>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> <?= $success ?>
+            </div>
+        <?php endif; ?>
+
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <b><?= lang('user.headline') ?></b>

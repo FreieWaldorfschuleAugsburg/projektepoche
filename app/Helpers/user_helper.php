@@ -31,9 +31,9 @@ function getUsers(): array
 
 /**
  * @param int $id
- * @return User
+ * @return ?User
  */
-function getUserById(int $id): object
+function getUserById(int $id): ?object
 {
     return getUserModel()->find($id);
 }
@@ -46,6 +46,11 @@ function getUserById(int $id): object
 function getUserByUsernameAndPassword(string $name, string $password): object
 {
     return getUserModel()->where(['name' => $name, 'password' => $password])->first();
+}
+
+function deleteUserById(int $id): void
+{
+    getUserModel()->where(['id' => $id])->delete();
 }
 
 function getUserShortNamesByProjectId(int $projectId): array

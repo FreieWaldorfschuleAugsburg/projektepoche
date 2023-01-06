@@ -49,7 +49,10 @@ $routes->get('/dashboard', 'DashboardController::index', ['filter' => LoggedInFi
 $routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter::class]);
 
 $routes->get('/users', 'UserController::index', ['filter' => AdminFilter::class]);
+$routes->get('/user/create', 'UserController::create', ['filter' => AdminFilter::class]);
+$routes->get('/user/edit', 'UserController::edit', ['filter' => AdminFilter::class]);
 $routes->get('/user/print', 'UserController::print', ['filter' => AdminFilter::class]);
+$routes->get('/user/delete', 'UserController::delete', ['filter' => AdminFilter::class]);
 
 $routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);
 

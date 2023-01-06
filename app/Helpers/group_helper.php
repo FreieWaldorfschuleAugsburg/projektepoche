@@ -21,6 +21,14 @@ function getGroupById(int $groupId): object
     return getGroupModel()->find($groupId);
 }
 
+/**
+ * @return Group[]
+ */
+function getGroups(): array
+{
+    return getGroupModel()->findAll();
+}
+
 function getGroupModel(): GroupModel
 {
     return new GroupModel();
