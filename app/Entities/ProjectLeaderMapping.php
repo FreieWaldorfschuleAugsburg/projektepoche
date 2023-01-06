@@ -15,7 +15,7 @@ class ProjectLeaderMapping extends Entity
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
-        'project_id' => 'string'
+        'project_id' => 'integer'
     ];
 
     /**
