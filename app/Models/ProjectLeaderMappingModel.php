@@ -13,6 +13,6 @@ class ProjectLeaderMappingModel extends Model
     protected $returnType = ProjectLeaderMapping::class;
 
     protected $allowedFields = [
-        'id', 'user_id', 'project_id'
+        'user_id', 'project_id'
     ];
 }

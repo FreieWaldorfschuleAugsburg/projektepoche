@@ -12,6 +12,6 @@ class VoteModel extends Model
     protected $returnType = Vote::class;
 
     protected $allowedFields = [
-        'id', 'user_id', 'slot_id', 'vote_id', 'project_id'
+        'user_id', 'slot_id', 'vote_id', 'project_id'
     ];
 }

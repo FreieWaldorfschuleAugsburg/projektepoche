@@ -12,6 +12,6 @@ class ProjectModel extends Model
     protected $returnType = Project::class;
 
     protected $allowedFields = [
-        'id', 'slot_id', 'name', 'description'
+        'slot_id', 'name', 'description'
     ];
 }

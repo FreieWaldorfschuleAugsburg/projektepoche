@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Entities\User;
 use CodeIgniter\HTTP\RedirectResponse;
 
 class UserController extends BaseController
@@ -16,13 +17,13 @@ class UserController extends BaseController
         return $this->render('user/UserCreateView', ['groups' => getGroups()]);
     }
 
-    public function handleCreate(): RedirectResponse
+    public function handleCreate(): string|RedirectResponse
     {
         $name = $this->request->getPost('name');
         $password = $this->request->getPost('password');
         $groupId = $this->request->getPost('group');
 
-        if (!(isset($name) && isset($password) && isset($group))) {
+        if (!isset($name) || !isset($password) || !isset($groupId)) {
             return redirect('users')->with('error', 'user.error.parameterMissing');
         }
 
@@ -31,7 +32,12 @@ class UserController extends BaseController
             return redirect('users')->with('error', 'user.error.invalidGroup');
         }
 
-        createUser($name, $password, $group);
+        $user = new User();
+        $user->setName($name);
+        $user->setPassword($password);
+        $user->setGroupId($group->getId());
+        saveUser($user);
+
         return redirect('users')->with('success', 'user.success.userCreated');
     }
 
@@ -57,7 +63,7 @@ class UserController extends BaseController
         $password = $this->request->getPost('password');
         $groupId = $this->request->getPost('group');
 
-        if (!isset($id) || !isset($name) || !isset($password) || !isset($group)) {
+        if (!isset($id) || !isset($name) || !isset($password) || !isset($groupId)) {
             return redirect('users')->with('error', 'user.error.parameterMissing');
         }
 
@@ -74,6 +80,7 @@ class UserController extends BaseController
         $user->setName($name);
         $user->setPassword($password);
         $user->setGroupId($group->getId());
+        saveUser($user);
 
         return redirect('users')->with('success', 'user.success.userEdited');
     }

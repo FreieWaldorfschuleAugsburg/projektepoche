@@ -12,7 +12,7 @@ class GroupModel extends Model
     protected $returnType = Group::class;
 
     protected $allowedFields = [
-        'id', 'name', 'admin'
+        'name', 'admin'
     ];
 }
 

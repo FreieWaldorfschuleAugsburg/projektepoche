@@ -9,19 +9,19 @@
             </div>
             <div class="card-body">
                 <form action="<?= base_url('user/edit') ?>" method="post">
-                    <input type="number" id="id" value="<?= $user->getId() ?>" hidden>
+                    <input type="number" id="id" name="id" value="<?= $user->getId() ?>" hidden>
 
                     <div class="mb-3">
                         <label for="name" class="form-label"><?= lang('user.fields.name') ?></label>
-                        <input type="text" class="form-control" id="name" value="<?= $user->getName() ?>" required>
+                        <input type="text" class="form-control" id="name" name="name" value="<?= $user->getName() ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label"><?= lang('user.fields.password') ?></label>
-                        <input type="text" class="form-control" id="password" value="<?= $user->getPassword() ?>" required>
+                        <input type="text" class="form-control" id="password" name="password" value="<?= $user->getPassword() ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="group" class="form-label"><?= lang('user.fields.group') ?></label>
-                        <select class="form-control" id="group" required>
+                        <select class="form-control" id="group" name="group" required>
                             <?php foreach ($groups as $group): ?>
                                 <?php if($group->getId() === $user->getGroupId()): ?>
                                     <option value="<?= $group->getId() ?>" selected><?= $group->getName() ?></option>

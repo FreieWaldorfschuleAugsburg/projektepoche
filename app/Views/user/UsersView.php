@@ -2,13 +2,13 @@
     <div class="col-lg-10">
         <?php if ($error = session('error')): ?>
         <div class="alert alert-danger">
-            <i class="fas fa-triangle-exclamation"></i> <?= $error ?>
+            <i class="fas fa-triangle-exclamation"></i> <?= lang($error) ?>
         </div>
         <?php endif; ?>
 
         <?php if ($success = session('success')): ?>
             <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i> <?= $success ?>
+                <i class="fas fa-check-circle"></i> <?= lang($success) ?>
             </div>
         <?php endif; ?>
 

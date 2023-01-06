@@ -12,6 +12,6 @@ class UserModel extends Model
     protected $returnType = User::class;
 
     protected $allowedFields = [
-        'id', 'name', 'password', 'group_id'
+        'name', 'password', 'group_id'
     ];
 }
