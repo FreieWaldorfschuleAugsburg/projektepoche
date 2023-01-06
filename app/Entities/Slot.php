@@ -8,13 +8,15 @@ class Slot extends Entity
 {
     protected $attributes = [
         'id' => null,
+        'name' => null,
         'start_time' => null,
         'end_time' => null,
     ];
-
     protected $casts = [
         'id' => 'integer',
-        'start_time'
+        'name' => 'string',
+        'start_time' => 'integer',
+        'end_time' => 'integer'
     ];
 
 }

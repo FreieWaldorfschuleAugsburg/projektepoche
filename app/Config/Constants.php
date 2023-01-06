@@ -100,4 +100,5 @@ const PROJECTS = PREFIX . "projects";
 const GROUPS = PREFIX . "groups";
 const USERS = PREFIX . "users";
 const LEADERS = PREFIX . "leaders";
+CONST PROJECT_LEADER_MAPPING  = PREFIX . "project_leader_mapping";
 const VOTES = PREFIX . "votes";

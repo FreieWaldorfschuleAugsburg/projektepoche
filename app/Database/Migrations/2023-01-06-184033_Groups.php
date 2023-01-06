@@ -8,11 +8,10 @@ class Groups extends Migration
 {
     public function up()
     {
-
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
-                'unisgned' => true,
+                'unsigned' => true,
                 'autoincrement' => true
             ],
             'name' => [
@@ -21,10 +20,13 @@ class Groups extends Migration
             ],
             'admin' => [
                 'type' => 'TINYINT',
-            ]
+                'unsigned' => true
+            ],
+
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable(GROUPS);
+
     }
 
     public function down()

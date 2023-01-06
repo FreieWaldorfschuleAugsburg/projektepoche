@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Projects extends Migration
+class Votes extends Migration
 {
     public function up()
     {
@@ -14,25 +14,28 @@ class Projects extends Migration
                 'unsigned' => true,
                 'autoincrement' => true
             ],
+            'user_id' => [
+                'type' => 'INT',
+                'unsigned' => true,
+            ],
             'slot_id' => [
                 'type' => 'INT',
-                'unsigned' => true
+                'unsigned' => true,
             ],
-            'name' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
+            'vote_id' => [
+                'type' => 'INT',
+                'unsigned' => true,
             ],
-            'description' => [
-                'type' => 'TEXT',
-            ]
+            'project_id' => [
+                'type' => 'INT',
+                'unsigned' => true,
+            ],
+
         ]);
-        $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('slot_id', SLOTS, 'id');
-        $this->forge->createTable(PROJECTS);
     }
 
     public function down()
     {
-        $this->forge->dropTable(PROJECTS);
+        //
     }
 }

@@ -20,12 +20,13 @@ class Users extends Migration
             ],
             'password' => [
                 'type' => 'VARCHAR',
-                'constraint' => 100
+                'constraint' => 50
             ],
             'group_id' => [
                 'type' => 'INT',
-                'unsigned' =>true
-            ]
+                'unsigned' => true
+            ],
+
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('group_id', GROUPS, 'id');
