@@ -1,11 +1,28 @@
 <div class="row gx-4 mt-3 justify-content-center">
     <div class="col-lg-10">
+        <?php if ($error = session('error')): ?>
+        <div class="alert alert-danger">
+            <i class="fas fa-triangle-exclamation"></i> <?= $error ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($success = session('success')): ?>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> <?= $success ?>
+            </div>
+        <?php endif; ?>
+
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <b><?= lang('user.headline') ?></b>
-                <a class="btn btn-primary btn-sm"
-                   href="<?= base_url('user/create') ?>"><i
-                            class="fas fa-add"></i> <?= lang('user.buttons.create') ?></a>
+                <div class="justify-content-between align-items-center">
+                    <a class="btn btn-primary btn-sm"
+                       href="<?= base_url('user/create') ?>"><i
+                                class="fas fa-add"></i> <?= lang('user.buttons.create') ?></a>
+                    <a class="btn btn-primary btn-sm"
+                       href="<?= base_url('user/import') ?>"><i
+                                class="fas fa-upload"></i> <?= lang('user.buttons.import') ?></a>
+                </div>
             </div>
             <div class="card-body table-responsive">
                 <table class="table table-striped table-bordered" data-locale="<?= service('request')->getLocale(); ?>"
