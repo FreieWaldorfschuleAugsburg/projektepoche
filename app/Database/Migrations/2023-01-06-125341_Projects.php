@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Database\Migrations;
+
+use CodeIgniter\Database\Migration;
+
+class Projects extends Migration
+{
+    public function up()
+    {
+        $this->forge->addField([
+            'id' => [
+                'type' => 'INT',
+                'unisgned' => true,
+                'autoincrement' => true
+            ],
+            'slot_id' => [
+                'type' => 'INT',
+                'unsigned' => true
+            ],
+            'name' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+            ],
+            'description' => [
+                'type' => 'TEXT',
+            ]
+        ]);
+        $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('slot_id', SLOTS, 'id');
+        $this->forge->createTable(PROJECTS);
+    }
+
+    public function down()
+    {
+        $this->forge->dropTable(PROJECTS);
+    }
+}

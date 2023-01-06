@@ -5,7 +5,7 @@
     "homepage": "https://waldorf-augsburg.de/projektepoche",
     "license": "MIT",
     "require": {
-        "php": "8.2",
+        "php": "^8.0",
         "codeigniter4/framework": "^4"
     },
     "require-dev": {
