@@ -3,7 +3,7 @@
 return [
     'admin' => 'Administration',
     'self' => [
-        'login' => 'Login',
-        'logout' => 'Logout'
+        'login' => 'Anmelden',
+        'logout' => 'Abmelden'
     ]
 ];

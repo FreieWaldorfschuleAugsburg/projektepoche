@@ -39,8 +39,9 @@
                     </li>
                 </ul>
             <?php else: ?>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="<?= base_url('login') ?>"><i class="fas fa-sign-in-alt"></i> <?= lang('menu.self.login') ?></a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url('login') ?>"><i class="fas fa-sign-in-alt"></i> <?= lang('menu.self.login') ?></a></li>
                 </ul>
             <?php endif; ?>
         </div>
