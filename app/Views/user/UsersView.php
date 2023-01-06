@@ -15,9 +15,14 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <b><?= lang('user.headline') ?></b>
-                <a class="btn btn-primary btn-sm"
-                   href="<?= base_url('user/create') ?>"><i
-                            class="fas fa-add"></i> <?= lang('user.buttons.create') ?></a>
+                <div class="justify-content-between align-items-center">
+                    <a class="btn btn-primary btn-sm"
+                       href="<?= base_url('user/create') ?>"><i
+                                class="fas fa-add"></i> <?= lang('user.buttons.create') ?></a>
+                    <a class="btn btn-primary btn-sm"
+                       href="<?= base_url('user/import') ?>"><i
+                                class="fas fa-upload"></i> <?= lang('user.buttons.import') ?></a>
+                </div>
             </div>
             <div class="card-body table-responsive">
                 <table class="table table-striped table-bordered" data-locale="<?= service('request')->getLocale(); ?>"
