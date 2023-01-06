@@ -21,14 +21,20 @@ return [
         ]
     ],
     'buttons' => [
-      'create' => 'Benutzer erstellen',
-      'import' => 'Benutzer importieren'
+        'create' => 'Benutzer erstellen',
+        'import' => 'Benutzer importieren',
+        'back' => 'Zurück'
     ],
     'edit' => [
-        'headline' => 'Benutzer editieren'
+        'headline' => 'Benutzer editieren',
+        'button' => 'Speichern'
     ],
     'create' => [
         'headline' => 'Benutzer erstellen'
+    ],
+    'import' => [
+        'headline' => 'Benutzer importieren',
+        'desc' => "Hier können Sie die Benutzer aus einer .csv Datei importieren."
     ],
     'print' => [
         'guide' => [

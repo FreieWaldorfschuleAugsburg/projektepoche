@@ -55,6 +55,8 @@ $routes->get('/user/edit', 'UserController::edit', ['filter' => AdminFilter::cla
 $routes->post('/user/edit', 'UserController::handleEdit', ['filter' => AdminFilter::class]);
 $routes->get('/user/print', 'UserController::print', ['filter' => AdminFilter::class]);
 $routes->get('/user/delete', 'UserController::delete', ['filter' => AdminFilter::class]);
+$routes->get('user/import', 'UserController::import', ['filter' => AdminFilter::class]);
+
 
 $routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);
 

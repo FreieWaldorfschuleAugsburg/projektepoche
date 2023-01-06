@@ -1,9 +1,9 @@
 <div class="row gx-4 mt-3 justify-content-center">
     <div class="col-lg-10">
         <?php if ($error = session('error')): ?>
-        <div class="alert alert-danger">
-            <i class="fas fa-triangle-exclamation"></i> <?= lang($error) ?>
-        </div>
+            <div class="alert alert-danger">
+                <i class="fas fa-triangle-exclamation"></i> <?= lang($error) ?>
+            </div>
         <?php endif; ?>
 
         <?php if ($success = session('success')): ?>
@@ -51,7 +51,7 @@
                                 <a class="btn btn-primary btn-sm"
                                    href="<?= base_url('user/edit') . '?id=' . $user->getId() ?>"><i
                                             class="fas fa-pen"></i> <?= lang('user.fields.actions.edit') ?></a>
-                                <a class="btn btn-danger btn-sm"
+                                <a class="btn btn-danger btn-sm delete" id="deleteUser"
                                    href="<?= base_url('user/delete') . '?id=' . $user->getId() ?>"><i
                                             class="fas fa-trash"></i> <?= lang('user.fields.actions.delete') ?></a></td>
                         </tr>
@@ -62,3 +62,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    const deleteButton = document.getElementById('deleteUser');
+    const confirmDelete = (event => {
+        if (!confirm("Möchten Sie den Benutzer wirklich löschen?")) {
+            event.preventDefault();
+        }
+    })
+    window.onload = function () {
+        document.querySelectorAll('.delete').forEach(element => {
+            element.addEventListener("click", confirmDelete, true)
+        })
+
+    }
+</script>

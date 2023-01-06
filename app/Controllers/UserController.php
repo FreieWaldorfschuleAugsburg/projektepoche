@@ -106,12 +106,23 @@ class UserController extends BaseController
         if (!isset($id)) {
             return redirect('users')->with('error', 'user.error.parameterMissing');
         }
-
         $user = getUserById($id);
+
         if (is_null($user)) {
             return redirect('users')->with('error', 'user.error.invalidUser');
         }
 
+        deleteUserById($id);
         return redirect('users')->with('success', 'user.success.userDeleted');
     }
+
+
+
+    public function import(): string
+    {
+
+
+        return $this->render('user/UserImportView');
+    }
+
 }
