@@ -33,6 +33,8 @@
                             <i class="fas fa-user"></i> <?= $user->getName() ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item disabled" href="#"><i class="fas fa-users"></i> <?= $user->getGroup()->getName() ?></a></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="<?= base_url('logout') ?>"><i
                                             class="fas fa-sign-out-alt"></i> <?= lang('menu.self.logout') ?></a></li>
                         </ul>

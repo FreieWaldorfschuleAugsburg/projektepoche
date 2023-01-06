@@ -17,6 +17,7 @@
     <link href="<?= base_url('/') ?>/assets/css/bootstrap-dark-plugin.min.css" rel="stylesheet">
     <link href="<?= base_url('/') ?>/assets/img/logo.png" rel="icon">
     <link href="<?= base_url('/') ?>/assets/css/fontawesome.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.css" rel="stylesheet">
 </head>
 
 <body>
