@@ -27,10 +27,11 @@ return [
     ],
     'edit' => [
         'headline' => 'Benutzer editieren',
-        'button' => 'Speichern'
+        'button' => 'Editieren'
     ],
     'create' => [
-        'headline' => 'Benutzer erstellen'
+        'headline' => 'Benutzer erstellen',
+        'button' => 'Erstellen'
     ],
     'import' => [
         'headline' => 'Benutzer importieren',

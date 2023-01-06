@@ -59,6 +59,11 @@ $routes->get('user/import', 'UserController::import', ['filter' => AdminFilter::
 
 
 $routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);
+$routes->get('/project/create', 'ProjectController::create', ['filter' => AdminFilter::class]);
+$routes->post('/project/create', 'ProjectController::handleCreate', ['filter' => AdminFilter::class]);
+$routes->get('/project/edit', 'ProjectController::edit', ['filter' => AdminFilter::class]);
+$routes->post('/project/edit', 'ProjectController::handleEdit', ['filter' => AdminFilter::class]);
+$routes->get('/project/delete', 'ProjectController::delete', ['filter' => AdminFilter::class]);
 
 $routes->get('/votes', 'VoteController::index', ['filter' => AdminFilter::class]);
 
