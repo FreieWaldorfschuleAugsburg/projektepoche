@@ -2,9 +2,17 @@
 
 return [
     'headline' => 'Projekte',
+    'buttons' => [
+        'create' => 'Projekt erstellen'
+    ],
     'fields' => [
         'name' => 'Name',
         'slot' => 'Zeitschiene',
-        'description' => 'Beschreibung'
+        'description' => 'Beschreibung',
+        'actions' => [
+            'title' => 'Aktionen',
+            'edit' => 'Editieren',
+            'delete' => 'Löschen'
+        ]
     ]
 ];
