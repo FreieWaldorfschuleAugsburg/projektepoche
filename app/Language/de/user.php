@@ -16,5 +16,15 @@ return [
         'action' => [
             'print' => 'Drucken'
         ]
+    ],
+    'buttons' => [
+      'create' => 'Benutzer erstellen',
+      'import' => 'Benutzer importieren'
+    ],
+    'edit' => [
+        'headline' => 'Benutzer editieren'
+    ],
+    'create' => [
+        'headline' => 'Benutzer erstellen'
     ]
 ];

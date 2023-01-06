@@ -36,6 +36,11 @@ class User extends Entity
         return $this->attributes['name'];
     }
 
+    public function setName(string $name): void
+    {
+        $this->attributes['name'] = $name;
+    }
+
     /**
      * @return string
      */
@@ -53,12 +58,22 @@ class User extends Entity
         return $this->attributes['password'];
     }
 
+    public function setPassword(string $password): void
+    {
+        $this->attributes['password'] = $password;
+    }
+
     /**
      * @return int
      */
     public function getGroupId(): int
     {
         return $this->attributes['group_id'];
+    }
+
+    public function setGroupId(int $groupId): void
+    {
+        $this->attributes['group_id'] = $groupId;
     }
 
     /**

@@ -50,7 +50,9 @@ $routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter
 
 $routes->get('/users', 'UserController::index', ['filter' => AdminFilter::class]);
 $routes->get('/user/create', 'UserController::create', ['filter' => AdminFilter::class]);
+$routes->post('/user/create', 'UserController::handleCreate', ['filter' => AdminFilter::class]);
 $routes->get('/user/edit', 'UserController::edit', ['filter' => AdminFilter::class]);
+$routes->post('/user/edit', 'UserController::handleEdit', ['filter' => AdminFilter::class]);
 $routes->get('/user/print', 'UserController::print', ['filter' => AdminFilter::class]);
 $routes->get('/user/delete', 'UserController::delete', ['filter' => AdminFilter::class]);
 

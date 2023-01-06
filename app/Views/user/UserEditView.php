@@ -2,24 +2,26 @@
     <div class="col-lg-10">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <b><?= lang('user.headline') ?></b>
+                <b><?= lang('user.edit.headline') ?></b>
                 <a class="btn btn-primary btn-sm"
                    href="<?= base_url('users') ?>"><i
                             class="fas fa-backward"></i> <?= lang('user.buttons.back') ?></a>
             </div>
             <div class="card-body">
-                <form>
+                <form action="<?= base_url('user/edit') ?>" method="post">
+                    <input type="number" id="id" value="<?= $user->getId() ?>" hidden>
+
                     <div class="mb-3">
-                        <label for="username" class="form-label"><?= lang('user.fields.name') ?></label>
-                        <input type="text" class="form-control" id="username" value="<?= $user->getName() ?>">
+                        <label for="name" class="form-label"><?= lang('user.fields.name') ?></label>
+                        <input type="text" class="form-control" id="name" value="<?= $user->getName() ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label"><?= lang('user.fields.password') ?></label>
-                        <input type="text" class="form-control" id="password" value="<?= $user->getPassword() ?>">
+                        <input type="text" class="form-control" id="password" value="<?= $user->getPassword() ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label"><?= lang('user.fields.group') ?></label>
-                        <select class="form-control" id="group">
+                        <label for="group" class="form-label"><?= lang('user.fields.group') ?></label>
+                        <select class="form-control" id="group" required>
                             <?php foreach ($groups as $group): ?>
                                 <?php if($group->getId() === $user->getGroupId()): ?>
                                     <option value="<?= $group->getId() ?>" selected><?= $group->getName() ?></option>

@@ -14,9 +14,9 @@ function getGroupByName(string $name): object
 
 /**
  * @param int $groupId
- * @return Group
+ * @return ?Group
  */
-function getGroupById(int $groupId): object
+function getGroupById(int $groupId): ?object
 {
     return getGroupModel()->find($groupId);
 }

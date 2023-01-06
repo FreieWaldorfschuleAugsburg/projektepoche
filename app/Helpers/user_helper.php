@@ -1,5 +1,6 @@
 <?php
 
+use App\Entities\Group;
 use App\Models\UserModel;
 use App\Entities\User;
 
@@ -46,6 +47,15 @@ function getUserById(int $id): ?object
 function getUserByUsernameAndPassword(string $name, string $password): object
 {
     return getUserModel()->where(['name' => $name, 'password' => $password])->first();
+}
+
+function createUser(string $name, string $password, Group $group): void
+{
+    $user = new User();
+    $user->setName($name);
+    $user->setPassword($password);
+    $user->setGroupId($group->getId());
+    getUserModel()->save($user);
 }
 
 function deleteUserById(int $id): void
