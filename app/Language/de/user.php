@@ -13,8 +13,11 @@ return [
                 'no' => 'Nein'
             ]
         ],
-        'action' => [
-            'print' => 'Drucken'
+        'actions' => [
+            'title' => 'Aktionen',
+            'print' => 'Drucken',
+            'edit' => 'Editieren',
+            'delete' => 'Löschen'
         ]
     ],
     'buttons' => [
@@ -26,5 +29,13 @@ return [
     ],
     'create' => [
         'headline' => 'Benutzer erstellen'
+    ],
+    'print' => [
+        'guide' => [
+            'headline' => 'Anleitung'
+        ],
+        'credentials' => [
+            'headline' => 'Zugangsdaten'
+        ]
     ]
 ];
