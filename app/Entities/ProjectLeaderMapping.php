@@ -34,10 +34,15 @@ class ProjectLeaderMapping extends Entity
         return $this->attributes['user_id'];
     }
 
+    public function setUserId(int $userId): void
+    {
+        $this->attributes['user_id'] = $userId;
+    }
+
     /**
-     * @return User
+     * @return ?User
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return getUserById($this->getUserId());
     }
@@ -48,5 +53,18 @@ class ProjectLeaderMapping extends Entity
     public function getProjectId(): int
     {
         return $this->attributes['project_id'];
+    }
+
+    public function setProjectId(int $projectId): void
+    {
+        $this->attributes['project_id'] = $projectId;
+    }
+
+    /**
+     * @return ?Project
+     */
+    public function getProject(): ?Project
+    {
+        return getProjectById($this->getProjectId());
     }
 }
