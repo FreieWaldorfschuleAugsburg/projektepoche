@@ -130,15 +130,22 @@ class UserController extends BaseController
         return $this->render('user/UserImportView');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function handleImport()
     {
 
         $intent = $this->request->getPost('intent');
         helper('import');
         if ($intent === 'confirm') {
-            $users = getUsersFromForm($this->request);
-            foreach ($users as $user){
-                saveUser($user);
+            try {
+                $users = getUsersFromForm($this->request);
+                foreach ($users as $user) {
+                    saveUser($user);
+                }
+            } catch (\Exception $exception){
+            return redirect('users')->with('error', lang('user.import.errors.noImport'));
             }
             return redirect('users')->with('success', lang('user.import.success.saved'));
         }

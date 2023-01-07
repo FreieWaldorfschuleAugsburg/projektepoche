@@ -44,6 +44,7 @@ return [
         'errors' => [
             'gradeNotFound' => "Die ausgewählte Klasse wurde nicht gefunden!",
             'userExists' => "Der Benutzer existiert bereits!",
+            'noImport' => 'Es wurden keine Benutzer importiert.'
         ],
         'success' => [
             'saved' => 'Die Benutzer wurden erfolgreich importiert!'

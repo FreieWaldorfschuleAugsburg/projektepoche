@@ -21,8 +21,7 @@ function readCsvToArray(string $fileName): array
 {
 
     $csv = [];
-    $context = stream_context_create(['http' => ['header' => 'Accept-Charset: UTF-8']]);
-    $file = fopen($fileName, 'r', false, $context);
+    $file = fopen($fileName, 'r', false);
     while (($row = fgetcsv($file)) !== false) {
         if (empty($keys)) {
             $keys = explode(';', $row[0]);

@@ -104,14 +104,20 @@ function getUserFromForm(IncomingRequest $request): User
 }
 
 
+/**
+ * @throws Exception
+ */
 function getUsersFromForm(IncomingRequest $request): array
 {
-    print_r($request->getPost());
     $usernames = $request->getPost('username');
-
     $passwords = $request->getPost('password');
     $groupNames = $request->getPost('groupName');
     $users = [];
+
+    if(!$usernames || !$passwords || !$groupNames){
+        throw new Exception('no values found');
+    }
+
     foreach ($usernames as $index => $username) {
         $password = $passwords[$index];
         $groupName = $groupNames[$index];
