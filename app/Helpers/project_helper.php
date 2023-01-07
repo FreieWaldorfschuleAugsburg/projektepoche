@@ -15,6 +15,15 @@ function getProjects(): array
 }
 
 /**
+ * @param int $id
+ * @return ?Project
+ */
+function getProjectById(int $id): ?object
+{
+    return getProjectModel()->find($id);
+}
+
+/**
  * @param int $slotId
  * @return Project[]
  */
@@ -44,6 +53,16 @@ function getProjectLeadersByProjectId(int $projectId): array
 function getProjectLeaderMappingsByProjectId(int $projectId): array
 {
     return getProjectLeaderMappingModel()->where(['project_id' => $projectId])->findAll();
+}
+
+function insertProject(Project $project): int
+{
+    return getProjectModel()->insert($project);
+}
+
+function insertProjectLeaderMapping(ProjectLeaderMapping $mapping): int
+{
+    return getProjectLeaderMappingModel()->insert($mapping);
 }
 
 function getProjectsWithUserBySlotId(int $slotId): array

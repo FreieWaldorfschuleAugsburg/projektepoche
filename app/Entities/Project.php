@@ -36,6 +36,11 @@ class Project extends Entity
         return $this->attributes['slot_id'];
     }
 
+    public function setSlotId(int $slotId): void
+    {
+        $this->attributes['slot_id'] = $slotId;
+    }
+
     /**
      * @return string
      */
@@ -44,11 +49,41 @@ class Project extends Entity
         return $this->attributes['name'];
     }
 
+    public function setName(string $name): void
+    {
+        $this->attributes['name'] = $name;
+    }
+
     /**
      * @return string
      */
     public function getDescription(): string
     {
         return $this->attributes['description'];
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->attributes['description'] = $description;
+    }
+
+    /**
+     * @return User[]
+     */
+    public function getLeaders(): array
+    {
+        return getProjectLeadersByProjectId($this->getId());
+    }
+
+    public function getLeaderShortNameString(): string
+    {
+        $result = "";
+        $leaders = $this->getLeaders();
+        $i = 0;
+        foreach ($leaders as $leader) {
+            $result .= ($i >= 1 ? ", " : "") . $leader->getShortName();
+            $i++;
+        }
+        return $result;
     }
 }
