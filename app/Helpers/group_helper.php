@@ -5,11 +5,11 @@ use App\Models\GroupModel;
 
 /**
  * @param string $name
- * @return Group
+ * @return ?Group
  */
-function getGroupByName(string $name): object
+function getGroupByName(string $name): ?object
 {
-    return getGroupModel()->where('name', $name)->find();
+    return getGroupModel()->where('name', $name)->first();
 }
 
 /**

@@ -3,6 +3,9 @@
 return [
     'headline' => 'Benutzer',
     'fields' => [
+        'firstName' => 'Vorname',
+        'lastName' => 'Nachname',
+        'grade' => 'Klasse',
         'name' => 'Name',
         'password' => 'Passwort',
         'group' => 'Gruppe',
@@ -34,8 +37,17 @@ return [
         'button' => 'Erstellen'
     ],
     'import' => [
+        'button' => 'Importieren',
+        'save' => 'Speichern',
         'headline' => 'Benutzer importieren',
-        'desc' => "Hier können Sie die Benutzer aus einer .csv Datei importieren."
+        'desc' => "Hier können Sie die Benutzer aus einer .csv Datei importieren. Unten können Sie die Namen der korrespondierenden Felder in der CSV Datei (die erste Reihe) angeben, welche für den Import verwendet werden sollen",
+        'errors' => [
+            'gradeNotFound' => "Die ausgewählte Klasse wurde nicht gefunden!",
+            'userExists' => "Der Benutzer existiert bereits!",
+        ],
+        'success' => [
+            'saved' => 'Die Benutzer wurden erfolgreich importiert!'
+        ]
     ],
     'print' => [
         'guide' => [
