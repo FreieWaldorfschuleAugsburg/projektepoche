@@ -83,17 +83,6 @@ function deleteProjectById(int $projectId): void
     getProjectModel()->where(['id' => $projectId])->delete();
 }
 
-function getProjectsWithUserBySlotId(int $slotId): array
-{
-    $projectsWithUser = [];
-    $projects = getProjectsBySlotId($slotId);
-    foreach ($projects as $project) {
-        $teachers = getUserShortNamesByProjectId($project->getId());
-        $projectsWithUser[] = ['handle' => $project, 'teachers' => $teachers];
-    }
-    return $projectsWithUser;
-}
-
 function getProjectModel(): ProjectModel
 {
     return new ProjectModel();

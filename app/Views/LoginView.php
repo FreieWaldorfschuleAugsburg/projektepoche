@@ -2,22 +2,27 @@
     <div class="col-lg-5">
         <div class="card">
             <div class="card-header">
-                <b>Anmelden</b>
+                <b><?= lang('login.headline') ?></b>
             </div>
             <div class="card-body">
                 <form method="POST">
-                    <?= session('error') ? '<div class="alert alert-danger mb-3">' . session('error') . '</div>' : '' ?>
+                    <?php if ($error = session('error')): ?>
+                        <div class="alert alert-danger mb-3">
+                            <i class="fas fa-triangle-exclamation"></i> <?= lang($error) ?>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="mb-3">
-                        <label for="name" class="form-label">Vor- und Nachname</label>
-                        <input class="form-control" id="name" name="name" aria-describedby="nameHelp" value="<?= session('name') ? session('name') : '' ?>" required>
-                        <div id="nameHelp" class="form-text">Bitte achte auf richtige Schreibweise! (z.B. bei Doppelnamen)</div>
+                        <label for="name" class="form-label"><?= lang('login.fields.name') ?></label>
+                        <input class="form-control" id="name" name="name" aria-describedby="nameHelp"
+                               value="<?= session('name') ? session('name') : '' ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Passwort</label>
-                        <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp" required>
-                        <div id="passwordHelp" class="form-text">Das Passwort hast du von deinem Klassenbetreuer erhalten!</div>
+                        <label for="password" class="form-label"><?= lang('login.fields.password') ?></label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               aria-describedby="passwordHelp" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Anmelden</button>
+                    <button type="submit" class="btn btn-primary"><?= lang('login.buttons.login') ?></button>
                 </form>
             </div>
         </div>

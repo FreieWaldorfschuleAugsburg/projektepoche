@@ -48,9 +48,9 @@ function getUserByName(string $name): ?object
 /**
  * @param string $name
  * @param string $password
- * @return User
+ * @return ?User
  */
-function getUserByUsernameAndPassword(string $name, string $password): object
+function getUserByUsernameAndPassword(string $name, string $password): ?object
 {
     return getUserModel()->where(['name' => $name, 'password' => $password])->first();
 }

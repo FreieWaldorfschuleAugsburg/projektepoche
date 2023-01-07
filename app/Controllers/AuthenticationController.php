@@ -26,7 +26,7 @@ class AuthenticationController extends BaseController {
         session()->set('user_id', $user->getId());
 
         // Redirect to dashboard
-        return redirect('dashboard');
+        return redirect('/');
     }
 
     public function update(): RedirectResponse
