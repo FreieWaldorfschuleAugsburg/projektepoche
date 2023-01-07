@@ -27,8 +27,8 @@ function readCsvToArray(string $fileName): array
         if (empty($keys)) {
             $keys = explode(';', $row[0]);
         } else {
+            $row = mb_convert_encoding($row, 'UTF-8', mb_list_encodings());
             $row = explode(';', $row[0]);
-            $row = array_map('mb_convert_encoding', $row, array_fill(0, count($row), 'UTF-8'), array_fill(0, count($row), 'ISO-8859-1'));
             if (count($row) > count($keys)) {
                 $row = array_slice($row, 0, count($keys));
             } else {
