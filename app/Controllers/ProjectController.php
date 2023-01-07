@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Entities\Project;
-use App\Entities\ProjectLeaderMapping;
 use CodeIgniter\HTTP\RedirectResponse;
 use function App\Helpers\getSlotById;
 use function App\Helpers\getSlots;
@@ -27,14 +26,18 @@ class ProjectController extends BaseController
         $leaderIds = $this->request->getPost('leaders');
         $description = $this->request->getPost('description');
 
+        if (!isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {
+            return redirect('users')->with('error', 'project.error.parameterMissing');
+        }
+
         $slot = getSlotById($slotId);
         if (is_null($slot)) {
-            return redirect('users')->with('error', 'project.error.invalidSlot');
+            return redirect('projects')->with('error', 'project.error.invalidSlot');
         }
 
         foreach ($leaderIds as $id) {
             if (is_null(getUserById($id))) {
-                return redirect('users')->with('error', 'project.error.invalidUser');
+                return redirect('projects')->with('error', 'project.error.invalidUser');
             }
         }
 
@@ -42,27 +45,75 @@ class ProjectController extends BaseController
         $project->setName($name);
         $project->setSlotId($slotId);
         $project->setDescription($description);
-        $projectId = insertProject($project);
-
-        foreach ($leaderIds as $id) {
-            $mapping = new ProjectLeaderMapping();
-            $mapping->setUserId($id);
-            $mapping->setProjectId($projectId);
-            insertProjectLeaderMapping($mapping);
-        }
+        insertProject($project, $leaderIds);
 
         return redirect('projects')->with('success', 'project.success.projectCreated');
     }
 
     public function edit(): string|RedirectResponse
     {
+        $id = $this->request->getGet('id');
+        if (!isset($id)) {
+            return redirect('projects')->with('error', 'project.error.parameterMissing');
+        }
+
+        $project = getProjectById($id);
+        if (is_null($project)) {
+            return redirect('projects')->with('error', 'project.error.invalidProject');
+        }
+
+        return $this->render('project/ProjectEditView', ['project' => $project, 'slots' => getSlots(), 'leaders' => getUsers()]);
     }
 
-    public function handleEdit(): string|RedirectResponse
+    public function handleEdit(): RedirectResponse
     {
+        $id = $this->request->getPost('id');
+        $name = $this->request->getPost('name');
+        $slotId = $this->request->getPost('slot');
+        $leaderIds = $this->request->getPost('leaders');
+        $description = $this->request->getPost('description');
+
+        if (!isset($id) || !isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {
+            return redirect('users')->with('error', 'project.error.parameterMissing');
+        }
+
+        $slot = getSlotById($slotId);
+        if (is_null($slot)) {
+            return redirect('projects')->with('error', 'project.error.invalidSlot');
+        }
+
+        foreach ($leaderIds as $leaderId) {
+            if (is_null(getUserById($leaderId))) {
+                return redirect('projects')->with('error', 'project.error.invalidUser');
+            }
+        }
+
+        $project = getProjectById($id);
+        if (is_null($project)) {
+            return redirect('projects')->with('error', 'project.error.invalidProject');
+        }
+
+        $project->setName($name);
+        $project->setSlotId($slotId);
+        $project->setDescription($description);
+        updateProject($project, $leaderIds);
+
+        return redirect('projects')->with('success', 'project.success.projectUpdated');
     }
 
-    public function delete(): string|RedirectResponse
+    public function delete(): RedirectResponse
     {
+        $id = $this->request->getGet('id');
+        if (!isset($id)) {
+            return redirect('projects')->with('error', 'project.error.parameterMissing');
+        }
+
+        $project = getProjectById($id);
+        if (is_null($project)) {
+            return redirect('projects')->with('error', 'project.error.invalidUser');
+        }
+
+        deleteProjectById($id);
+        return redirect('projects')->with('success', 'project.success.projectDeleted');
     }
 }

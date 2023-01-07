@@ -55,14 +55,32 @@ function getProjectLeaderMappingsByProjectId(int $projectId): array
     return getProjectLeaderMappingModel()->where(['project_id' => $projectId])->findAll();
 }
 
-function insertProject(Project $project): int
+function updateProject(Project $project, array $leaderIds): void
 {
-    return getProjectModel()->insert($project);
+    getProjectModel()->save($project);
+    getProjectLeaderMappingModel()->where(['project_id' => $project->getId()])->delete();
+    insertProjectLeaderMapping($project->getId(), $leaderIds);
 }
 
-function insertProjectLeaderMapping(ProjectLeaderMapping $mapping): int
+function insertProject(Project $project, array $leaderIds): void
 {
-    return getProjectLeaderMappingModel()->insert($mapping);
+    $projectId = getProjectModel()->insert($project);
+    insertProjectLeaderMapping($projectId, $leaderIds);
+}
+
+function insertProjectLeaderMapping(int $projectId, array $leaderIds): void
+{
+    foreach ($leaderIds as $id) {
+        $mapping = new ProjectLeaderMapping();
+        $mapping->setUserId($id);
+        $mapping->setProjectId($projectId);
+        getProjectLeaderMappingModel()->insert($mapping);
+    }
+}
+
+function deleteProjectById(int $projectId): void
+{
+    getProjectModel()->where(['id' => $projectId])->delete();
 }
 
 function getProjectsWithUserBySlotId(int $slotId): array
