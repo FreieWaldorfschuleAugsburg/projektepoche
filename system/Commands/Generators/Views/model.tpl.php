@@ -9,7 +9,7 @@ class {class} extends Model
     protected $DBGroup          = '{dbGroup}';
     protected $table            = '{table}';
     protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
+    protected $useauto_increment = true;
     protected $insertID         = 0;
     protected $returnType       = {return};
     protected $useSoftDeletes   = false;

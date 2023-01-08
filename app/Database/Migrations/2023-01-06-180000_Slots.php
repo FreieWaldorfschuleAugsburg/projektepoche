@@ -12,7 +12,7 @@ class Slots extends Migration
             'id' => [
                 'type' => 'INT',
                 'unsigned' => true,
-                'autoincrement' => true
+                'auto_increment' => true
             ],
             'name' => [
                 'type' => 'VARCHAR',

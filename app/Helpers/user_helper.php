@@ -114,16 +114,29 @@ function getUsersFromForm(IncomingRequest $request): array
     $groupNames = $request->getPost('groupName');
     $users = [];
 
-    if(!$usernames || !$passwords || !$groupNames){
-        throw new Exception('no values found');
+    if (!$usernames) {
+        throw new Exception('no usernames');
+    }
+    if (!$passwords) {
+        throw new Exception('no passwords');
+
+    }
+    if (!$groupNames) {
+        throw new Exception('no groupnames');
     }
 
-    foreach ($usernames as $index => $username) {
-        $password = $passwords[$index];
-        $groupName = $groupNames[$index];
-        $groupId = getGroupByName($groupName)->getId();
-        $users[] = createUser($username, $password, $groupId);
+    try {
+        foreach ($usernames as $index => $username) {
+            $password = $passwords[$index];
+            $groupName = $groupNames[$index];
+            $groupId = getGroupByName($groupName)->getId();
+            $users[] = createUser($username, $password, $groupId);
+        }
+    } catch (Exception $exception) {
+
     }
+
+
     return $users;
 }
 
@@ -141,7 +154,7 @@ function getUsersFromFile(array $userData, array $keys): \CodeIgniter\HTTP\Redir
             $grade = $data[$keys['grade']];
             try {
                 $user = getUserByName($name);
-                if($user){
+                if ($user) {
                     throw new Exception(lang('user.import.errors.userExists'));
                 }
                 $groupId = getGroupByName("Klasse $grade")?->getId();

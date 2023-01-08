@@ -146,7 +146,7 @@ class UserController extends BaseController
                     saveUser($user);
                 }
             } catch (\Exception $exception) {
-                return redirect('users')->with('error', lang('user.import.errors.noImport'));
+                return redirect('users')->with('error', $exception->getMessage());
             }
             return redirect('users')->with('success', lang('user.import.success.saved'));
         }

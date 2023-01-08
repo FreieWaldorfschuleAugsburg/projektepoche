@@ -102,7 +102,7 @@ class Model extends BaseModel
      *
      * @var bool
      */
-    protected $useAutoIncrement = true;
+    protected $useauto_increment = true;
 
     /**
      * Query Builder object
@@ -129,7 +129,7 @@ class Model extends BaseModel
     protected $escape = [];
 
     /**
-     * Primary Key value when inserting and useAutoIncrement is false.
+     * Primary Key value when inserting and useauto_increment is false.
      *
      * @var int|string|null
      */
@@ -280,8 +280,8 @@ class Model extends BaseModel
         $escape       = $this->escape;
         $this->escape = [];
 
-        // If $useAutoIncrement is false, add the primary key data.
-        if ($this->useAutoIncrement === false && $this->tempPrimaryKeyValue !== null) {
+        // If $useauto_increment is false, add the primary key data.
+        if ($this->useauto_increment === false && $this->tempPrimaryKeyValue !== null) {
             $data[$this->primaryKey] = $this->tempPrimaryKeyValue;
 
             $this->tempPrimaryKeyValue = null;
@@ -289,7 +289,7 @@ class Model extends BaseModel
 
         // Require non-empty primaryKey when
         // not using auto-increment feature
-        if (! $this->useAutoIncrement && empty($data[$this->primaryKey])) {
+        if (! $this->useauto_increment && empty($data[$this->primaryKey])) {
             throw DataException::forEmptyPrimaryKey('insert');
         }
 
@@ -304,7 +304,7 @@ class Model extends BaseModel
 
         // If insertion succeeded then save the insert ID
         if ($result) {
-            $this->insertID = ! $this->useAutoIncrement ? $data[$this->primaryKey] : $this->db->insertID();
+            $this->insertID = ! $this->useauto_increment ? $data[$this->primaryKey] : $this->db->insertID();
         }
 
         return $result;
@@ -327,7 +327,7 @@ class Model extends BaseModel
             foreach ($set as $row) {
                 // Require non-empty primaryKey when
                 // not using auto-increment feature
-                if (! $this->useAutoIncrement && empty($row[$this->primaryKey])) {
+                if (! $this->useauto_increment && empty($row[$this->primaryKey])) {
                     throw DataException::forEmptyPrimaryKey('insertBatch');
                 }
             }
@@ -654,11 +654,11 @@ class Model extends BaseModel
             return false;
         }
 
-        if ($this->useAutoIncrement === true) {
+        if ($this->useauto_increment === true) {
             return true;
         }
 
-        // When useAutoIncrement feature is disabled, check
+        // When useauto_increment feature is disabled, check
         // in the database if given record already exists
         return $this->where($this->primaryKey, $this->getIdValue($data))->countAllResults() === 1;
     }
@@ -685,7 +685,7 @@ class Model extends BaseModel
             }
         }
 
-        if ($this->useAutoIncrement === false && isset($data[$this->primaryKey])) {
+        if ($this->useauto_increment === false && isset($data[$this->primaryKey])) {
             $this->tempPrimaryKeyValue = $data[$this->primaryKey];
         }
 

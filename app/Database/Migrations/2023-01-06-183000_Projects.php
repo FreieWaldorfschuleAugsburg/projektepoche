@@ -12,7 +12,7 @@ class Projects extends Migration
             'id' => [
                 'type' => 'INT',
                 'unsigned' => true,
-                'autoincrement' => true
+                'auto_increment' => true
             ],
             'slot_id' => [
                 'type' => 'INT',

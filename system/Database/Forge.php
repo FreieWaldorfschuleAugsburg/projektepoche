@@ -869,7 +869,7 @@ class Forge
                 $field['null'] = ' NOT NULL';
             }
 
-            $this->_attributeAutoIncrement($attributes, $field);
+            $this->_attributeauto_increment($attributes, $field);
             $this->_attributeUnique($attributes, $field);
 
             if (isset($attributes['COMMENT'])) {
@@ -981,7 +981,7 @@ class Forge
         }
     }
 
-    protected function _attributeAutoIncrement(array &$attributes, array &$field)
+    protected function _attributeauto_increment(array &$attributes, array &$field)
     {
         if (! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === true
             && stripos($field['type'], 'int') !== false

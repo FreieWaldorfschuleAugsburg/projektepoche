@@ -216,7 +216,7 @@ class Forge extends BaseForge
     /**
      * Field attribute AUTO_INCREMENT
      */
-    protected function _attributeAutoIncrement(array &$attributes, array &$field)
+    protected function _attributeauto_increment(array &$attributes, array &$field)
     {
         if (! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === true
             && stripos($field['type'], 'int') !== false) {
@@ -224,7 +224,7 @@ class Forge extends BaseForge
             $field['default']        = '';
             $field['null']           = '';
             $field['unique']         = '';
-            $field['auto_increment'] = ' AUTOINCREMENT';
+            $field['auto_increment'] = ' auto_increment';
 
             $this->primaryKeys = [];
         }

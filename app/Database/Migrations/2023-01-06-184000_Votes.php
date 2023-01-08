@@ -12,7 +12,7 @@ class Votes extends Migration
             'id' => [
                 'type' => 'INT',
                 'unsigned' => true,
-                'autoincrement' => true
+                'auto_increment' => true
             ],
             'user_id' => [
                 'type' => 'INT',

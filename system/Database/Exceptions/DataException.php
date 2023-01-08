@@ -41,7 +41,7 @@ class DataException extends RuntimeException implements ExceptionInterface
 
     /**
      * Used by Model's insert/update methods when there is no
-     * primary key defined and Model has option `useAutoIncrement`
+     * primary key defined and Model has option `useauto_increment`
      * set to false.
      *
      * @return DataException
