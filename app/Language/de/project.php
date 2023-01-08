@@ -21,5 +21,9 @@ return [
     'create' => [
         'headline' => 'Projekt erstellen',
         'button' => 'Erstellen'
+    ],
+    'view' => [
+        'leader' => 'Projektleitung',
+        'clock' => 'Uhr'
     ]
 ];

@@ -2,7 +2,7 @@
     <div class="col-lg-10">
         <div class="card">
             <div class="card-header">
-                <b><?= lang('vote.headline') ?></b>
+                <b><?= lang('vote.cast.headline') ?></b>
             </div>
             <div class="card-body">
 

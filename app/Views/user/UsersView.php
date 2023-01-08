@@ -45,15 +45,19 @@
                             <td><?= $user->getPassword() ?></td>
                             <td><?= $user->getGroup()->getName() ?></td>
                             <td><?= $user->hasVoted() ? lang('user.fields.vote.value.yes') : lang('user.fields.vote.value.no') ?></td>
-                            <td><a class="btn btn-primary btn-sm"
-                                   href="<?= base_url('user/print') . '?id=' . $user->getId() ?>"><i
-                                            class="fas fa-print"></i> <?= lang('user.fields.actions.print') ?></a>
-                                <a class="btn btn-primary btn-sm"
-                                   href="<?= base_url('user/edit') . '?id=' . $user->getId() ?>"><i
-                                            class="fas fa-pen"></i> <?= lang('user.fields.actions.edit') ?></a>
-                                <a class="btn btn-danger btn-sm delete" id="deleteUser"
-                                   href="<?= base_url('user/delete') . '?id=' . $user->getId() ?>"><i
-                                            class="fas fa-trash"></i> <?= lang('user.fields.actions.delete') ?></a></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-primary btn-sm"
+                                       href="<?= base_url('user/print') . '?id=' . $user->getId() ?>"><i
+                                                class="fas fa-print"></i> <?= lang('user.fields.actions.print') ?></a>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="<?= base_url('user/edit') . '?id=' . $user->getId() ?>"><i
+                                                class="fas fa-pen"></i> <?= lang('user.fields.actions.edit') ?></a>
+                                    <a class="btn btn-danger btn-sm delete"
+                                       href="<?= base_url('user/delete') . '?id=' . $user->getId() ?>"><i
+                                                class="fas fa-trash"></i> <?= lang('user.fields.actions.delete') ?></a>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
@@ -64,7 +68,6 @@
 </div>
 
 <script>
-    const deleteButton = document.getElementById('deleteUser');
     const confirmDelete = (event => {
         if (!confirm("Möchten Sie den Benutzer wirklich löschen?")) {
             event.preventDefault();
@@ -74,6 +77,5 @@
         document.querySelectorAll('.delete').forEach(element => {
             element.addEventListener("click", confirmDelete, true)
         })
-
     }
 </script>

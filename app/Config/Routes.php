@@ -39,13 +39,12 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'LandingPageController::index');
+$routes->get('/', 'IndexController::index');
 
 $routes->get('/login', 'AuthenticationController::login');
 $routes->post('/login', 'AuthenticationController::handleCredentials');
 $routes->get('/logout', 'AuthenticationController::logout');
 
-$routes->get('/dashboard', 'DashboardController::index', ['filter' => LoggedInFilter::class]);
 $routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter::class]);
 
 $routes->get('/users', 'UserController::index', ['filter' => AdminFilter::class]);

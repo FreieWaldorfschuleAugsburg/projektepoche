@@ -29,12 +29,15 @@
                             <td><?= $project->getSlotId() ?></td>
                             <td><?= $project->getLeaderShortNameString() ?></td>
                             <td><?= $project->getDescription() ?></td>
-                            <td><a class="btn btn-primary btn-sm"
-                                   href="<?= base_url('project/edit') . '?id=' . $project->getId() ?>"><i
-                                            class="fas fa-pen"></i> <?= lang('project.fields.actions.edit') ?></a>
-                                <a class="btn btn-danger btn-sm mt-3"
-                                   href="<?= base_url('project/delete') . '?id=' . $project->getId() ?>"><i
-                                            class="fas fa-trash"></i> <?= lang('project.fields.actions.delete') ?></a>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-primary btn-sm"
+                                       href="<?= base_url('project/edit') . '?id=' . $project->getId() ?>"><i
+                                                class="fas fa-pen"></i> <?= lang('project.fields.actions.edit') ?></a>
+                                    <a class="btn btn-danger btn-sm delete"
+                                       href="<?= base_url('project/delete') . '?id=' . $project->getId() ?>"><i
+                                                class="fas fa-trash"></i> <?= lang('project.fields.actions.delete') ?></a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -44,3 +47,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    const confirmDelete = (event => {
+        if (!confirm("Möchten Sie den Benutzer wirklich löschen?")) {
+            event.preventDefault();
+        }
+    })
+    window.onload = function () {
+        document.querySelectorAll('.delete').forEach(element => {
+            element.addEventListener("click", confirmDelete, true)
+        })
+    }
+</script>

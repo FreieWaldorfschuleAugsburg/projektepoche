@@ -33,4 +33,4 @@
     </div>
 </div>
 
-<?= view('ProjectsView') ?>
+<?= view('project/ProjectsUserView') ?>

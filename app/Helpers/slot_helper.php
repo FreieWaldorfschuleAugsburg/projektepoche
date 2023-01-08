@@ -25,16 +25,3 @@ function getSlotModel(): SlotModel
 {
     return new SlotModel();
 }
-
-function getSlotsWithProjectAndUser(): array
-{
-    $slotsWithProject = [];
-    $slots = getSlots();
-
-    foreach ($slots as $slot) {
-        $projects = getProjectsWithUserBySlotId($slot->getId());
-        $slotsWithProject[] = ['slot' => $slot, 'projects' => $projects];
-    }
-
-    return $slotsWithProject;
-}
