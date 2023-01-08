@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Slots extends Migration
+class ProjectLeaderMapping extends Migration
 {
     public function up()
     {
@@ -14,24 +14,24 @@ class Slots extends Migration
                 'unsigned' => true,
                 'autoincrement' => true
             ],
-            'name' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100
-            ],
-            'start_time' => [
+            'user_id' => [
                 'type' => 'INT',
+                'unsigned' => true
             ],
-            'end_time' => [
+            'project_id' => [
                 'type' => 'INT',
+                'unsigned' => true
             ],
 
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable(SLOTS);
+        $this->forge->addForeignKey('user_id', USERS, 'id');
+        $this->forge->addForeignKey('project_id', PROJECTS, 'id');
+        $this->forge->createTable(LEADERS);
     }
 
     public function down()
     {
-        $this->forge->dropTable(SLOTS);
+        $this->forge->dropTable(LEADERS);
     }
 }

@@ -32,6 +32,12 @@ class Votes extends Migration
             ],
 
         ]);
+        $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('user_id', USERS, 'id');
+        $this->forge->addForeignKey('slot_id', SLOTS, 'id');
+        $this->forge->addForeignKey('project_id', PROJECTS, 'id');
+
+        $this->forge->createTable(VOTES);
     }
 
     public function down()

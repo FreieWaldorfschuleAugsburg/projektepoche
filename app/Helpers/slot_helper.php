@@ -32,7 +32,7 @@ function getSlotsWithProjectAndUser(): array
     $slots = getSlots();
 
     foreach ($slots as $slot) {
-        $projects = getProjectsWithUserBySlotId($slot->id);
+        $projects = getProjectsWithUserBySlotId($slot->getId());
         $slotsWithProject[] = ['slot' => $slot, 'projects' => $projects];
     }
 

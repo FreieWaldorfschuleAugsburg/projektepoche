@@ -6,6 +6,7 @@ return [
         'create' => 'Projekt erstellen',
         'back' => 'Zurück'
     ],
+    'leader' => 'Kursleitung:',
     'fields' => [
         'name' => 'Name',
         'slot' => 'Zeitschiene',

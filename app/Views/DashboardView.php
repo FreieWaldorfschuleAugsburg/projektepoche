@@ -194,3 +194,10 @@
     </div>
 </div>
 
+
+<?php
+function convert($input): string
+{
+    return substr($input, 0, strlen($input) - 3);
+}
+?>
