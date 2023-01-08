@@ -10,6 +10,12 @@
     <?= view('project/ProjectsUserView') ?>
 </div>
 
+<?php if ($success = session('success')): ?>
+    <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i> <?= lang($success) ?>
+    </div>
+<?php endif; ?>
+
 <?php if ($user->hasVoted()): ?>
     <!-- show voted projects -->
 <?php else: ?>
@@ -28,12 +34,6 @@
                                 <?php else: ?>
                                     <i class="fas fa-triangle-exclamation"></i> <?= lang($error) ?>
                                 <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if ($success = session('success')): ?>
-                            <div class="alert alert-success">
-                                <i class="fas fa-check-circle"></i> <?= lang($success) ?>
                             </div>
                         <?php endif; ?>
 

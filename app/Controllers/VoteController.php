@@ -25,8 +25,9 @@ class VoteController extends BaseController
         $templateFile = file_get_contents(VOTE_TEMPLATE_CONFIG);
         $template = json_decode($templateFile);
 
+        $slots = getSlots();
         $allProjects = [];
-        foreach (getSlots() as $slot) {
+        foreach ($slots as $slot) {
             // Verify if votes for current slot exist
             if (!array_key_exists($slot->getId(), $slotVotes)) {
                 return $this->redirectWithError($slotVotes, $globalVotes, 'vote.voting.error.slotMissing', $slot->getName());
@@ -64,11 +65,25 @@ class VoteController extends BaseController
             }
         }
 
-        echo '<pre>';
-        print_r($slotVotes);
-        echo '<br><br><br>';
-        print_r($globalVotes);
-        echo '</pre>';
+        $userId = getCurrentUser()->getId();
+        $voteId = 1;
+
+        // Insert slot votes
+        foreach ($slots as $slot) {
+            $projects = $slotVotes[$slot->getId()];
+            foreach ($projects as $projectId) {
+                insertVote($userId, $voteId, $projectId);
+                $voteId++;
+            }
+        }
+
+        // Insert global votes
+        foreach ($globalVotes as $projectId) {
+            insertVote($userId, $voteId, $projectId);
+            $voteId++;
+        }
+
+        return redirect('/')->with('success', 'vote.voting.success');
     }
 
     public function redirectWithError($slotVotes, $globalVotes, $error, ...$data): RedirectResponse

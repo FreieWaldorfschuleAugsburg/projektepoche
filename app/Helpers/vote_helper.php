@@ -12,6 +12,15 @@ function hasVoted(int $userId): bool
     return getVoteModel()->where(['user_id' => $userId])->countAllResults() > 0;
 }
 
+function insertVote(int $userId, int $voteId, int $projectId)
+{
+    $vote = new Vote();
+    $vote->setUserId($userId);
+    $vote->setVoteId($voteId);
+    $vote->setProjectId($projectId);
+    return getVoteModel()->insert($vote);
+}
+
 /**
  * @param int $userId
  * @return Vote[]

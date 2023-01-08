@@ -18,10 +18,6 @@ class Votes extends Migration
                 'type' => 'INT',
                 'unsigned' => true,
             ],
-            'slot_id' => [
-                'type' => 'INT',
-                'unsigned' => true,
-            ],
             'vote_id' => [
                 'type' => 'INT',
                 'unsigned' => true,
@@ -34,7 +30,6 @@ class Votes extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('user_id', USERS, 'id');
-        $this->forge->addForeignKey('slot_id', SLOTS, 'id');
         $this->forge->addForeignKey('project_id', PROJECTS, 'id');
 
         $this->forge->createTable(VOTES);
