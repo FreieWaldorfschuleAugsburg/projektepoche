@@ -9,9 +9,11 @@ class IndexController extends BaseController
     public function index(): string
     {
         if ($user = getCurrentUser()) {
-            $templateFile = file_get_contents(VOTE_TEMPLATE_CONFIG);
-            $template = json_decode($templateFile);
-            return $this->render('vote/VoteView', ['user' => $user, 'slots' => getSlots(), 'template' => $template]);
+            if ($user->hasVoted()) {
+                [$slotVotes, $globalVotes] = getSlotVotesAndGlobalVotesByUserId($user->getId());
+                return $this->render('vote/VoteView', ['user' => $user, 'slots' => getSlots(), 'template' => getVoteTemplate(), 'slotVotes' => $slotVotes, 'globalVotes' => $globalVotes]);
+            }
+            return $this->render('vote/VoteView', ['user' => $user, 'slots' => getSlots(), 'template' => getVoteTemplate()]);
         }
 
         return $this->render('LandingPageView');
