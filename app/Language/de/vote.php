@@ -25,6 +25,7 @@ return [
             'globalDuplicateProject' => 'Projekt in Priorisierung doppelt angegeben.',
             'notSlotVoted' => 'Projekt <b>%s: %s</b> in Priorisierung angegeben, aber nicht gewählt.'
         ],
+        'success' => 'Wahl erfolgreich!',
         'submit' => 'Wahl absenden',
         'reportError' => 'Fehler melden'
     ],
