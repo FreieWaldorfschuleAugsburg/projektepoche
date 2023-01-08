@@ -26,9 +26,10 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <b><?= lang('user.print.credentials.headline') ?></b>
+
                 </div>
                 <div class="card-body">
-
+                    <img src="<?= $qr ?>" alt="">
                 </div>
             </div>
         </div>

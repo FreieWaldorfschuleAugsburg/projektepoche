@@ -8,7 +8,9 @@
     "php": "^8.0",
     "codeigniter4/framework": "^4",
     "ext-intl": "*",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "chillerlan/php-qrcode": "^4.3",
+    "ext-openssl": "*"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9",

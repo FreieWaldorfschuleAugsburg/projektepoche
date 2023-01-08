@@ -95,6 +95,7 @@ class UserController extends BaseController
 
     public function print(): string|RedirectResponse
     {
+        helper('credential');
         $id = $this->request->getGet('id');
         if (!isset($id)) {
             return redirect('users')->with('error', 'user.error.parameterMissing');
@@ -105,7 +106,7 @@ class UserController extends BaseController
             return redirect('users')->with('error', 'user.error.invalidUser');
         }
 
-        return $this->render('user/UserPrintView', ['user' => $user], false);
+        return $this->render('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user)], false);
     }
 
     public function delete(): RedirectResponse
@@ -144,8 +145,8 @@ class UserController extends BaseController
                 foreach ($users as $user) {
                     saveUser($user);
                 }
-            } catch (\Exception $exception){
-            return redirect('users')->with('error', lang('user.import.errors.noImport'));
+            } catch (\Exception $exception) {
+                return redirect('users')->with('error', lang('user.import.errors.noImport'));
             }
             return redirect('users')->with('success', lang('user.import.success.saved'));
         }
@@ -157,6 +158,25 @@ class UserController extends BaseController
             [$users, $errors] = getUsersFromFile($userData, $importKeys);
             return $this->render('user/UserImportView', ['users' => $users, 'errors' => $errors]);
         }
+    }
+
+
+    public function code()
+    {
+        helper('credential');
+        $code = $this->request->getGet('code');
+        if (!isset($code)) {
+            return redirect('users')->with('error', 'user.error.parameterMissing');
+        }
+        try {
+            $user = checkCode($code);
+            session()->set('user_id', $user->getId());
+            return redirect('/');
+
+        } catch (\Exception $e) {
+            return redirect('login')->with('error', $e->getMessage());
+        }
+
     }
 
 

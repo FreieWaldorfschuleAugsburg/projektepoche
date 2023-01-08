@@ -10,6 +10,7 @@ return [
         'login' => 'Anmelden'
     ],
     'error' => [
+        'invalidUser' => 'Der Benutzer existiert nicht!',
         'invalidCredentials' => 'Ungültige Zugangsdaten!'
     ]
 ];

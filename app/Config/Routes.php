@@ -57,6 +57,8 @@ $routes->get('/user/delete', 'UserController::delete', ['filter' => AdminFilter:
 $routes->get('user/import', 'UserController::import', ['filter' => AdminFilter::class]);
 $routes->post('user/import', 'UserController::handleImport', ['filter' => AdminFilter::class]);
 
+$routes->get('code', 'UserController::code');
+
 
 $routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);
 $routes->get('/project/create', 'ProjectController::create', ['filter' => AdminFilter::class]);
