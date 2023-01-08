@@ -16,7 +16,7 @@ class ProjectController extends BaseController
 
     public function create(): string
     {
-        return $this->render('project/ProjectCreateView', ['slots' => getSlots(), 'leaders' => getUsers()]);
+        return $this->render('project/ProjectCreateView', ['slots' => getSlots(), 'users' => getUsers()]);
     }
 
     public function handleCreate(): RedirectResponse
@@ -24,6 +24,7 @@ class ProjectController extends BaseController
         $name = $this->request->getPost('name');
         $slotId = $this->request->getPost('slot');
         $leaderIds = $this->request->getPost('leaders');
+        $memberIds = $this->request->getPost('members');
         $description = $this->request->getPost('description');
 
         if (!isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {
@@ -41,11 +42,17 @@ class ProjectController extends BaseController
             }
         }
 
+        foreach ($memberIds as $memberId) {
+            if (is_null(getUserById($memberId))) {
+                return redirect('projects')->with('error', 'project.error.invalidUser');
+            }
+        }
+
         $project = new Project();
         $project->setName($name);
         $project->setSlotId($slotId);
         $project->setDescription($description);
-        insertProject($project, $leaderIds);
+        insertProject($project, $leaderIds, $memberIds);
 
         return redirect('projects')->with('success', 'project.success.projectCreated');
     }
@@ -62,7 +69,7 @@ class ProjectController extends BaseController
             return redirect('projects')->with('error', 'project.error.invalidProject');
         }
 
-        return $this->render('project/ProjectEditView', ['project' => $project, 'slots' => getSlots(), 'leaders' => getUsers()]);
+        return $this->render('project/ProjectEditView', ['project' => $project, 'slots' => getSlots(), 'users' => getUsers()]);
     }
 
     public function handleEdit(): RedirectResponse
@@ -71,6 +78,7 @@ class ProjectController extends BaseController
         $name = $this->request->getPost('name');
         $slotId = $this->request->getPost('slot');
         $leaderIds = $this->request->getPost('leaders');
+        $memberIds = $this->request->getPost('members');
         $description = $this->request->getPost('description');
 
         if (!isset($id) || !isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {
@@ -88,6 +96,12 @@ class ProjectController extends BaseController
             }
         }
 
+        foreach ($memberIds as $memberId) {
+            if (is_null(getUserById($memberId))) {
+                return redirect('projects')->with('error', 'project.error.invalidUser');
+            }
+        }
+
         $project = getProjectById($id);
         if (is_null($project)) {
             return redirect('projects')->with('error', 'project.error.invalidProject');
@@ -96,7 +110,7 @@ class ProjectController extends BaseController
         $project->setName($name);
         $project->setSlotId($slotId);
         $project->setDescription($description);
-        updateProject($project, $leaderIds);
+        updateProject($project, $leaderIds, $memberIds);
 
         return redirect('projects')->with('success', 'project.success.projectUpdated');
     }

@@ -86,4 +86,24 @@ class Project extends Entity
         }
         return $result;
     }
+
+    /**
+     * @return User[]
+     */
+    public function getMembers(): array
+    {
+        return getProjectMembersByProjectId($this->getId());
+    }
+
+    public function getMemberNameString(): string
+    {
+        $result = "";
+        $members = $this->getMembers();
+        $i = 0;
+        foreach ($members as $member) {
+            $result .= ($i >= 1 ? ", " : "") . $member->getName();
+            $i++;
+        }
+        return $result;
+    }
 }

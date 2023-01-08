@@ -31,11 +31,23 @@
                     <div class="mb-3">
                         <label for="leaders" class="form-label"><?= lang('project.fields.leaders') ?></label>
                         <select class="form-control" id="leaders" name="leaders[]" multiple required>
-                            <?php foreach ($leaders as $leader): ?>
-                                <?php if (in_array($leader, $project->getLeaders())): ?>
-                                    <option value="<?= $leader->getId() ?>" selected><?= $leader->getName() ?></option>
+                            <?php foreach ($users as $user): ?>
+                                <?php if (in_array($user, $project->getLeaders())): ?>
+                                    <option value="<?= $user->getId() ?>" selected><?= $user->getName() ?></option>
                                 <?php else: ?>
-                                    <option value="<?= $leader->getId() ?>"><?= $leader->getName() ?></option>
+                                    <option value="<?= $user->getId() ?>"><?= $user->getName() ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="members" class="form-label"><?= lang('project.fields.members') ?></label>
+                        <select class="form-control" id="members" name="members[]" multiple required>
+                            <?php foreach ($users as $user): ?>
+                                <?php if (in_array($user, $project->getMembers())): ?>
+                                    <option value="<?= $user->getId() ?>" selected><?= $user->getName() ?></option>
+                                <?php else: ?>
+                                    <option value="<?= $user->getId() ?>"><?= $user->getName() ?></option>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </select>

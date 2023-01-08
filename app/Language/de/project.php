@@ -11,6 +11,7 @@ return [
         'name' => 'Name',
         'slot' => 'Zeitschiene',
         'leaders' => 'Leiter',
+        'members' => 'Teilnehmer',
         'description' => 'Beschreibung',
         'actions' => [
             'title' => 'Aktionen',

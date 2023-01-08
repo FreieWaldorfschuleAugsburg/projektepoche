@@ -1,6 +1,5 @@
 <?php
 
-use App\Entities\Group;
 use App\Models\UserModel;
 use App\Entities\User;
 use \CodeIgniter\HTTP\IncomingRequest;
@@ -28,7 +27,9 @@ function getCurrentUser(): ?object
  */
 function getUsers(): array
 {
-    return getUserModel()->findAll();
+    $users = getUserModel()->findAll();
+    usort($users, fn($a, $b) => strcmp($a->getName(), $b->getName()));
+    return $users;
 }
 
 /**

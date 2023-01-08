@@ -16,6 +16,7 @@
                         <th data-field="name" data-sortable="true"><?= lang('project.fields.name') ?></th>
                         <th data-field="slot" data-sortable="true"><?= lang('project.fields.slot') ?></th>
                         <th data-field="leaders" data-sortable="true"><?= lang('project.fields.leaders') ?></th>
+                        <th data-field="members" data-sortable="true"><?= lang('project.fields.members') ?></th>
                         <th data-field="description"><?= lang('project.fields.description') ?></th>
                         <th data-field="action"><?= lang('project.fields.actions.title') ?></th>
                     </tr>
@@ -28,6 +29,7 @@
                             </td>
                             <td><?= $project->getSlotId() ?></td>
                             <td><?= $project->getLeaderShortNameString() ?></td>
+                            <td><?= $project->getMemberNameString() ?></td>
                             <td><?= $project->getDescription() ?></td>
                             <td>
                                 <div class="btn-group" role="group">
