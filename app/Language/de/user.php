@@ -60,7 +60,7 @@ return [
                 'Nun befindest du dich bereits eingeloggt auf der Seite. Viel Spaß!'
             ],
             'loginStepsWithoutQR' => [
-               'Öffne deinen Webbrowser und gehe auf https://fwaux.de/projektepoche',
+               'Öffne deinen Webbrowser und gehe auf fwaux.de/projektepoche',
                'Nun wirst du aufgefordert, Zugangsdaten einzugeben. Gib dort die unten aufgeführten Zugangsdaten ein.',
             ]
         ],
