@@ -1,5 +1,5 @@
 <div class="text-center mt-5">
-    <p class="text-muted"><?= lang('app.copyright') ?></p>
+    <p class="text-muted"><?= lang('app.copyright.full') ?></p>
 </div>
 </div>
 </body>

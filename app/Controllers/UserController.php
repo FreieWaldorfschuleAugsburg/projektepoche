@@ -106,7 +106,7 @@ class UserController extends BaseController
             return redirect('users')->with('error', 'user.error.invalidUser');
         }
 
-        return $this->render('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user)], false);
+        return $this->render('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user)], false, false);
     }
 
     public function delete(): RedirectResponse

@@ -1,4 +1,4 @@
-<div class="row gx-4 mt-3 justify-content-center">
+<div class="row gx-4 justify-content-center">
     <div class="col-lg-10">
         <div class="text-center">
             <img src="<?= base_url('/') ?>/assets/img/logo.png" width="10%" height="10%">
