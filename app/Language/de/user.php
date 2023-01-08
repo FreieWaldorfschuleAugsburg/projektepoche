@@ -52,10 +52,20 @@ return [
     ],
     'print' => [
         'guide' => [
-            'headline' => 'Anleitung'
+            'headline' => 'Anleitung',
+            'withQR' => 'Anmeldung mit QR-Code',
+            'withoutQR' => 'Anmeldung ohne QR-Code',
+            'loginStepsWithQR' => [
+                'Scanne den QR-Code (Unter iOS mit der Kamera-App, unter Android benötigst du evtl. einen QR-Code Scanner)',
+                'Nun befindest du dich bereits eingeloggt auf der Seite. Viel Spaß!'
+            ],
+            'loginStepsWithoutQR' => [
+               'Öffne deinen Webbrowser und gehe auf https://fwaux.de/projektepoche',
+               'Nun wirst du aufgefordert, Zugangsdaten einzugeben. Gib dort die unten aufgeführten Zugangsdaten ein.',
+            ]
         ],
         'credentials' => [
             'headline' => 'Zugangsdaten'
-        ]
+        ],
     ]
 ];
