@@ -1,0 +1,57 @@
+{
+  "voteOpen": true,
+  "blockedSlots": {
+    "4": [
+      1
+    ]
+  },
+  "slotVotes": [
+    {
+      "id": 1,
+      "name": {
+        "de": "1. Wahl"
+      },
+      "description": {
+        "de": "Reguläre Wahlstimme"
+      }
+    },
+    {
+      "id": 2,
+      "name": {
+        "de": "2. Wahl"
+      },
+      "description": {
+        "de": "Reguläre Wahlstimme"
+      }
+    },
+    {
+      "id": 3,
+      "name": {
+        "de": "3. Wahl"
+      },
+      "description": {
+        "de": "Reguläre Wahlstimme"
+      }
+    }
+  ],
+  "globalVotes": [
+    {
+      "id": 1,
+      "name": {
+        "de": "1. Präferenz"
+      },
+      "description": {
+        "de": "Wähle einen der neun Kurse, der dir besonders wichtig ist."
+      }
+    },
+    {
+      "id": 2,
+      "name": {
+        "de": "2. Präferenz"
+      },
+      "description": {
+        "de": "Wähle einen weiteren der neun Kurse, der dir besonders wichtig ist."
+      }
+    }
+  ]
+}

@@ -42,7 +42,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="members" class="form-label"><?= lang('project.fields.members') ?></label>
-                        <select class="form-control" id="members" name="members[]" multiple required>
+                        <select class="form-control" id="members" name="members[]" multiple>
                             <?php foreach ($users as $user): ?>
                                 <?php if (in_array($user, $project->getMembers())): ?>
                                     <option value="<?= $user->getId() ?>" selected><?= $user->getName() ?></option>

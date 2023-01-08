@@ -102,3 +102,5 @@ const USERS = PREFIX . "users";
 const LEADERS = PREFIX . "leaders";
 const MEMBERS = PREFIX . "members";
 const VOTES = PREFIX . "votes";
+
+const VOTE_TEMPLATE_CONFIG = ROOTPATH . "voteTemplateConfig.json";
