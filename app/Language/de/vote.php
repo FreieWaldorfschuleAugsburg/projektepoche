@@ -1,9 +1,13 @@
 <?php
 
 return [
-    'headline' => 'Stimmen',
+    'headline' => 'Stimmergebnisse',
     'buttons' => [
-        'showProjects' => 'Projekte anzeigen'
+        'showProjects' => 'Projekte anzeigen',
+        'export' => 'Stimmergebnisse exportieren'
+    ],
+    'fields' => [
+        'name' => 'Name'
     ],
     'voting' => [
         'headline' => 'Abstimmen',
