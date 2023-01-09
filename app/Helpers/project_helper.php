@@ -123,7 +123,7 @@ function insertProjectMemberMappings(int $projectId, array $memberIds): void
 
 function deleteProjectById(int $projectId): void
 {
-    getProjectModel()->where(['id' => $projectId])->delete();
+    getProjectModel()->delete(['id' => $projectId]);
 }
 
 function getProjectModel(): ProjectModel
