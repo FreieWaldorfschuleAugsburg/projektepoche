@@ -26,41 +26,8 @@
                 <div class="card-body">
                     <p><?= lang('vote.voting.slot.details') ?></p>
                     <div class="row gx-4 mt-3 justify-content-center">
-                        <?php foreach ($slots as $slot): ?>
-                            <div class="col-lg-4 mb-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <b><?= $slot->getName() ?>: <?= $slot->getStartTime() ?>
-                                            - <?= $slot->getEndTime() ?> <?= lang('project.view.clock') ?></b>
-                                    </div>
-                                    <div class="card-body">
-                                        <?php if (isset($template->blockedSlots->{$user->getGroupId()}) && in_array($slot->getId(), $template->blockedSlots->{$user->getGroupId()})): ?>
-                                            <div class="alert alert-danger mb-3">
-                                                <b><?= lang('vote.voting.blocked') ?></b>
-                                            </div>
-                                        <?php else: ?>
-                                            <?php foreach ($template->slotVotes as $vote): ?>
-                                                <div class="mb-3">
-                                                    <label for="slotVote-<?= $slot->getId() ?>-<?= $vote->id ?>"
-                                                           class="form-label">
-                                                        <b><?= $vote->name->{service('request')->getLocale()} ?></b>
-                                                    </label>
-                                                    <select id="slotVote-<?= $slot->getId() ?>-<?= $vote->id ?>"
-                                                            class="form-select" disabled>
-                                                        <option selected>
-                                                            <?= $slotVotes[$slot->getId()][$vote->id]->getId() ?>
-                                                            : <?= $slotVotes[$slot->getId()][$vote->id]->getName() ?>
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                        <?= view('components/vote/SlotsWithProjectComponent', ['slots' => $slots, 'user' => $user]) ?>
                     </div>
-
                     <div class="row gx-4 mt-3 justify-content-center">
                         <div class="col-lg-10">
                             <div class="card">
@@ -70,17 +37,7 @@
                                 <div class="card-body">
                                     <p><?= lang('vote.voting.global.details') ?></p>
                                     <?php foreach ($template->globalVotes as $vote): ?>
-                                        <div class="mb-3">
-                                            <label for="globalVote-<?= $vote->id ?>" class="form-label">
-                                                <b><?= $vote->name->{service('request')->getLocale()} ?></b>
-                                            </label>
-                                            <select id="globalVote-<?= $vote->id ?>" class="form-select" disabled>
-                                                <option selected>
-                                                    <?= $globalVotes[$vote->id]->getId() ?>
-                                                    : <?= $globalVotes[$vote->id]->getName() ?>
-                                                </option>
-                                            </select>
-                                        </div>
+                                        <?= view('components/vote/GlobalVoteComponent', ['globalVotes' => $template->$globalVotes, 'vote' => $vote]) ?>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

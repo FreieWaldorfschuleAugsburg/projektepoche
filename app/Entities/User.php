@@ -91,4 +91,28 @@ class User extends Entity
     {
         return hasVoted($this->getId());
     }
+
+    /**
+     * @return bool
+     */
+    public function isLeader(): bool
+    {
+        try {
+            $projects = getProjectsForLeader($this->getId());
+            return true;
+        } catch (\HasNoProjectsException $exception) {
+            return false;
+        }
+    }
+
+    //TODO: Find better name!
+    public function getLeadingProjects()
+    {
+        try {
+            $projects = getProjectsForLeader($this->getId());
+        } catch (\HasNoProjectsException $exception) {
+            return null;
+        }
+    }
+
 }

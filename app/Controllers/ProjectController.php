@@ -136,4 +136,12 @@ class ProjectController extends BaseController
         deleteProjectById($id);
         return redirect('projects')->with('success', 'project.success.projectDeleted');
     }
+
+
+    public function leading(): string
+    {
+        return $this->render('project/ProjectLeadingView');
+    }
+
+
 }

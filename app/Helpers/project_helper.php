@@ -140,3 +140,27 @@ function getProjectMemberMappingModel(): ProjectMemberMappingModel
 {
     return new ProjectMemberMappingModel();
 }
+
+/**
+ * @throws HasNoProjectsException
+ */
+function getProjectsForLeader(int $userId): array
+{
+
+    $mappings = getProjectLeaderMappingModel()->where(['user_id' => $userId])->findAll();
+
+    if (!$mappings) {
+        throw new HasNoProjectsException();
+    }
+
+    $projects = [];
+
+
+
+    foreach ($mappings as $mapping) {
+        $project = $mapping->getProject();
+    }
+
+    return $projects;
+}
+

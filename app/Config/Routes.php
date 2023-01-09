@@ -58,6 +58,7 @@ $routes->get('user/import', 'UserController::import', ['filter' => AdminFilter::
 $routes->post('user/import', 'UserController::handleImport', ['filter' => AdminFilter::class]);
 
 $routes->get('code', 'UserController::code');
+$routes->get('leading', 'ProjectController::leading', ['filter' => LoggedInFilter::class]);
 
 
 $routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);

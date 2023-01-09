@@ -67,5 +67,11 @@ return [
         'credentials' => [
             'headline' => 'Zugangsdaten'
         ],
+    ],
+    'leader' => [
+        'headline' => 'Meine Projekte',
+        'error' => [
+            'hasNoProjects' => "Der Benutzer leitet kein Projekt!"
+        ]
     ]
 ];
