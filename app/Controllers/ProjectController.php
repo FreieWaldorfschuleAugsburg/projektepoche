@@ -25,6 +25,9 @@ class ProjectController extends BaseController
         $slotId = $this->request->getPost('slot');
         $leaderIds = $this->request->getPost('leaders');
         $memberIds = $this->request->getPost('members');
+        if (!isset($memberIds)) {
+            $memberIds = [];
+        }
         $description = $this->request->getPost('description');
 
         if (!isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {
@@ -79,6 +82,9 @@ class ProjectController extends BaseController
         $slotId = $this->request->getPost('slot');
         $leaderIds = $this->request->getPost('leaders');
         $memberIds = $this->request->getPost('members');
+        if (!isset($memberIds)) {
+            $memberIds = [];
+        }
         $description = $this->request->getPost('description');
 
         if (!isset($id) || !isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {

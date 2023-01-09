@@ -1,0 +1,42 @@
+{
+  "voteOpen": true,
+  "blockedSlots": {
+    "4": [
+      1
+    ]
+  },
+  "slotVotes": [
+    {
+      "id": 1,
+      "name": {
+        "de": "1. Wahl"
+      }
+    },
+    {
+      "id": 2,
+      "name": {
+        "de": "2. Wahl"
+      }
+    },
+    {
+      "id": 3,
+      "name": {
+        "de": "3. Wahl"
+      }
+    }
+  ],
+  "globalVotes": [
+    {
+      "id": 1,
+      "name": {
+        "de": "1. Präferenz"
+      }
+    },
+    {
+      "id": 2,
+      "name": {
+        "de": "2. Präferenz"
+      }
+    }
+  ]
+}
