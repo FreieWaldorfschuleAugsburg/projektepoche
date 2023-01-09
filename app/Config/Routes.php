@@ -69,6 +69,7 @@ $routes->post('/project/edit', 'ProjectController::handleEdit', ['filter' => Adm
 $routes->get('/project/delete', 'ProjectController::delete', ['filter' => AdminFilter::class]);
 
 $routes->get('/votes', 'VoteController::index', ['filter' => AdminFilter::class]);
+$routes->get('/vote/export', 'VoteController::export', ['filter' => AdminFilter::class]);
 
 /*
  * --------------------------------------------------------------------

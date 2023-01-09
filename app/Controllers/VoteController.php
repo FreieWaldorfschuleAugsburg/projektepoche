@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\HTTP\RedirectResponse;
+use Shuchkin\SimpleXLSXGen;
 use function App\Helpers\getSlots;
 
 class VoteController extends BaseController
@@ -13,7 +14,7 @@ class VoteController extends BaseController
         return $this->render('vote/VotesView');
     }
 
-    public function handleVote()
+    public function handleVote(): RedirectResponse
     {
         $slotVotes = $this->request->getPost('slotVotes');
         $globalVotes = $this->request->getPost('globalVotes');
@@ -84,6 +85,63 @@ class VoteController extends BaseController
         }
 
         return redirect('/')->with('success', 'vote.voting.success');
+    }
+
+    public function export()
+    {
+        $voteTemplate = getVoteTemplate();
+        $xlsx = new SimpleXLSXGen();
+        $xlsx->setDefaultFontSize(12);
+
+        $userSheet = [
+            ['<middle><center><b>Vor- und Nachname</b></center></middle>']
+        ];
+
+        // Add slot vote columns
+        foreach (getSlots() as $slot) {
+            foreach ($voteTemplate->slotVotes as $vote) {
+                $userSheet[0][] = '<b><middle><center>' . $slot->getName() . '/' . $vote->name->{$this->request->getLocale()} . '</center></middle></b>';
+            }
+        }
+
+        // Add global vote columns
+        foreach ($voteTemplate->globalVotes as $vote) {
+            $userSheet[0][] = '<b><middle><center>' . $vote->name->{service('request')->getLocale()} . '</center></middle></b>';
+        }
+
+        $currentIndex = 1;
+        foreach (getUsers() as $user) {
+            $userSheet[$currentIndex][] = $user->getName();
+            foreach (getVotesByUserId($user->getId()) as $vote) {
+                $userSheet[$currentIndex][] = '<middle><center>' . $vote->getProjectId() . '</center></middle>';
+            }
+            $currentIndex++;
+        }
+
+        $xlsx->addSheet($userSheet, 'Übersicht');
+
+        foreach (getProjects() as $project) {
+            $projectSheet = [
+                // TODO add max members
+                ['<b>' . $project->getId() . ':' . $project->getName() . ' / Maximale Teilnehmerzahl: x'],
+                ['Sie können die gewünschten Teilnehmer:innen hier mit VOR- UND NACHNAME eintragen und die Datei wieder importieren. Die Teilnehmer werden dann automatisch zu den Projekten hinzugefügt.'],
+                []
+            ];
+
+            foreach ($voteTemplate->slotVotes as $vote) {
+                $projectSheet[][] = '<b><middle><center>' . $vote->name->{service('request')->getLocale()} . '</center></middle></b>';
+                $projectSheet[][] = [];
+            }
+
+            $projectSheet[][] = '<b><middle><center>Priorisiert</center></middle></b>';
+
+
+            $sheetName = $project->getId() . ' - ' . $project->getName();
+            // MS Excel can only handle a maximum of 31 characters for a sheet name
+            $xlsx->addSheet($projectSheet, substr($sheetName, 0, 31));
+        }
+
+        $xlsx->download();
     }
 
     public function redirectWithError($slotVotes, $globalVotes, $error, ...$data): RedirectResponse
