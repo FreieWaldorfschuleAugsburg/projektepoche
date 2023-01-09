@@ -1,3 +1,8 @@
+<?php
+
+use function App\Helpers\getSlots;
+
+?>
 <div class="row gx-4 mt-3 justify-content-center">
     <div class="col-lg-10">
         <div class="card">
@@ -17,7 +22,7 @@
                     <tr>
                         <th data-field="name" data-sortable="true"
                             scope="col"><?= lang('vote.fields.name') ?></th>
-                        <?php foreach (\App\Helpers\getSlots() as $slot): ?>
+                        <?php foreach (getSlots() as $slot): ?>
                             <?php foreach (getVoteTemplate()->slotVotes as $vote): ?>
                                 <th data-field="slotVotes-<?= $slot->getId() ?>-<?= $vote->id ?>" data-sortable="true"
                                     scope="col"><?= $slot->getName() . '/' . $vote->name->{service('request')->getLocale()} ?></th>
@@ -30,6 +35,16 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php foreach (getUsers() as $user): ?>
+                        <tr>
+                            <td><?= $user->getName() ?></td>
+                            <?php foreach (getVotesByUserId($user->getId()) as $vote): ?>
+                                <td>
+                                    <b><?= $vote->getProjectId() ?></b>: <?= getProjectById($vote->getProjectId())->getName() ?>
+                                </td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

@@ -28,7 +28,6 @@ function getSlotVotesAndGlobalVotesByUserId(int $userId): array
     $slotVotes = [];
     $globalVotes = [];
 
-
     $template = getVoteTemplate();
     $votesPerSlot = count($template->slotVotes);
     $slotCount = count(getSlots());
@@ -55,7 +54,9 @@ function getSlotVotesAndGlobalVotesByUserId(int $userId): array
  */
 function getVotesByUserId(int $userId): array
 {
-    return getVoteModel()->where(['user_id' => $userId])->findAll();
+    $votes = getVoteModel()->where(['user_id' => $userId])->findAll();
+    usort($votes, fn($a, $b) => ($a->getVoteId() - $b->getVoteId()));
+    return $votes;
 }
 
 function getVoteTemplate(): object
