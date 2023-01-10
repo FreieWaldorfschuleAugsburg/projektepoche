@@ -27,11 +27,11 @@ class ProjectLeaderMapping extends Migration
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('user_id', USERS, 'id');
         $this->forge->addForeignKey('project_id', PROJECTS, 'id', 'cascade', 'cascade');
-        $this->forge->createTable(MEMBERS);
+        $this->forge->createTable(LEADERS);
     }
 
     public function down()
     {
-        $this->forge->dropTable(MEMBERS);
+        $this->forge->dropTable(LEADERS);
     }
 }

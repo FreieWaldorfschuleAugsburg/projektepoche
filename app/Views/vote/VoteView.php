@@ -56,7 +56,7 @@
         </div>
     </div>
 <?php else: ?>
-    <?php if ($template->voteOpen): ?>
+    <?php if (getVoteState() == VoteState::OPEN): ?>
         <div class="row gx-4 mt-3 justify-content-center">
             <div class="col-lg-12">
                 <div class="card">

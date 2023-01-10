@@ -4,6 +4,31 @@ use App\Entities\Vote;
 use App\Models\VoteModel;
 use function App\Helpers\getSlots;
 
+enum VoteState: int
+{
+    case OPEN = 1;
+    case CLOSED = 2;
+    case PUBLIC = 3;
+}
+
+function getVoteState(): VoteState
+{
+    $state = getSettingsValue("voteState");
+    return VoteState::from($state);
+}
+
+function setVoteState(VoteState $state)
+{
+    /**
+     * TODO handle state change
+     *
+     * on OPEN: delete all votes
+     * on CLOSED: add all users to the frist slotVote project
+     * on PUBLIC: only allow if conflicts are solved
+     */
+    setSettingsValue("voteState", $state->value);
+}
+
 /**
  * @param int $userId
  * @return bool
