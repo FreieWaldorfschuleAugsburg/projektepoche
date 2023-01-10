@@ -10,6 +10,8 @@ class Project extends Entity
         'id' => null,
         'slot_id' => null,
         'name' => null,
+        'max_members' => null,
+        'room' => null,
         'description' => null
     ];
 
@@ -17,6 +19,8 @@ class Project extends Entity
         'id' => 'integer',
         'slot_id' => 'integer',
         'name' => 'string',
+        'max_members' => 'integer',
+        'room' => 'string',
         'description' => 'string'
     ];
 
@@ -26,6 +30,19 @@ class Project extends Entity
     public function getId(): ?int
     {
         return $this->attributes['id'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->attributes['name'];
+    }
+
+    public function setName(string $name): void
+    {
+        $this->attributes['name'] = $name;
     }
 
     /**
@@ -42,16 +59,29 @@ class Project extends Entity
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getName(): string
+    public function getMaxMembers(): int
     {
-        return $this->attributes['name'];
+        return $this->attributes['max_members'];
     }
 
-    public function setName(string $name): void
+    public function setMaxMembers(int $maxMembers): void
     {
-        $this->attributes['name'] = $name;
+        $this->attributes['max_members'] = $maxMembers;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoom(): string
+    {
+        return $this->attributes['room'];
+    }
+
+    public function setRoom(string $room): void
+    {
+        $this->attributes['room'] = $room;
     }
 
     /**

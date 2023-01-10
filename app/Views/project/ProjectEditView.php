@@ -1,5 +1,5 @@
 <div class="row gx-4 mt-3 justify-content-center">
-    <div class="col-lg-10">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <b><?= lang('project.edit.headline') ?></b>
@@ -27,6 +27,16 @@
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="maxMembers" class="form-label"><?= lang('project.fields.maxMembers') ?></label>
+                        <input type="number" class="form-control" id="maxMembers" name="maxMembers" min="1"
+                               value="<?= $project->getMaxMembers() ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="room" class="form-label"><?= lang('project.fields.room') ?></label>
+                        <input type="text" class="form-control" id="room" name="room"
+                               value="<?= $project->getRoom() ?>">
                     </div>
                     <div class="mb-3">
                         <label for="leaders" class="form-label"><?= lang('project.fields.leaders') ?></label>
@@ -59,7 +69,7 @@
                                   required><?= $project->getDescription() ?></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary"><?= lang('project.create.button') ?></button>
+                    <button type="submit" class="btn btn-primary"><?= lang('project.edit.button') ?></button>
                 </form>
             </div>
         </div>

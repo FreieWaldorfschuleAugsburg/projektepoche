@@ -1,5 +1,5 @@
 <div class="row gx-4 mt-3 justify-content-center">
-    <div class="col-lg-10">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <b><?= lang('project.create.headline') ?></b>
@@ -20,6 +20,14 @@
                                 <option value="<?= $slot->getId() ?>"><?= $slot->getName() ?></option>
                             <?php endforeach; ?>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="maxMembers" class="form-label"><?= lang('project.fields.maxMembers') ?></label>
+                        <input type="number" class="form-control" id="maxMembers" name="maxMembers" min="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="room" class="form-label"><?= lang('project.fields.room') ?></label>
+                        <input type="text" class="form-control" id="room" name="room">
                     </div>
                     <div class="mb-3">
                         <label for="leaders" class="form-label"><?= lang('project.fields.leaders') ?></label>
@@ -51,9 +59,11 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#description').summernote();
         // Fix for summernote cuz dropdowns broken in BS5
-        $("button[data-toggle='dropdown']").each(function (index) { $(this).removeAttr("data-toggle").attr("data-bs-toggle", "dropdown"); });
+        $("button[data-toggle='dropdown']").each(function (index) {
+            $(this).removeAttr("data-toggle").attr("data-bs-toggle", "dropdown");
+        });
     });
 </script>

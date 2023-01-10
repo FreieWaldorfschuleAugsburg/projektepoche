@@ -18,7 +18,7 @@
 
 <?php if ($user->hasVoted()): ?>
     <div class="row gx-4 mt-3 justify-content-center">
-        <div class="col-lg-10">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <b><?= lang('vote.voting.headline') ?></b>
@@ -29,7 +29,7 @@
                         <?= view('components/vote/SlotsWithProjectComponent', ['slots' => $slots, 'user' => $user]) ?>
                     </div>
                     <div class="row gx-4 mt-3 justify-content-center">
-                        <div class="col-lg-10">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
                                     <b><?= lang('vote.voting.global.headline') ?></b>
@@ -58,7 +58,7 @@
 <?php else: ?>
     <?php if ($template->voteOpen): ?>
         <div class="row gx-4 mt-3 justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <b><?= lang('vote.voting.headline') ?></b>
@@ -133,7 +133,7 @@
                             </div>
 
                             <div class="row gx-4 mt-3 justify-content-center">
-                                <div class="col-lg-10">
+                                <div class="col-lg-12">
                                     <div class="card">
                                         <div class="card-header">
                                             <b><?= lang('vote.voting.global.headline') ?></b>
@@ -192,7 +192,7 @@
         </div>
     <?php else: ?>
         <div class="row gx-4 mt-3 justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <b><?= lang('vote.voting.headline') ?></b>

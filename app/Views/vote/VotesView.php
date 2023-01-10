@@ -4,7 +4,7 @@ use function App\Helpers\getSlots;
 
 ?>
 <div class="row gx-4 mt-3 justify-content-center">
-    <div class="col-lg-10">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <b><?= lang('vote.headline') ?></b>

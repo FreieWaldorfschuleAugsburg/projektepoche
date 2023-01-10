@@ -1,5 +1,5 @@
 <div class="row gx-4 mt-3 justify-content-center">
-    <div class="col-lg-10">
+    <div class="col-lg-12">
         <?php if ($error = session('error')): ?>
             <div class="alert alert-danger">
                 <i class="fas fa-triangle-exclamation"></i> <?= lang($error) ?>

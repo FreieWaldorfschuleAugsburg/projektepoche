@@ -22,6 +22,14 @@ class Projects extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 100,
             ],
+            'max_members' => [
+                'type' => 'INT',
+                'unsigned' => true
+            ],
+            'room' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+            ],
             'description' => [
                 'type' => 'TEXT',
             ]

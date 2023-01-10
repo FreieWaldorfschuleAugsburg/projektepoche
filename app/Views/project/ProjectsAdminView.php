@@ -1,5 +1,5 @@
 <div class="row gx-4 mt-3 justify-content-center">
-    <div class="col-lg-10">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <b><?= lang('project.headline') ?></b>
@@ -15,6 +15,8 @@
                     <tr>
                         <th data-field="name" data-sortable="true"><?= lang('project.fields.name') ?></th>
                         <th data-field="slot" data-sortable="true"><?= lang('project.fields.slot') ?></th>
+                        <th data-field="maxMembers" data-sortable="true"><?= lang('project.fields.maxMembers') ?></th>
+                        <th data-field="room" data-sortable="true"><?= lang('project.fields.room') ?></th>
                         <th data-field="leaders" data-sortable="true"><?= lang('project.fields.leaders') ?></th>
                         <th data-field="members" data-sortable="true"><?= lang('project.fields.members') ?></th>
                         <th data-field="description"><?= lang('project.fields.description') ?></th>
@@ -28,6 +30,8 @@
                                 data-title="<?= $project->getName() ?>"><?= $project->getName() ?>
                             </td>
                             <td><?= $project->getSlotId() ?></td>
+                            <td><?= $project->getMaxMembers() ?></td>
+                            <td><?= $project->getRoom() ?></td>
                             <td><?= $project->getLeaderShortNameString() ?></td>
                             <td><?= $project->getMemberNameString() ?></td>
                             <td><?= $project->getDescription() ?></td>

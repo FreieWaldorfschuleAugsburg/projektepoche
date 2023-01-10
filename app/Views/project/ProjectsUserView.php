@@ -2,7 +2,7 @@
 
 foreach (getSlots() as $slot): ?>
     <div class="row gx-4 mt-3 justify-content-center">
-        <div class="col-lg-10">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <b><?= $slot->getName() ?>: <?= $slot->getStartTime() ?>
@@ -22,8 +22,17 @@ foreach (getSlots() as $slot): ?>
                                 <div class="accordion-collapse collapse" id="collapse-<?= $project->getId() ?>"
                                      data-bs-parent="#slot-<?= $slot->getId() ?>">
                                     <div class="accordion-body">
-                                        <i class="fas fa-user"></i> <b><?= lang('project.view.leader') ?>:
-                                            <?= $project->getLeaderShortNameString() ?></b>
+
+                                        <b>
+                                            <i class="fas fa-user"></i> <?= lang('project.view.leader') ?>:
+                                            <?= $project->getLeaderShortNameString() ?><br/>
+                                            <i class="fas fa-people-group"></i> <?= lang('project.view.maxMembers') ?>:
+                                            <?= $project->getMaxMembers() ?>
+                                            <?php if(!empty($project->getRoom())): ?>
+                                                <br/><i class="fas fa-door-closed"></i> <?= lang('project.view.room') ?>:
+                                                <?= $project->getRoom() ?>
+                                            <?php endif; ?>
+                                        </b>
                                         <hr>
                                         <p class="mt-3">
                                             <?= $project->getDescription() ?>

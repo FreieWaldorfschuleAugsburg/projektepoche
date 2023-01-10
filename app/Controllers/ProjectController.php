@@ -23,6 +23,11 @@ class ProjectController extends BaseController
     {
         $name = $this->request->getPost('name');
         $slotId = $this->request->getPost('slot');
+        $maxMembers = $this->request->getPost('maxMembers');
+        $room = $this->request->getPost('room');
+        if (!isset($room)) {
+            $room = "";
+        }
         $leaderIds = $this->request->getPost('leaders');
         $memberIds = $this->request->getPost('members');
         if (!isset($memberIds)) {
@@ -54,6 +59,8 @@ class ProjectController extends BaseController
         $project = new Project();
         $project->setName($name);
         $project->setSlotId($slotId);
+        $project->setMaxMembers($maxMembers);
+        $project->setRoom($room);
         $project->setDescription($description);
         insertProject($project, $leaderIds, $memberIds);
 
@@ -80,6 +87,11 @@ class ProjectController extends BaseController
         $id = $this->request->getPost('id');
         $name = $this->request->getPost('name');
         $slotId = $this->request->getPost('slot');
+        $maxMembers = $this->request->getPost('maxMembers');
+        $room = $this->request->getPost('room');
+        if (!isset($room)) {
+            $room = "";
+        }
         $leaderIds = $this->request->getPost('leaders');
         $memberIds = $this->request->getPost('members');
         if (!isset($memberIds)) {
@@ -115,6 +127,8 @@ class ProjectController extends BaseController
 
         $project->setName($name);
         $project->setSlotId($slotId);
+        $project->setMaxMembers($maxMembers);
+        $project->setRoom($room);
         $project->setDescription($description);
         updateProject($project, $leaderIds, $memberIds);
 

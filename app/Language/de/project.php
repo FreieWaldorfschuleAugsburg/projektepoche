@@ -10,6 +10,8 @@ return [
     'fields' => [
         'name' => 'Name',
         'slot' => 'Zeitschiene',
+        'maxMembers' => 'Max. Teilnehmerzahl',
+        'room' => 'Raum',
         'leaders' => 'Leiter',
         'members' => 'Teilnehmer',
         'description' => 'Beschreibung',
@@ -23,8 +25,14 @@ return [
         'headline' => 'Projekt erstellen',
         'button' => 'Erstellen'
     ],
+    'edit' => [
+        'headline' => 'Projekt editieren',
+        'button' => 'Editieren'
+    ],
     'view' => [
         'leader' => 'Projektleitung',
+        'maxMembers' => 'Maximale Teilnehmerzahl',
+        'room' => 'Raum',
         'clock' => 'Uhr'
     ]
 ];
