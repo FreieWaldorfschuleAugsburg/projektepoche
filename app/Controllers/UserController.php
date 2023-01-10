@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+require 'vendor/autoload.php';
 
 use App\Entities\User;
 use CodeIgniter\HTTP\RedirectResponse;
@@ -96,12 +97,14 @@ class UserController extends BaseController
     public function print(): string|RedirectResponse
     {
         helper('credential');
+
         $id = $this->request->getGet('id');
         if (!isset($id)) {
             return redirect('users')->with('error', 'user.error.parameterMissing');
         }
 
         $user = getUserById($id);
+        printCredential($user);
         if (is_null($user)) {
             return redirect('users')->with('error', 'user.error.invalidUser');
         }

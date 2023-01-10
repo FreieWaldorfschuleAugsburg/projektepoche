@@ -2,6 +2,7 @@
 
 use \App\Entities\User;
 use chillerlan\QRCode\QRCode;
+use Dompdf\Dompdf;
 
 function generateQrCode(User $user)
 {
@@ -26,6 +27,18 @@ function checkCode(string $code): object
 
     return $user;
 
+}
+
+
+function printCredential(User $user): void
+{
+    $html = view('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user)]);
+    $domPdf = new Dompdf();
+    $domPdf->loadHtml($html);
+    $domPdf->render();
+    $pdfContents = $domPdf->output();
+    $username = $user->getName();
+    file_put_contents(WRITEPATH . "/pdf/credentials/$username.pdf", $pdfContents);
 }
 
 
