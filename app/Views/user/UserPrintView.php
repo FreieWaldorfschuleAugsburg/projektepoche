@@ -116,7 +116,7 @@
     }
 
     function interval() {
-        window.location.href = "/users"
+        console.log("Lolz")
     }
 
 
