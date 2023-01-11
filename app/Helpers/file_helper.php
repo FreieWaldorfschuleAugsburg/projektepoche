@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\HTTP\IncomingRequest;
+use RecursiveDirectoryIterator;
 
 
 function storeFile(IncomingRequest $request): ?string
@@ -54,18 +55,19 @@ function getUserUploadsFolder(): string
 
 function deleteDirectoryRecursively(string $path): void
 {
-
     if (file_exists($path)) {
         $files = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($path),
-            \RecursiveIteratorIterator::CHILD_FIRST
-        );
+            new \RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($files as $name => $file) {
             if (!$file->isDir()) {
                 $filePath = $file->getRealPath();
                 unlink($filePath);
+            } else {
+                rmdir($file);
             }
         }
+        rmdir($path);
     }
 }
 

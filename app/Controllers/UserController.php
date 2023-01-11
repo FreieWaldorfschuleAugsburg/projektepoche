@@ -129,25 +129,28 @@ class UserController extends BaseController
     public function downloadCredentials()
     {
         $path = realpath('credentials');
-        $zipFileName = 'credentials.zip';
-        $zip = new \ZipArchive();
-        $zip->open($zipFileName, \ZipArchive::CREATE);
-        $files = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($path),
-            \RecursiveIteratorIterator::LEAVES_ONLY
-        );
-        foreach ($files as $name => $file) {
-            if (!$file->isDir()) {
-                $filePath = $file->getRealPath();
-                $relativePath = substr($filePath, strlen($path) + 1);
-                $zip->addFile($filePath, $relativePath);
+        if (file_exists($path)) {
+
+            $zipFileName = 'credentials.zip';
+            $zip = new \ZipArchive();
+            $zip->open($zipFileName, \ZipArchive::CREATE);
+            $files = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($path),
+                \RecursiveIteratorIterator::LEAVES_ONLY
+            );
+            foreach ($files as $name => $file) {
+                if (!$file->isDir()) {
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($path) + 1);
+                    $zip->addFile($filePath, $relativePath);
+                }
             }
-        }
-        $zip->close();
-        header("Content-disposition: attachment; filename=$zipFileName");
-        header('Content-type: application/zip');
-        readfile($zipFileName);
-        unlink($zipFileName);
+            $zip->close();
+            header("Content-disposition: attachment; filename=$zipFileName");
+            header('Content-type: application/zip');
+            readfile($zipFileName);
+            unlink($zipFileName);
+        } else  return redirect('users');
     }
 
 
