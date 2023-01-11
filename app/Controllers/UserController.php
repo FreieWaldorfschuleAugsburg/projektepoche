@@ -3,7 +3,10 @@
 namespace App\Controllers;
 
 use App\Entities\User;
+use GuzzleHttp\Client;
 use CodeIgniter\HTTP\RedirectResponse;
+use GuzzleHttp\Exception\GuzzleException;
+use function App\Helpers\deleteDirectoryRecursively;
 use function App\Helpers\getFileName;
 use function App\Helpers\getFilePath;
 use function App\Helpers\getImportKeys;
@@ -17,6 +20,8 @@ class UserController extends BaseController
 
     public function index(): string
     {
+        //make sure there are no leftover credentials that could be leaked
+        deleteDirectoryRecursively('credentials');
         return $this->render('user/UsersView', ['users' => getUsers()]);
     }
 
@@ -93,22 +98,58 @@ class UserController extends BaseController
         return redirect('users')->with('success', 'user.success.userEdited');
     }
 
-    public function print(): string|RedirectResponse
+    public function print()
     {
         helper('credential');
 
         $id = $this->request->getGet('id');
+        $printAll = $this->request->getGet('printAll');
         if (!isset($id)) {
             return redirect('users')->with('error', 'user.error.parameterMissing');
         }
 
         $user = getUserById($id);
+        if (is_null($user) && $printAll) {
+            log_message(2, 'printing');
+            return $this->response->redirect(base_url('users/credentials/download'));
+        }
+
         if (is_null($user)) {
             return redirect('users')->with('error', 'user.error.invalidUser');
         }
 
         return $this->render('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user)], false, false);
     }
+
+    public function printAll()
+    {
+        return $this->response->redirect(base_url('user/print?id=1&printAll=true'));
+    }
+
+    public function downloadCredentials()
+    {
+        $path = realpath('credentials');
+        $zipFileName = 'credentials.zip';
+        $zip = new \ZipArchive();
+        $zip->open($zipFileName, \ZipArchive::CREATE);
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path),
+            \RecursiveIteratorIterator::LEAVES_ONLY
+        );
+        foreach ($files as $name => $file) {
+            if (!$file->isDir()) {
+                $filePath = $file->getRealPath();
+                $relativePath = substr($filePath, strlen($path) + 1);
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+        header("Content-disposition: attachment; filename=$zipFileName");
+        header('Content-type: application/zip');
+        readfile($zipFileName);
+        unlink($zipFileName);
+    }
+
 
     public function delete(): RedirectResponse
     {

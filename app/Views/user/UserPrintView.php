@@ -3,13 +3,13 @@
         <div class="col-lg-10">
             <div class="text-center">
                 <img src="<?= base_url('/') ?>/assets/img/logo.png" width="10%" height="10%">
-                <h1>
+                <h1 class="text-body">
                     <?= lang('app.name.break') ?>
                 </h1>
             </div>
         </div>
     </div>
-    <div class="row gx-4 mt-3 justify-content-center" data-bs-theme="light">
+    <div class="row gx-4 mt-3 justify-content-center text-body bg-body" data-bs-theme="light" id="width">
         <div class="col-lg-10">
             <div class="text-center">
                 <div class="card mt-3">
@@ -17,14 +17,14 @@
                         <b><?= lang('user.print.guide.headline') ?></b>
                     </div>
                     <div class="card-body text-start">
-                        <h5 class="px-2 underline"><?= lang('user.print.guide.withQR') ?></h5>
+                        <h5 class="px-2 underline text-body"><?= lang('user.print.guide.withQR') ?></h5>
                         <ol type="1">
                             <?php foreach (lang('user.print.guide.loginStepsWithQR') as $step): ?>
                                 <li><?= $step ?></li>
                             <?php endforeach; ?>
                         </ol>
 
-                        <h5 class="px-2"><?= lang('user.print.guide.withoutQR') ?></h5>
+                        <h5 class="px-2 text-body"><?= lang('user.print.guide.withoutQR') ?></h5>
                         <ol type="1">
                             <?php foreach (lang('user.print.guide.loginStepsWithoutQR') as $step): ?>
                                 <li><?= $step ?></li>
@@ -38,18 +38,18 @@
             <div class="text-center">
                 <div class="card mt-3">
                     <div class="card-header">
-                        <b><?= lang('user.print.credentials.headline') ?></b>
+                        <b class="text-body"><?= lang('user.print.credentials.headline') ?></b>
 
                     </div>
                     <div class="card-body text-start">
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <h6>Benutzername: </h6>
+                                    <h6 class="text-body">Benutzername: </h6>
                                     <input class="form-control" value="<?= $user->getName() ?>">
                                 </div>
                                 <div class="mb-3">
-                                    <h6>Passwort: </h6>
+                                    <h6 class="text-body">Passwort: </h6>
                                     <input class="form-control" value="<?= $user->getPassword() ?>">
                                 </div>
                             </div>
@@ -69,14 +69,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
     async function generatePdf() {
-        console.log("generating");
         window.jsPDF = window.jspdf.jsPDF;
         const element = document.getElementById('print');
-        return html2canvas(element).then(async canvas => {
+        return html2canvas(element, {
+            scale: 5,
+            windowWidth: 1000,
+            windowHeight: 1200
+        }).then(async canvas => {
             const data = canvas.toDataURL('image/jpeg');
-            const pdf = new jsPDF('P', 'pt', [canvas.width, canvas.height]);
-            pdf.addImage(data, 'jpeg', 0, 0, canvas.width, canvas.height);
-            const base64Pdf = btoa(pdf.output());
+            const aspectRatio = canvas.height / canvas.width;
+            const pdfDocument = new jsPDF({
+                orientation: "portrait",
+                unit: "pt",
+                format: "a4"
+            })
+            const width = pdfDocument.internal.pageSize.width;
+            const height = width * aspectRatio;
+            pdfDocument.addImage(data, 'jpeg', 0, 0, width, height);
+            const base64Pdf = btoa(pdfDocument.output());
             return await sendPdf(base64Pdf)
         })
     }
@@ -102,17 +112,28 @@
                 'Content-Type': "application/json"
             },
             body: JSON.stringify(body)
-
         })
     }
 
+    function interval() {
+        window.location.href = "/users"
+    }
 
 
     document.addEventListener("DOMContentLoaded", async function () {
-        await generatePdf().then(() => window.print());
+        const url = new URL(window.location.href);
+        window.setInterval(interval, 5000)
+        if (url.searchParams.get('printAll')) {
+            await generatePdf();
+            url.searchParams.set('id', <?=$user->getId() + 1?>)
+            window.location.href = url.href;
+        } else {
+           window.print();
+        }
+
     });
 
-    window.addEventListener('afterprint', function (){
+    window.addEventListener('afterprint', function () {
         window.location.href = "/users";
     })
 

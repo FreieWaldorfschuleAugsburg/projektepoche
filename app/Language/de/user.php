@@ -26,6 +26,7 @@ return [
     'buttons' => [
         'create' => 'Benutzer erstellen',
         'import' => 'Benutzer importieren',
+        'downloadCredentials' => 'Alle Zugangsdaten herunterladen',
         'back' => 'Zurück'
     ],
     'edit' => [

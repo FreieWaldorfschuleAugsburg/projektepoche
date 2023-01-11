@@ -11,6 +11,9 @@ class ApiController extends BaseController
 
     public function uploadCredentials()
     {
+
+        log_message(2, "Upload request");
+        helper('filesystem');
         $body = $this->request->getBody();
         $postData = (array) json_decode($body);
 
@@ -18,10 +21,13 @@ class ApiController extends BaseController
         $user = getUserById($userId);
         if ($user && $postData['data']) {
             $username = str_replace(' ', '_', $user->getName());
-            $filePath = WRITEPATH . "credentials/" . str_replace(' ', '_', $user->getName()) . ".pdf";
-            log_message(LOG_CRIT, $filePath);
+            $groupName = $user->getGroup()->getName();
+
+            if(!file_exists("credentials/$groupName")){
+                mkdir("credentials/$groupName", 0777, true);
+            }
             $decoded = base64_decode($postData['data']);
-            file_put_contents("tim.pdf", $decoded);
+            $success =  write_file("credentials/$groupName/$username.pdf", $decoded);
         }
     }
 }

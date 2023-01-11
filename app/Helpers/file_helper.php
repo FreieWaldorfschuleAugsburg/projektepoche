@@ -52,6 +52,21 @@ function getUserUploadsFolder(): string
     return WRITEPATH . "uploads/users/";
 }
 
+function deleteDirectoryRecursively(string $path): void
+{
+    $files = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($path),
+        \RecursiveIteratorIterator::CHILD_FIRST
+    );
+    foreach ($files as $name => $file) {
+        if (!$file->isDir()) {
+            $filePath = $file->getRealPath();
+            unlink($filePath);
+        }
+    }
+}
+
+
 function getFilePath(string $fileName): string
 {
     return getUserUploadsFolder() . $fileName;
