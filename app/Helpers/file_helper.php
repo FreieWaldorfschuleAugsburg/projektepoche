@@ -54,14 +54,17 @@ function getUserUploadsFolder(): string
 
 function deleteDirectoryRecursively(string $path): void
 {
-    $files = new \RecursiveIteratorIterator(
-        new \RecursiveDirectoryIterator($path),
-        \RecursiveIteratorIterator::CHILD_FIRST
-    );
-    foreach ($files as $name => $file) {
-        if (!$file->isDir()) {
-            $filePath = $file->getRealPath();
-            unlink($filePath);
+
+    if (file_exists($path)) {
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($files as $name => $file) {
+            if (!$file->isDir()) {
+                $filePath = $file->getRealPath();
+                unlink($filePath);
+            }
         }
     }
 }

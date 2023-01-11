@@ -77,6 +77,8 @@
             event.preventDefault();
         }
     })
+
+
     window.onload = function () {
         document.querySelectorAll('.delete').forEach(element => {
             element.addEventListener("click", confirmDelete, true)
