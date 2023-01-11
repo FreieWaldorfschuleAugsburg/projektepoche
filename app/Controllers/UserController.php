@@ -130,7 +130,6 @@ class UserController extends BaseController
     {
         $path = realpath('credentials');
         if (file_exists($path)) {
-
             $zipFileName = 'credentials.zip';
             $zip = new \ZipArchive();
             $zip->open($zipFileName, \ZipArchive::CREATE);
