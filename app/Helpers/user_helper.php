@@ -32,6 +32,22 @@ function getUsers(): array
     return $users;
 }
 
+
+function getFirstUser(){
+
+    $users = getUserModel()->findAll();
+    usort($users, fn($a, $b) => $a->getId() - $b->getId());
+    return $users[0];
+}
+
+function getLastUser(){
+    $users = getUserModel()->findAll();
+    usort($users, fn($a, $b) => $a->getId() - $b->getId());
+    return end($users);
+}
+
+
+
 /**
  * @param int $id
  * @return ?User

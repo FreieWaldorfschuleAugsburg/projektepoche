@@ -110,8 +110,13 @@ class UserController extends BaseController
 
         $user = getUserById($id);
         if (is_null($user) && $printAll) {
-            log_message(2, 'printing');
-            return $this->response->redirect(base_url('users/credentials/download'));
+            $lastUserId = getLastUser()->getId();
+            log_message(2, $lastUserId);
+            if ($lastUserId > $id) {
+                $nextId = $id + 1 ;
+                return $this->response->redirect(base_url("user/print?id=$nextId&printAll=true"));
+            }
+            else return $this->response->redirect(base_url('users/credentials/download'));
         }
 
         if (is_null($user)) {
@@ -123,14 +128,15 @@ class UserController extends BaseController
 
     public function printAll()
     {
-        return $this->response->redirect(base_url('user/print?id=1&printAll=true'));
+        $user = getFirstUser();
+        $userId = $user->getId();
+        return $this->response->redirect(base_url("user/print?id=$userId&printAll=true"));
     }
 
     public function downloadCredentials()
     {
         $path = realpath('credentials');
         if (file_exists($path)) {
-
             $zipFileName = 'credentials.zip';
             $zip = new \ZipArchive();
             $zip->open($zipFileName, \ZipArchive::CREATE);
