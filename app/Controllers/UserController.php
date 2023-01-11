@@ -111,7 +111,6 @@ class UserController extends BaseController
         $user = getUserById($id);
         if (is_null($user) && $printAll) {
             $lastUserId = getLastUser()->getId();
-            log_message(2, $lastUserId);
             if ($lastUserId > $id) {
                 $nextId = $id + 1 ;
                 return $this->response->redirect(base_url("user/print?id=$nextId&printAll=true"));
