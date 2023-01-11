@@ -4,6 +4,7 @@ use App\Entities\Project;
 use App\Entities\ProjectLeaderMapping;
 use App\Entities\ProjectMemberMapping;
 use App\Entities\User;
+use App\Exceptions\HasNoProjectsException;
 use App\Models\ProjectLeaderMappingModel;
 use App\Models\ProjectMemberMappingModel;
 use App\Models\ProjectModel;
@@ -154,8 +155,6 @@ function getProjectsForLeader(int $userId): array
     }
 
     $projects = [];
-
-
 
     foreach ($mappings as $mapping) {
         $project = $mapping->getProject();

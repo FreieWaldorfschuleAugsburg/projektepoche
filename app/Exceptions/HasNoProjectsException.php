@@ -1,5 +1,10 @@
 <?php
 
+
+namespace App\Exceptions;
+use Exception;
+use Throwable;
+
 class HasNoProjectsException extends Exception
 {
 

@@ -1,3 +1,8 @@
+<?php
+
+use App\Exceptions\HasNoProjectsException;
+
+?>
 <div>
    <h2> <?=lang('user.leader.headline')?></h2>
     <?php try {

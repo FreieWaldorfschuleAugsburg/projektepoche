@@ -71,6 +71,9 @@ $routes->get('/project/delete', 'ProjectController::delete', ['filter' => AdminF
 $routes->get('/votes', 'VoteController::index', ['filter' => AdminFilter::class]);
 $routes->get('/vote/export', 'VoteController::export', ['filter' => AdminFilter::class]);
 
+
+
+$routes->post('/api/upload', 'ApiController::uploadCredentials');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

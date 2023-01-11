@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Exceptions\HasNoProjectsException;
 use CodeIgniter\Entity\Entity;
 
 class User extends Entity
@@ -100,7 +101,7 @@ class User extends Entity
         try {
             $projects = getProjectsForLeader($this->getId());
             return true;
-        } catch (\HasNoProjectsException $exception) {
+        } catch (HasNoProjectsException $exception) {
             return false;
         }
     }
@@ -110,7 +111,7 @@ class User extends Entity
     {
         try {
             $projects = getProjectsForLeader($this->getId());
-        } catch (\HasNoProjectsException $exception) {
+        } catch (HasNoProjectsException $exception) {
             return null;
         }
     }
