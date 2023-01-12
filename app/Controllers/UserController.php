@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use CodeIgniter\HTTP\RedirectResponse;
 use GuzzleHttp\Exception\GuzzleException;
 use function App\Helpers\deleteDirectoryRecursively;
+use function App\Helpers\downloadFile;
 use function App\Helpers\getFileName;
 use function App\Helpers\getFilePath;
 use function App\Helpers\getImportKeys;
@@ -122,7 +123,7 @@ class UserController extends BaseController
             return redirect('users')->with('error', 'user.error.invalidUser');
         }
 
-        return $this->render('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user)], false, false);
+        return $this->render('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user->getName(), $user->getPassword())], false, false);
     }
 
     public function printAll()
@@ -132,8 +133,14 @@ class UserController extends BaseController
         return $this->response->redirect(base_url("user/print?id=$userId&printAll=true"));
     }
 
+    public function printAllBetter(){
+        return $this->render('user/UserPrintAllView');
+    }
+
+
     public function downloadCredentials()
     {
+        helper('file');
         $path = realpath('credentials');
         if (file_exists($path)) {
             $zipFileName = 'credentials.zip';
@@ -151,10 +158,9 @@ class UserController extends BaseController
                 }
             }
             $zip->close();
-            header("Content-disposition: attachment; filename=$zipFileName");
-            header('Content-type: application/zip');
-            readfile($zipFileName);
-            unlink($zipFileName);
+            set_time_limit(0);
+            ini_set('memory_limit', '512M');
+            downloadFile($zipFileName);
         } else  return redirect('users');
     }
 

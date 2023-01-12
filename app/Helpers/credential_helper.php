@@ -4,14 +4,16 @@ use \App\Entities\User;
 use chillerlan\QRCode\QRCode;
 use Dompdf\Dompdf;
 
-function generateQrCode(User $user)
+function generateQrCode(string $username, string $password)
 {
-    $token = generateToken($user);
+    $token = generateToken($username, $password);
     $url = base_url("code?code=$token");
     $qr = new QRCode();
     return $qr->render($url);
-
 }
+
+
+
 
 /**
  * @throws Exception
@@ -32,7 +34,7 @@ function checkCode(string $code): object
 
 function printCredential(User $user): void
 {
-    $html = view('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user)]);
+    $html = view('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user->getName(), $user->getPassword())]);
     $domPdf = new Dompdf();
     $domPdf->loadHtml($html);
     $domPdf->render();
@@ -42,9 +44,9 @@ function printCredential(User $user): void
 }
 
 
-function generateToken(User $user): bool|string
+function generateToken(string $username, string $password): bool|string
 {
-    $plain = json_encode(['name' => $user->getName(), 'password' => $user->getPassword()]);
+    $plain = json_encode(['name' => $username, 'password' =>$password]);
     return urlencode(encryptData($plain));
 }
 
@@ -57,3 +59,17 @@ function decryptData(string $data): bool|string
 {
     return openssl_decrypt($data, 'aes-256-cbc', env('app.encryption.key'), 0, env('app.encryption.iv'));
 }
+
+/**
+ * @throws Exception
+ */
+function validateApiKey(string $keyToValidate): void
+{
+    $apiKey = env('app.internal.key');
+
+    if($keyToValidate !== $apiKey){
+        throw new Exception('Invalid Api Key');
+    }
+
+}
+

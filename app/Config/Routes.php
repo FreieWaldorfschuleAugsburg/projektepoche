@@ -4,6 +4,7 @@ namespace Config;
 
 // Create a new instance of our RouteCollection class.
 use App\Filters\AdminFilter;
+use App\Filters\ApiFilter;
 use App\Filters\LoggedInFilter;
 
 $routes = Services::routes();
@@ -53,11 +54,16 @@ $routes->post('/user/create', 'UserController::handleCreate', ['filter' => Admin
 $routes->get('/user/edit', 'UserController::edit', ['filter' => AdminFilter::class]);
 $routes->post('/user/edit', 'UserController::handleEdit', ['filter' => AdminFilter::class]);
 $routes->get('/user/print', 'UserController::print', ['filter' => AdminFilter::class]);
-$routes->get('/users/print/all', 'UserController::printAll', ['filter' => AdminFilter::class]);
+$routes->get('/users/print/all', 'UserController::printAllBetter', ['filter' => AdminFilter::class]);
 $routes->get('/users/credentials/download', 'UserController::downloadCredentials', ['filter' => AdminFilter::class]);
 $routes->get('/user/delete', 'UserController::delete', ['filter' => AdminFilter::class]);
 $routes->get('user/import', 'UserController::import', ['filter' => AdminFilter::class]);
 $routes->post('user/import', 'UserController::handleImport', ['filter' => AdminFilter::class]);
+
+$routes->get('users/api/all', 'ApiController::allUsers' ,['filter' => AdminFilter::class]);
+$routes->post('users/api/all/upload/pdf', 'ApiController::uploadAllCredentials' ,['filter' => AdminFilter::class]);
+$routes->post('users/api/upload/pdf', 'ApiController::uploadCredentials' ,['filter' => AdminFilter::class]);
+$routes->post('users/api/generateQr', 'ApiController::renderQr' ,['filter' => AdminFilter::class]);
 
 $routes->get('code', 'UserController::code');
 $routes->get('leading', 'ProjectController::leading', ['filter' => LoggedInFilter::class]);

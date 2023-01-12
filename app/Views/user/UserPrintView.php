@@ -97,6 +97,7 @@
         return {userId, userName}
     }
 
+
     async function sendPdf(data) {
         const {userId, userName} = getUserData();
         const body = {
@@ -115,14 +116,8 @@
         })
     }
 
-    function interval() {
-        console.log("Lolz")
-    }
-
-
     document.addEventListener("DOMContentLoaded", async function () {
         const url = new URL(window.location.href);
-        window.setInterval(interval, 5000)
         if (url.searchParams.get('printAll')) {
             await generatePdf();
             url.searchParams.set('id', <?=$user->getId() + 1?>)
@@ -133,9 +128,9 @@
 
     });
 
-    window.addEventListener('afterprint', function () {
-        window.location.href = "/users";
-    })
+    // window.addEventListener('afterprint', function () {
+    //     window.location.href = "/users";
+    // })
 
 
 </script>
