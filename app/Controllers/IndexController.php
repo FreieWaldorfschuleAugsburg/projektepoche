@@ -10,8 +10,8 @@ class IndexController extends BaseController
     {
         if ($user = getCurrentUser()) {
             if ($user->hasVoted()) {
-                [$slotVotes, $globalVotes] = getSlotVotesAndGlobalVotesByUserId($user->getId());
-                return $this->render('vote/VoteView', ['user' => $user, 'slots' => getSlots(), 'template' => getVoteTemplate(), 'slotVotes' => $slotVotes, 'globalVotes' => $globalVotes]);
+                $votes = getVotesByUserId($user->getId());
+                return $this->render('vote/VoteView', ['user' => $user, 'slots' => getSlots(), 'template' => getVoteTemplate(), 'votes' => $votes]);
             }
             return $this->render('vote/VoteView', ['user' => $user, 'slots' => getSlots(), 'template' => getVoteTemplate()]);
         }

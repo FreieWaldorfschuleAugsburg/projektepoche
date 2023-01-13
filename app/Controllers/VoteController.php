@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use CodeIgniter\HTTP\RedirectResponse;
-use Shuchkin\SimpleXLSXGen;
 use function App\Helpers\getSlots;
 
 class VoteController extends BaseController
@@ -11,85 +10,81 @@ class VoteController extends BaseController
 
     public function index(): string
     {
-        return $this->render('vote/VotesView');
+        return $this->render('vote/VotingView');
     }
 
     public function handleVote(): RedirectResponse
     {
-        $slotVotes = $this->request->getPost('slotVotes');
-        $globalVotes = $this->request->getPost('globalVotes');
+        $votes = $this->request->getPost('votes');
 
-        if (!isset($slotVotes)) {
-            return $this->redirectWithError($slotVotes, $globalVotes, 'vote.voting.error.notVoted');
+        if (!isset($votes)) {
+            return $this->redirectWithError($votes, 'vote.voting.error.notVoted');
         }
 
-        $templateFile = file_get_contents(VOTE_TEMPLATE_CONFIG);
-        $template = json_decode($templateFile);
-
+        $template = getVoteTemplate();
         $slots = getSlots();
-        $allProjects = [];
+
+        $voteId = 0;
         foreach ($slots as $slot) {
-            // Verify if votes for current slot exist
-            if (!array_key_exists($slot->getId(), $slotVotes)) {
-                return $this->redirectWithError($slotVotes, $globalVotes, 'vote.voting.error.slotMissing', $slot->getName());
-            }
-
-            $votes = $slotVotes[$slot->getId()];
-
-            foreach ($template->slotVotes as $vote) {
-                if (!array_key_exists($vote->id, $votes)) {
-                    return $this->redirectWithError($slotVotes, $globalVotes, 'vote.voting.error.voteMissing', $slot->getName(), $vote->name->{$this->request->getLocale()});
+            $slotVotes = [];
+            foreach ($template->votes as $vote) {
+                if (!array_key_exists($voteId, $votes)) {
+                    return $this->redirectWithError($votes, 'vote.voting.error.voteMissing', $slot->getName(), $vote->name->{$this->request->getLocale()});
                 }
+
+                $slotVotes[] = $votes[$voteId];
+                $voteId++;
             }
 
             // Verify that no duplicates exist
-            if (count(array_unique($votes)) < count($votes)) {
-                return $this->redirectWithError($slotVotes, $globalVotes, 'vote.voting.error.duplicateProject', $slot->getName());
-            }
-
-            $allProjects = array_merge($allProjects, $votes);
-        }
-
-        if (!isset($globalVotes)) {
-            return $this->redirectWithError($slotVotes, $globalVotes, 'vote.voting.error.notGlobalVoted');
-        }
-
-        // Verify that no duplicates exist
-        if (count(array_unique($globalVotes)) < count($globalVotes)) {
-            return $this->redirectWithError($slotVotes, $globalVotes, 'vote.voting.error.globalDuplicateProject');
-        }
-
-        // Verify that global projects are also slot-voted
-        foreach ($globalVotes as $globalProject) {
-            if (!in_array($globalProject, $allProjects)) {
-                return $this->redirectWithError($slotVotes, $globalVotes, 'vote.voting.error.notSlotVoted', $globalProject, getProjectById($globalProject)->getName());
+            if (count(array_unique($slotVotes)) < count($slotVotes)) {
+                return $this->redirectWithError($votes, 'vote.voting.error.duplicateProject', $slot->getName());
             }
         }
 
         $userId = getCurrentUser()->getId();
-        $voteId = 1;
 
-        // Insert slot votes
-        foreach ($slots as $slot) {
-            $projects = $slotVotes[$slot->getId()];
-            foreach ($projects as $projectId) {
-                insertVote($userId, $voteId, $projectId);
-                $voteId++;
-            }
-        }
-
-        // Insert global votes
-        foreach ($globalVotes as $projectId) {
-            insertVote($userId, $voteId, $projectId);
+        // Insert votes
+        $voteId = 0;
+        foreach ($votes as $vote) {
+            insertVote($userId, $voteId, $vote);
             $voteId++;
         }
 
         return redirect('/')->with('success', 'vote.voting.success');
     }
 
-    public function redirectWithError($slotVotes, $globalVotes, $error, ...$data): RedirectResponse
+    public function handleStateChange(): RedirectResponse
     {
-        $response = redirect('/')->with('slotVotes', $slotVotes)->with('globalVotes', $globalVotes)->with('error', $error);
+        $stateId = $this->request->getGet('id');
+        $state = \VoteState::from($stateId);
+        setVoteState($state);
+
+        /**
+         * TODO handle state change
+         *
+         * on OPEN: delete all votes
+         * on CLOSED: add all users to the frist slotVote project
+         * on PUBLIC: only allow if conflicts are solved
+         */
+
+        return redirect('voting');
+    }
+
+    public function handleReset(): RedirectResponse
+    {
+        setVoteState(\VoteState::CLOSED);
+
+        /**
+         * TODO handle reset
+         */
+
+        return redirect('voting');
+    }
+
+    public function redirectWithError($votes, $error, ...$data): RedirectResponse
+    {
+        $response = redirect('/')->with('votes', $votes)->with('error', $error);
         if ($data) {
             $response->with('data', $data);
         }

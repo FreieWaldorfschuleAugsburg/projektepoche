@@ -19,13 +19,6 @@ function getVoteState(): VoteState
 
 function setVoteState(VoteState $state)
 {
-    /**
-     * TODO handle state change
-     *
-     * on OPEN: delete all votes
-     * on CLOSED: add all users to the frist slotVote project
-     * on PUBLIC: only allow if conflicts are solved
-     */
     setSettingsValue("voteState", $state->value);
 }
 
@@ -45,32 +38,6 @@ function insertVote(int $userId, int $voteId, int $projectId)
     $vote->setVoteId($voteId);
     $vote->setProjectId($projectId);
     return getVoteModel()->insert($vote);
-}
-
-function getSlotVotesAndGlobalVotesByUserId(int $userId): array
-{
-    $votes = getVotesByUserId($userId);
-    $slotVotes = [];
-    $globalVotes = [];
-
-    $template = getVoteTemplate();
-    $votesPerSlot = count($template->slotVotes);
-    $slotCount = count(getSlots());
-    $globalVoteStartIndex = ($slotCount * $votesPerSlot) + 1;
-
-    foreach ($votes as $vote) {
-        $voteIndex = $vote->getVoteId();
-        if ($voteIndex >= $globalVoteStartIndex) {
-            $voteId = abs($slotCount * $votesPerSlot - $voteIndex);
-            $globalVotes[$voteId] = getProjectById($vote->getProjectId());
-        } else {
-            $slotId = ceil($voteIndex / $votesPerSlot);
-            $voteId = abs(($slotId - 1) * $votesPerSlot - $voteIndex);
-            $slotVotes[$slotId][$voteId] = getProjectById($vote->getProjectId());
-        }
-    }
-
-    return [$slotVotes, $globalVotes];
 }
 
 /**

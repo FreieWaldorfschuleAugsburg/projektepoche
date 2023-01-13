@@ -1,10 +1,16 @@
 <?php
 
 return [
-    'headline' => 'Stimmergebnisse',
+    'headline' => 'Wahl',
     'buttons' => [
         'showProjects' => 'Projekte anzeigen',
-        'export' => 'Stimmergebnisse exportieren'
+        'export' => 'Stimmergebnisse exportieren',
+        'state' => [
+            'close' => 'Wahl beenden',
+            'open' => 'Wahl öffnen',
+            'public' => 'Ergebnis veröffentlichen',
+        ],
+        'reset' => 'Daten zurücksetzen'
     ],
     'fields' => [
         'name' => 'Name'
@@ -22,12 +28,8 @@ return [
         ],
         'error' => [
             'notVoted' => 'Es wurde nicht gewählt.',
-            'slotMissing' => 'Es wurden keine Angaben für <b>%s</b> gemacht.',
             'voteMissing' => 'Es wurden keine Angaben für <b>%s / %s</b> gemacht.',
             'duplicateProject' => 'Projekt in <b>%s</b> doppelt angegeben.',
-            'notGlobalVoted' => 'Es wurde keine Priorisierung angegeben.',
-            'globalDuplicateProject' => 'Projekt in Priorisierung doppelt angegeben.',
-            'notSlotVoted' => 'Projekt <b>%s: %s</b> in Priorisierung angegeben, aber nicht gewählt.'
         ],
         'success' => 'Wahl erfolgreich!',
         'submit' => 'Wahl absenden',

@@ -9,9 +9,22 @@ use function App\Helpers\getSlots;
             <div class="card-header d-flex justify-content-between align-items-center">
                 <b><?= lang('vote.headline') ?></b>
                 <div class="justify-content-between align-items-center">
-                    <a class="btn btn-primary btn-sm"
-                       href="<?= base_url('vote/export') ?>"><i
-                                class="fas fa-download"></i> <?= lang('vote.buttons.export') ?></a>
+                    <?php if (getVoteState() == VoteState::OPEN): ?>
+                        <a class="btn btn-danger btn-sm"
+                           href="<?= base_url('voting/state') . '?id=2' ?>"><i
+                                    class="fas fa-lock"></i> <?= lang('vote.buttons.state.close') ?></a>
+                    <?php elseif (getVoteState() == VoteState::CLOSED): ?>
+                        <a class="btn btn-success btn-sm"
+                           href="<?= base_url('voting/state') . '?id=1' ?>"><i
+                                    class="fas fa-lock-open"></i> <?= lang('vote.buttons.state.open') ?></a>
+                        <a class="btn btn-primary btn-sm"
+                           href="<?= base_url('voting/state') . '?id=3' ?>"><i
+                                    class="fas fa-bullhorn"></i> <?= lang('vote.buttons.state.public') ?></a>
+                    <?php elseif (getVoteState() == VoteState::PUBLIC): ?>
+                        <a class="btn btn-primary btn-sm"
+                           href="<?= base_url('voting/reset') ?>"><i
+                                    class="fas fa-bullhorn"></i> <?= lang('vote.buttons.reset') ?></a>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="card-body table-responsive">
@@ -22,15 +35,13 @@ use function App\Helpers\getSlots;
                     <tr>
                         <th data-field="name" data-sortable="true"
                             scope="col"><?= lang('vote.fields.name') ?></th>
+                        <?php $voteId = 1; ?>
                         <?php foreach (getSlots() as $slot): ?>
-                            <?php foreach (getVoteTemplate()->slotVotes as $vote): ?>
-                                <th data-field="slotVotes-<?= $slot->getId() ?>-<?= $vote->id ?>" data-sortable="true"
+                            <?php foreach (getVoteTemplate()->votes as $vote): ?>
+                                <th data-field="votes-<?= $voteId ?>" data-sortable="true"
                                     scope="col"><?= $slot->getName() . '/' . $vote->name->{service('request')->getLocale()} ?></th>
+                                <?php $voteId++; ?>
                             <?php endforeach; ?>
-                        <?php endforeach; ?>
-                        <?php foreach (getVoteTemplate()->globalVotes as $vote): ?>
-                            <th data-field="globalVotes-<?= $vote->id ?>" data-sortable="true"
-                                scope="col"><?= $vote->name->{service('request')->getLocale()} ?></th>
                         <?php endforeach; ?>
                     </tr>
                     </thead>

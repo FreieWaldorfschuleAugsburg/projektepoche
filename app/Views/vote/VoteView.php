@@ -26,22 +26,42 @@
                 <div class="card-body">
                     <p><?= lang('vote.voting.slot.details') ?></p>
                     <div class="row gx-4 mt-3 justify-content-center">
-                        <?= view('components/vote/SlotsWithProjectComponent', ['slots' => $slots, 'user' => $user]) ?>
-                    </div>
-                    <div class="row gx-4 mt-3 justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <b><?= lang('vote.voting.global.headline') ?></b>
-                                </div>
-                                <div class="card-body">
-                                    <p><?= lang('vote.voting.global.details') ?></p>
-                                    <?php foreach ($template->globalVotes as $vote): ?>
-                                        <?= view('components/vote/GlobalVoteComponent', ['globalVotes' => $template->$globalVotes, 'vote' => $vote]) ?>
-                                    <?php endforeach; ?>
+                        <?php $voteId = 0; ?>
+                        <?php foreach ($slots as $slot): ?>
+                            <div class="col-lg-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <b><?= $slot->getName() ?>: <?= $slot->getStartTime() ?>
+                                            - <?= $slot->getEndTime() ?> <?= lang('project.view.clock') ?></b>
+                                    </div>
+                                    <div class="card-body">
+                                        <?php if (isset($template->blockedSlots->{$user->getGroupId()}) && in_array($slot->getId(), $template->blockedSlots->{$user->getGroupId()})): ?>
+                                            <div class="alert alert-danger mb-3">
+                                                <b><?= lang('vote.voting.blocked') ?></b>
+                                            </div>
+                                        <?php else: ?>
+                                            <?php foreach ($template->votes as $vote): ?>
+                                                <?php $project = getProjectById($votes[$voteId]->getProjectId()); ?>
+                                                <div class="mb-3">
+                                                    <label for="vote-<?= $voteId ?>"
+                                                           class="form-label">
+                                                        <b><?= $vote->name->{service('request')->getLocale()} ?></b>
+                                                    </label>
+                                                    <select id="vote-<?= $voteId ?>"
+                                                            class="form-select" disabled>
+                                                        <option selected>
+                                                            <?= $project->getId() ?>
+                                                            : <?= $project->getName() ?>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <?php $voteId++; ?>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
 
                     <div class="row gx-4 mt-3 justify-content-center">
@@ -77,6 +97,7 @@
                         <form action="<?= base_url('/vote') ?>" method="POST">
                             <p><?= lang('vote.voting.slot.details') ?></p>
                             <div class="row gx-4 mt-3 justify-content-center">
+                                <?php $voteId = 0; ?>
                                 <?php foreach ($slots as $slot): ?>
                                     <div class="col-lg-4 mb-3">
                                         <div class="card">
@@ -90,20 +111,20 @@
                                                         <b><?= lang('vote.voting.blocked') ?></b>
                                                     </div>
                                                 <?php else: ?>
-                                                    <?php foreach ($template->slotVotes as $vote): ?>
+                                                    <?php foreach ($template->votes as $vote): ?>
                                                         <div class="mb-3">
-                                                            <label for="slotVote-<?= $slot->getId() ?>-<?= $vote->id ?>"
+                                                            <label for="vote-<?= $voteId ?>"
                                                                    class="form-label">
                                                                 <b><?= $vote->name->{service('request')->getLocale()} ?></b>
                                                             </label>
-                                                            <select id="slotVote-<?= $slot->getId() ?>-<?= $vote->id ?>"
-                                                                    name="slotVotes[<?= $slot->getId() ?>][<?= $vote->id ?>]"
+                                                            <select id="vote-<?= $voteId ?>"
+                                                                    name="votes[<?= $voteId ?>]"
                                                                     class="form-select">
                                                                 <option selected
                                                                         disabled><?= lang('vote.voting.select') ?></option>
                                                                 <?php foreach (getProjectsBySlotId($slot->getId()) as $project): ?>
-                                                                    <?php if ($slotVotes = session('slotVotes')): ?>
-                                                                        <?php if (isset($slotVotes[$slot->getId()]) && isset($slotVotes[$slot->getId()][$vote->id]) && $project->getId() == $slotVotes[$slot->getId()][$vote->id]): ?>
+                                                                    <?php if ($votes = session('votes')): ?>
+                                                                        <?php if (isset($votes[$voteId]) && $project->getId() == $votes[$voteId]): ?>
                                                                             <option value="<?= $project->getId() ?>"
                                                                                     selected>
                                                                                 <?= $project->getId() ?>
@@ -124,58 +145,13 @@
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
+                                                        <?php $voteId++; ?>
                                                     <?php endforeach; ?>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
-                            </div>
-
-                            <div class="row gx-4 mt-3 justify-content-center">
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <b><?= lang('vote.voting.global.headline') ?></b>
-                                        </div>
-                                        <div class="card-body">
-                                            <p><?= lang('vote.voting.global.details') ?></p>
-                                            <?php foreach ($template->globalVotes as $vote): ?>
-                                                <div class="mb-3">
-                                                    <label for="globalVote-<?= $vote->id ?>" class="form-label">
-                                                        <b><?= $vote->name->{service('request')->getLocale()} ?></b>
-                                                    </label>
-                                                    <select id="globalVote-<?= $vote->id ?>"
-                                                            name="globalVotes[<?= $vote->id ?>]" class="form-select">
-                                                        <option selected
-                                                                disabled><?= lang('vote.voting.select') ?></option>
-                                                        <?php foreach (getProjects() as $project): ?>
-                                                            <?php if ($globalVotes = session('globalVotes')): ?>
-                                                                <?php if (isset($globalVotes[$vote->id]) && $project->getId() == $globalVotes[$vote->id]): ?>
-                                                                    <option value="<?= $project->getId() ?>"
-                                                                            selected>
-                                                                        <?= $project->getId() ?>
-                                                                        : <?= $project->getName() ?>
-                                                                    </option>
-                                                                <?php else: ?>
-                                                                    <option value="<?= $project->getId() ?>">
-                                                                        <?= $project->getId() ?>
-                                                                        : <?= $project->getName() ?>
-                                                                    </option>
-                                                                <?php endif; ?>
-                                                            <?php else: ?>
-                                                                <option value="<?= $project->getId() ?>">
-                                                                    <?= $project->getId() ?>
-                                                                    : <?= $project->getName() ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="row gx-4 mt-3 justify-content-center">

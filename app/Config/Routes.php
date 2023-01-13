@@ -46,8 +46,6 @@ $routes->get('/login', 'AuthenticationController::login');
 $routes->post('/login', 'AuthenticationController::handleCredentials');
 $routes->get('/logout', 'AuthenticationController::logout');
 
-$routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter::class]);
-
 $routes->get('/users', 'UserController::index', ['filter' => AdminFilter::class]);
 $routes->get('/user/create', 'UserController::create', ['filter' => AdminFilter::class]);
 $routes->post('/user/create', 'UserController::handleCreate', ['filter' => AdminFilter::class]);
@@ -68,7 +66,6 @@ $routes->post('users/api/generateQr', 'ApiController::renderQr' ,['filter' => Ad
 $routes->get('code', 'UserController::code');
 $routes->get('leading', 'ProjectController::leading', ['filter' => LoggedInFilter::class]);
 
-
 $routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);
 $routes->get('/project/create', 'ProjectController::create', ['filter' => AdminFilter::class]);
 $routes->post('/project/create', 'ProjectController::handleCreate', ['filter' => AdminFilter::class]);
@@ -76,10 +73,12 @@ $routes->get('/project/edit', 'ProjectController::edit', ['filter' => AdminFilte
 $routes->post('/project/edit', 'ProjectController::handleEdit', ['filter' => AdminFilter::class]);
 $routes->get('/project/delete', 'ProjectController::delete', ['filter' => AdminFilter::class]);
 
-$routes->get('/votes', 'VoteController::index', ['filter' => AdminFilter::class]);
-$routes->get('/vote/export', 'VoteController::export', ['filter' => AdminFilter::class]);
+$routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter::class]);
 
-
+$routes->get('/voting', 'VoteController::index', ['filter' => AdminFilter::class]);
+$routes->get('/voting/state', 'VoteController::handleStateChange', ['filter' => AdminFilter::class]);
+$routes->get('/voting/reset', 'VoteController::handleReset', ['filter' => AdminFilter::class]);
+$routes->get('/conflicts', 'ConflictController::index', ['filter' => AdminFilter::class]);
 
 $routes->post('/api/upload', 'ApiController::uploadCredentials');
 /*

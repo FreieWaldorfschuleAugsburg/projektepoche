@@ -10,7 +10,9 @@ use App\Models\SlotModel;
  */
 function getSlots(): array
 {
-    return getSlotModel()->findAll();
+    $slots = getSlotModel()->findAll();
+    usort($slots, fn($a, $b) => $a->getId() - $b->getId());
+    return $slots;
 }
 
 /**
