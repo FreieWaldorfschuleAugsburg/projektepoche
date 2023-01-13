@@ -44,7 +44,6 @@ class ApiController extends BaseController
         $password = $data['password'];
         $qrCode = generateQrCode($username, $password);
 
-
         return Services::response()->setJSON([
             'imageurl' => $qrCode
         ])->setStatusCode(200);

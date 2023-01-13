@@ -23,7 +23,7 @@
 </div>
 
 
-<main id="print" data-bs-theme="light">
+<main id="print" data-bs-theme="light" style="opacity: 0;">
     <div class="row gx-4 justify-content-center">
         <div class="col-lg-10">
             <div class="text-center">
@@ -89,54 +89,12 @@
 </main>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-
-
-
-    let startTime = "";
-    async function generatePdf(userId) {
-        window.jsPDF = window.jspdf.jsPDF;
-        const canvas = await generateCanvas();
-        const base64Pdf = await generatePdfFromCanvas(canvas);
-        return {
-            data: base64Pdf,
-            userId: userId
-        }
-    }
-
-    async function generateCanvas() {
-        const element = document.getElementById('print');
-        return await html2canvas(element, {
-            onclone: function (clone) {
-                const element = clone.getElementById('print');
-                element.style.opacity = "1";
-            },
-            useCORS: true,
-            scale: 5,
-            windowWidth: 1000,
-            windowHeight: 1200
-        })
-    }
-
-    async function generatePdfFromCanvas(canvas) {
-        const data = canvas.toDataURL('image/jpeg');
-        const aspectRatio = canvas.height / canvas.width;
-        const pdfDocument = new jsPDF({
-            orientation: "portrait",
-            unit: "pt",
-            format: "a4"
-        })
-        const width = pdfDocument.internal.pageSize.width;
-        const height = width * aspectRatio;
-        pdfDocument.addImage(data, 'jpeg', 0, 0, width, height);
-        return btoa(pdfDocument.output());
-    }
-
+<script src="../../../assets/js/pdf.js" type="module"></script>
+<script src="../../../assets/js/methods.js" type="module"></script>
+<script type="module">
+    import {UserCredentials} from "../../../assets/js/pdf";
 
     async function sendPdf(data) {
-        const body = {
-            users: data,
-        }
         const url = '<?=base_url('users/api/upload/pdf')?>'
         return await fetch(url, {
             method: "POST",
@@ -159,21 +117,19 @@
         })
     }
 
-
     async function printAndPostCredentials() {
-        startTime = Date.now();
-        const element = document.getElementById('print');
-        element.style.opacity = "0";
         const users = await fetchUsers();
         const smallUsers = users.filter(user => {
             return user.id < 110;
         })
-        const userData = await Promise.all(users.map(user => {
-                return printCredentials(user)
-        }))
-       await Promise.all(userData.map(async data => {
-           return await sendPdf(data)
-       }))
+        const pdfPromises = smallUsers.map(user => {
+            const credentials = new UserCredentials(user, '<?=base_url()?>')
+            return credentials.generateCredentialPdf()
+        })
+        console.log("PDF Promises generated", pdfPromises)
+        const userData = await Promise.all(pdfPromises);
+        console.log("User Data generated", userData);
+
 
     }
 
@@ -201,16 +157,6 @@
         ).then(response => response.json())
     }
 
-    async function printCredentials(user) {
-        const qrCode = await fetchQrCode(user.name, user.password).then(res => res.imageurl)
-        const nameElement = document.getElementById('username');
-        const passwordElement = document.getElementById('password');
-        const qrCodeElement = document.getElementById('qr');
-        nameElement.value = user.name;
-        passwordElement.value = user.password;
-        qrCodeElement.src = qrCode;
-        return await generatePdf(user.id)
-    }
 
     document.addEventListener("DOMContentLoaded", async function () {
         await printAndPostCredentials()
