@@ -136,4 +136,9 @@ class Project extends Entity
         }
         return $result;
     }
+
+    public function hasConflict(): bool
+    {
+        return count($this->getMembers()) > $this->getMaxMembers();
+    }
 }

@@ -23,7 +23,7 @@
                        href="<?= base_url('user/import') ?>"><i
                                 class="fas fa-upload"></i> <?= lang('user.buttons.import') ?></a>
 
-                    <a class="btn btn-primary btn-sm"
+                    <a class="btn btn-success btn-sm"
                        href="<?= base_url('users/print/all') ?>"><i
                                 class="fas fa-download"></i> <?= lang('user.buttons.downloadCredentials') ?></a>
                 </div>
@@ -51,7 +51,7 @@
                             <td><?= $user->hasVoted() ? lang('user.fields.vote.value.yes') : lang('user.fields.vote.value.no') ?></td>
                             <td>
                                 <div class="btn-group d-flex gap-2" role="group">
-                                    <a class="btn btn-primary btn-sm"
+                                    <a class="btn btn-success btn-sm"
                                        href="<?= base_url('user/print') . '?id=' . $user->getId() ?>"><i
                                                 class="fas fa-print"></i> <?= lang('user.fields.actions.print') ?></a>
                                     <a class="btn btn-primary btn-sm"

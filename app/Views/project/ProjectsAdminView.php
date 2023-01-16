@@ -19,7 +19,7 @@
                         <th data-field="room" data-sortable="true"><?= lang('project.fields.room') ?></th>
                         <th data-field="leaders" data-sortable="true"><?= lang('project.fields.leaders') ?></th>
                         <th data-field="members" data-sortable="true"><?= lang('project.fields.members') ?></th>
-                        <th data-field="description"><?= lang('project.fields.description') ?></th>
+                        <th data-field="conflict" data-sortable="true"><?= lang('project.fields.conflict.title') ?></th>
                         <th data-field="action"><?= lang('project.fields.actions.title') ?></th>
                     </tr>
                     </thead>
@@ -33,16 +33,23 @@
                             <td><?= $project->getMaxMembers() ?></td>
                             <td><?= $project->getRoom() ?></td>
                             <td><?= $project->getLeaderShortNameString() ?></td>
-                            <td><?= $project->getMemberNameString() ?></td>
-                            <td><?= $project->getDescription() ?></td>
+                            <td><?= count($project->getMembers()) ?></td>
+                            <td><?= $project->hasConflict() ? lang('project.fields.conflict.yes') : lang('project.fields.conflict.no') ?></td>
                             <td>
-                                <div class="btn-group" role="group">
+                                <div class="btn-group d-flex gap-2">
+                                    <?php if ($project->hasConflict()): ?>
+                                        <a class="btn btn-success btn-sm"
+                                           href="<?= base_url('project/redistribute') . '?id=' . $project->getId() ?>"><i
+                                                    class="fas fa-arrows-split-up-and-left"></i> <?= lang('project.fields.actions.redistribute') ?>
+                                        </a>
+                                    <?php endif; ?>
                                     <a class="btn btn-primary btn-sm"
                                        href="<?= base_url('project/edit') . '?id=' . $project->getId() ?>"><i
                                                 class="fas fa-pen"></i> <?= lang('project.fields.actions.edit') ?></a>
                                     <a class="btn btn-danger btn-sm delete"
                                        href="<?= base_url('project/delete') . '?id=' . $project->getId() ?>"><i
-                                                class="fas fa-trash"></i> <?= lang('project.fields.actions.delete') ?></a>
+                                                class="fas fa-trash"></i> <?= lang('project.fields.actions.delete') ?>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

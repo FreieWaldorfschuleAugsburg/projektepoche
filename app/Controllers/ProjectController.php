@@ -67,6 +67,21 @@ class ProjectController extends BaseController
         return redirect('projects')->with('success', 'project.success.projectCreated');
     }
 
+    public function redistribute(): string|RedirectResponse
+    {
+        $id = $this->request->getGet('id');
+        if (!isset($id)) {
+            return redirect('projects')->with('error', 'project.error.parameterMissing');
+        }
+
+        $project = getProjectById($id);
+        if (is_null($project)) {
+            return redirect('projects')->with('error', 'project.error.invalidProject');
+        }
+
+        return $this->render('project/ProjectRedistributeView', ['project' => $project]);
+    }
+
     public function edit(): string|RedirectResponse
     {
         $id = $this->request->getGet('id');

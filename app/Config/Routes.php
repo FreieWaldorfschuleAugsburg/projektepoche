@@ -58,10 +58,10 @@ $routes->get('/user/delete', 'UserController::delete', ['filter' => AdminFilter:
 $routes->get('user/import', 'UserController::import', ['filter' => AdminFilter::class]);
 $routes->post('user/import', 'UserController::handleImport', ['filter' => AdminFilter::class]);
 
-$routes->get('users/api/all', 'ApiController::allUsers' ,['filter' => AdminFilter::class]);
-$routes->post('users/api/all/upload/pdf', 'ApiController::uploadAllCredentials' ,['filter' => AdminFilter::class]);
-$routes->post('users/api/upload/pdf', 'ApiController::uploadCredentials' ,['filter' => AdminFilter::class]);
-$routes->post('users/api/generateQr', 'ApiController::renderQr' ,['filter' => AdminFilter::class]);
+$routes->get('users/api/all', 'ApiController::allUsers', ['filter' => AdminFilter::class]);
+$routes->post('users/api/all/upload/pdf', 'ApiController::uploadAllCredentials', ['filter' => AdminFilter::class]);
+$routes->post('users/api/upload/pdf', 'ApiController::uploadCredentials', ['filter' => AdminFilter::class]);
+$routes->post('users/api/generateQr', 'ApiController::renderQr', ['filter' => AdminFilter::class]);
 
 $routes->get('code', 'UserController::code');
 $routes->get('leading', 'ProjectController::leading', ['filter' => LoggedInFilter::class]);
@@ -69,6 +69,7 @@ $routes->get('leading', 'ProjectController::leading', ['filter' => LoggedInFilte
 $routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);
 $routes->get('/project/create', 'ProjectController::create', ['filter' => AdminFilter::class]);
 $routes->post('/project/create', 'ProjectController::handleCreate', ['filter' => AdminFilter::class]);
+$routes->get('/project/redistribute', 'ProjectController::redistribute', ['filter' => AdminFilter::class]);
 $routes->get('/project/edit', 'ProjectController::edit', ['filter' => AdminFilter::class]);
 $routes->post('/project/edit', 'ProjectController::handleEdit', ['filter' => AdminFilter::class]);
 $routes->get('/project/delete', 'ProjectController::delete', ['filter' => AdminFilter::class]);
@@ -78,7 +79,6 @@ $routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter
 $routes->get('/voting', 'VoteController::index', ['filter' => AdminFilter::class]);
 $routes->get('/voting/state', 'VoteController::handleStateChange', ['filter' => AdminFilter::class]);
 $routes->get('/voting/reset', 'VoteController::handleReset', ['filter' => AdminFilter::class]);
-$routes->get('/conflicts', 'ConflictController::index', ['filter' => AdminFilter::class]);
 
 $routes->post('/api/upload', 'ApiController::uploadCredentials');
 /*

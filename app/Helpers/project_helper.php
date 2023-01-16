@@ -19,6 +19,19 @@ function getProjects(): array
     return $projects;
 }
 
+function getConflictingProjects(): array
+{
+    $allProjects = getProjects();
+
+    $projects = [];
+    foreach ($allProjects as $project) {
+        if (count($project->getMembers()) > $project->getMaxMembers()) {
+            $projects[] = $project;
+        }
+    }
+    return $projects;
+}
+
 /**
  * @param int $id
  * @return ?Project

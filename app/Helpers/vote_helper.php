@@ -80,6 +80,11 @@ function isSlotBlocked(User $user, int $slotId): bool
     return isset($template->blockedSlots->{$user->getGroupId()}) && in_array($slotId, $template->blockedSlots->{$user->getGroupId()});
 }
 
+function deleteAllVotes(): void
+{
+    getBuilder(VOTES)->truncate();
+}
+
 function getVoteTemplate(): object
 {
     $templateFile = file_get_contents(VOTE_TEMPLATE_CONFIG);

@@ -26,8 +26,6 @@
                                 </li>
                                 <li><a class="dropdown-item" href="<?= base_url('/voting') ?>"><i
                                                 class="fas fa-poll"></i> <?= lang('vote.headline') ?></a></li>
-                                <li><a class="dropdown-item" href="<?= base_url('/conflicts') ?>"><i
-                                                class="fas fa-cloud-bolt"></i> <?= lang('conflict.headline') ?></a></li>
                             </ul>
                         </li>
                     </ul>

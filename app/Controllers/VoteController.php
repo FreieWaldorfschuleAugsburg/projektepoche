@@ -62,27 +62,22 @@ class VoteController extends BaseController
     {
         $stateId = $this->request->getGet('id');
         $state = VoteState::from($stateId);
+
+        if ($state == VoteState::CLOSED) {
+
+
+        } else if ($state == VoteState::PUBLIC) {
+
+        }
+
         setVoteState($state);
-
-        /**
-         * TODO handle state change
-         *
-         * on OPEN: delete all votes
-         * on CLOSED: add all users to the frist slotVote project
-         * on PUBLIC: only allow if conflicts are solved
-         */
-
         return redirect('voting');
     }
 
     public function handleReset(): RedirectResponse
     {
+        deleteAllVotes();
         setVoteState(VoteState::CLOSED);
-
-        /**
-         * TODO handle reset
-         */
-
         return redirect('voting');
     }
 
