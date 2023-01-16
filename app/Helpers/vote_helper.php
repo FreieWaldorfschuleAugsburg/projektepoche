@@ -1,5 +1,6 @@
 <?php
 
+use App\Entities\User;
 use App\Entities\Vote;
 use App\Models\VoteModel;
 use function App\Helpers\getSlots;
@@ -42,13 +43,41 @@ function insertVote(int $userId, int $voteId, int $projectId)
 
 /**
  * @param int $userId
- * @return Vote[]
+ * @return Vote[][]
  */
 function getVotesByUserId(int $userId): array
 {
-    $votes = getVoteModel()->where(['user_id' => $userId])->findAll();
-    usort($votes, fn($a, $b) => ($a->getVoteId() - $b->getVoteId()));
+    $rawVotes = getVoteModel()->where(['user_id' => $userId])->findAll();
+    if (!$rawVotes) {
+        return [];
+    }
+
+    usort($rawVotes, fn($a, $b) => ($a->getVoteId() - $b->getVoteId()));
+
+    $template = getVoteTemplate();
+    $slots = getSlots();
+    $user = getUserById($userId);
+
+    $votes = [];
+    $index = 0;
+    foreach ($slots as $slot) {
+        if (isSlotBlocked($user, $slot->getId())) {
+            continue;
+        }
+
+        foreach ($template->votes as $vote) {
+            $votes[$slot->getId()][$vote->id] = $rawVotes[$index];
+            $index++;
+        }
+    }
+
     return $votes;
+}
+
+function isSlotBlocked(User $user, int $slotId): bool
+{
+    $template = getVoteTemplate();
+    return isset($template->blockedSlots->{$user->getGroupId()}) && in_array($slotId, $template->blockedSlots->{$user->getGroupId()});
 }
 
 function getVoteTemplate(): object

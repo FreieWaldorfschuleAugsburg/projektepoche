@@ -6,7 +6,7 @@ use function App\Helpers\getSlots;
 
 class IndexController extends BaseController
 {
-    public function index(): string
+    public function index()
     {
         if ($user = getCurrentUser()) {
             if ($user->hasVoted()) {

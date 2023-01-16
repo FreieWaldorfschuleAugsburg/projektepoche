@@ -35,7 +35,7 @@ use function App\Helpers\getSlots;
                     <tr>
                         <th data-field="name" data-sortable="true"
                             scope="col"><?= lang('vote.fields.name') ?></th>
-                        <?php $voteId = 1; ?>
+                        <?php $voteId = 0; ?>
                         <?php foreach (getSlots() as $slot): ?>
                             <?php foreach (getVoteTemplate()->votes as $vote): ?>
                                 <th data-field="votes-<?= $voteId ?>" data-sortable="true"
@@ -46,13 +46,22 @@ use function App\Helpers\getSlots;
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach (getUsers() as $user): ?>
+                    <?php foreach (getUsers() as $user):
+                        $votes = getVotesByUserId($user->getId()); ?>
                         <tr>
                             <td><?= $user->getName() ?></td>
-                            <?php foreach (getVotesByUserId($user->getId()) as $vote): ?>
-                                <td>
-                                    <b><?= $vote->getProjectId() ?></b>: <?= getProjectById($vote->getProjectId())->getName() ?>
-                                </td>
+                            <?php foreach (getSlots() as $slot): ?>
+                                <?php if (!isset($votes[$slot->getId()])): ?>
+                                    <?php foreach (getVoteTemplate()->votes as $vote): ?>
+                                        <td><?= lang('vote.votes.noData') ?></td>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <?php foreach ($votes[$slot->getId()] as $vote): ?>
+                                        <td>
+                                            <b><?= $vote->getProjectId() ?></b>: <?= getProjectById($vote->getProjectId())->getName() ?>
+                                        </td>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>

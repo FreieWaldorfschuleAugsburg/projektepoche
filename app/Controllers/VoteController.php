@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\HTTP\RedirectResponse;
+use VoteState;
 use function App\Helpers\getSlots;
 
 class VoteController extends BaseController
@@ -15,6 +16,7 @@ class VoteController extends BaseController
 
     public function handleVote(): RedirectResponse
     {
+        $user = getCurrentUser();
         $votes = $this->request->getPost('votes');
 
         if (!isset($votes)) {
@@ -24,8 +26,14 @@ class VoteController extends BaseController
         $template = getVoteTemplate();
         $slots = getSlots();
 
-        $voteId = 0;
+        $voteId = 1;
         foreach ($slots as $slot) {
+            // Check if current iterated slot is blocked
+            if (isSlotBlocked($user, $slot->getId())) {
+                $voteId += count($template->votes);
+                continue;
+            }
+
             $slotVotes = [];
             foreach ($template->votes as $vote) {
                 if (!array_key_exists($voteId, $votes)) {
@@ -42,13 +50,9 @@ class VoteController extends BaseController
             }
         }
 
-        $userId = getCurrentUser()->getId();
-
         // Insert votes
-        $voteId = 0;
-        foreach ($votes as $vote) {
-            insertVote($userId, $voteId, $vote);
-            $voteId++;
+        foreach ($votes as $key => $value) {
+            insertVote($user->getId(), $key, $value);
         }
 
         return redirect('/')->with('success', 'vote.voting.success');
@@ -57,7 +61,7 @@ class VoteController extends BaseController
     public function handleStateChange(): RedirectResponse
     {
         $stateId = $this->request->getGet('id');
-        $state = \VoteState::from($stateId);
+        $state = VoteState::from($stateId);
         setVoteState($state);
 
         /**
@@ -73,7 +77,7 @@ class VoteController extends BaseController
 
     public function handleReset(): RedirectResponse
     {
-        setVoteState(\VoteState::CLOSED);
+        setVoteState(VoteState::CLOSED);
 
         /**
          * TODO handle reset

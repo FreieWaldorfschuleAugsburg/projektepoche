@@ -15,6 +15,9 @@ return [
     'fields' => [
         'name' => 'Name'
     ],
+    'votes' => [
+        'noData' => 'k. A.',
+    ],
     'voting' => [
         'headline' => 'Abstimmen',
         'blocked' => 'Blockiert! Diese Zeitschiene ist für dich blockiert.',
