@@ -80,6 +80,19 @@ function getProjectMembersByProjectId(int $projectId): array
     return $users;
 }
 
+function addProjectMember(int $projectId, int $userId): void
+{
+    $mapping = new ProjectMemberMapping();
+    $mapping->setUserId($userId);
+    $mapping->setProjectId($projectId);
+    getProjectMemberMappingModel()->insert($mapping);
+}
+
+function removeProjectMember(int $projectId, int $userId): void
+{
+    getProjectMemberMappingModel()->where(['project_id' => $projectId, 'user_id' => $userId])->delete();
+}
+
 /**
  * @param int $projectId
  * @return ProjectLeaderMapping[]

@@ -25,7 +25,8 @@
                     </thead>
                     <tbody>
                     <?php foreach ($projects as $project): ?>
-                        <tr id="tr-id-<?= $project->getId() ?>" class="tr-class-<?= $project->getId() ?>">
+                        <tr id="tr-id-<?= $project->getId() ?>"
+                            class="tr-class-<?= $project->getId() ?> <?= $project->hasConflict() ? 'table-danger' : '' ?>">
                             <td id="td-id-<?= $project->getId() ?>" class="td-class-<?= $project->getId() ?>"
                                 data-title="<?= $project->getName() ?>"><?= $project->getName() ?>
                             </td>
@@ -37,12 +38,10 @@
                             <td><?= $project->hasConflict() ? lang('project.fields.conflict.yes') : lang('project.fields.conflict.no') ?></td>
                             <td>
                                 <div class="btn-group d-flex gap-2">
-                                    <?php if ($project->hasConflict()): ?>
-                                        <a class="btn btn-success btn-sm"
-                                           href="<?= base_url('project/redistribute') . '?id=' . $project->getId() ?>"><i
-                                                    class="fas fa-arrows-split-up-and-left"></i> <?= lang('project.fields.actions.redistribute') ?>
-                                        </a>
-                                    <?php endif; ?>
+                                    <a class="btn btn-success btn-sm"
+                                       href="<?= base_url('project/redistribute') . '?id=' . $project->getId() ?>"><i
+                                                class="fas fa-arrows-split-up-and-left"></i> <?= lang('project.fields.actions.redistribute') ?>
+                                    </a>
                                     <a class="btn btn-primary btn-sm"
                                        href="<?= base_url('project/edit') . '?id=' . $project->getId() ?>"><i
                                                 class="fas fa-pen"></i> <?= lang('project.fields.actions.edit') ?></a>

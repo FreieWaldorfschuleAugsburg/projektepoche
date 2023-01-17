@@ -82,6 +82,43 @@ class ProjectController extends BaseController
         return $this->render('project/ProjectRedistributeView', ['project' => $project]);
     }
 
+    public function handleMove(): RedirectResponse
+    {
+        $userId = $this->request->getGet('user');
+        $slotId = $this->request->getGet('slot');
+        $projectId = $this->request->getGet('project');
+        $newProjectId = $this->request->getGet('newProject');
+
+        if (!isset($userId) || !isset($slotId) || !isset($projectId)) {
+            return redirect('projects')->with('error', 'project.error.parameterMissing');
+        }
+
+        $user = getUserById($userId);
+        if (is_null($user)) {
+            return redirect('projects')->with('error', 'project.error.invalidUser');
+        }
+
+        $slot = getSlotById($slotId);
+        if (is_null($slot)) {
+            return redirect('projects')->with('error', 'project.error.invalidSlot');
+        }
+
+        $project = getProjectById($projectId);
+        if (is_null($project)) {
+            return redirect('projects')->with('error', 'project.error.invalidProject');
+        }
+
+        $newProject = getProjectById($newProjectId);
+        if (is_null($newProject)) {
+            return redirect('projects')->with('error', 'project.error.invalidProject');
+        }
+
+        removeProjectMember($projectId, $userId);
+        addProjectMember($newProjectId, $userId);
+
+        return redirect()->to(previous_url());
+    }
+
     public function edit(): string|RedirectResponse
     {
         $id = $this->request->getGet('id');
@@ -159,7 +196,7 @@ class ProjectController extends BaseController
 
         $project = getProjectById($id);
         if (is_null($project)) {
-            return redirect('projects')->with('error', 'project.error.invalidUser');
+            return redirect('projects')->with('error', 'project.error.invalidProject');
         }
 
         deleteProjectById($id);
