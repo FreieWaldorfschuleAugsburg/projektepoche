@@ -59,7 +59,7 @@
                                                    href="<?= base_url('project/move') ?>?user=<?= $member->getId() ?>&slot=<?= $project->getSlotId() ?>&project=<?= $project->getId() ?>&newProject=<?= $newProject->getId() ?>"><i
                                                             class="fas fa-arrows-split-up-and-left"></i> <?= getVoteTemplate()->votes[$voteId]->name->{service('request')->getLocale()} ?>
                                                     <br/> <?= lang('project.redistribute.fields.actions.auto') ?>
-                                                    <b><?= getProjectById($vote->getProjectId())->getName() ?>
+                                                    <b><?= $newProject->getId() ?>: <?= $newProject->getName() ?>
                                                         (<?= count($newProject->getMembers()) ?>
                                                         / <?= $newProject->getMaxMembers() ?>)</b>
                                                 </a>
@@ -96,7 +96,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

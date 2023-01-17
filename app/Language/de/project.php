@@ -54,5 +54,6 @@ return [
         'maxMembers' => 'Maximale Teilnehmerzahl',
         'room' => 'Raum',
         'clock' => 'Uhr'
-    ]
+    ],
+    'leading' => 'Deine Projekte'
 ];

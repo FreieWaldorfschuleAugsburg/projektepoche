@@ -2,10 +2,12 @@
 
 use App\Entities\Group;
 use App\Models\GroupModel;
+use CodeIgniter\Database\Exceptions\DatabaseException;
 
 /**
  * @param string $name
  * @return ?Group
+ * @throws DatabaseException
  */
 function getGroupByName(string $name): ?object
 {
@@ -15,6 +17,7 @@ function getGroupByName(string $name): ?object
 /**
  * @param int $groupId
  * @return ?Group
+ * @throws DatabaseException
  */
 function getGroupById(int $groupId): ?object
 {
@@ -23,6 +26,7 @@ function getGroupById(int $groupId): ?object
 
 /**
  * @return Group[]
+ * @throws DatabaseException
  */
 function getGroups(): array
 {

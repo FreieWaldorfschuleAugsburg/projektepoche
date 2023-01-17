@@ -64,7 +64,6 @@ $routes->post('users/api/upload/pdf', 'ApiController::uploadCredentials', ['filt
 $routes->post('users/api/generateQr', 'ApiController::renderQr', ['filter' => AdminFilter::class]);
 
 $routes->get('code', 'UserController::code');
-$routes->get('leading', 'ProjectController::leading', ['filter' => LoggedInFilter::class]);
 
 $routes->get('/projects', 'ProjectController::index', ['filter' => AdminFilter::class]);
 $routes->get('/project/create', 'ProjectController::create', ['filter' => AdminFilter::class]);

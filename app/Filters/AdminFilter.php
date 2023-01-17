@@ -13,8 +13,7 @@ class AdminFilter implements FilterInterface
         helper(['user', 'group']);
 
         $currentUser = getCurrentUser();
-
-        if (!getCurrentUser() || !$currentUser->getGroup()->isAdmin()) {
+        if (is_null($currentUser) || !$currentUser->getGroup()->isAdmin()) {
             return redirect('login');
         }
     }

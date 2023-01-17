@@ -2,7 +2,6 @@
 
 namespace App\Entities;
 
-use App\Exceptions\HasNoProjectsException;
 use CodeIgniter\Entity\Entity;
 
 class User extends Entity
@@ -98,22 +97,14 @@ class User extends Entity
      */
     public function isLeader(): bool
     {
-        try {
-            $projects = getProjectsForLeader($this->getId());
-            return true;
-        } catch (HasNoProjectsException $exception) {
-            return false;
-        }
+        return isProjectLeader($this->getId());
     }
 
-    //TODO: Find better name!
-    public function getLeadingProjects()
+    /**
+     * @return ?Project[]
+     */
+    public function getOwnProjects(): ?array
     {
-        try {
-            $projects = getProjectsForLeader($this->getId());
-        } catch (HasNoProjectsException $exception) {
-            return null;
-        }
+        return getProjectsByLeader($this->getId());
     }
-
 }

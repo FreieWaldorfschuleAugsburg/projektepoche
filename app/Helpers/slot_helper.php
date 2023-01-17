@@ -4,9 +4,11 @@ namespace App\Helpers;
 
 use App\Entities\Slot;
 use App\Models\SlotModel;
+use CodeIgniter\Database\Exceptions\DatabaseException;
 
 /**
  * @return Slot[]
+ * @throws DatabaseException
  */
 function getSlots(): array
 {
@@ -17,6 +19,7 @@ function getSlots(): array
 
 /**
  * @return ?Slot
+ * @throws DatabaseException
  */
 function getSlotById(int $id): ?object
 {

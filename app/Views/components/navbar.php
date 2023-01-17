@@ -41,11 +41,6 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item disabled" href="#"><i
                                             class="fas fa-users"></i> <?= $user->getGroup()->getName() ?></a></li>
-                            <?php if ($user->isLeader()): ?>
-                                <li><a class="dropdown-item" href="<?= base_url('/leading') ?>"><i
-                                                class="fas fa-address-book"></i> <?= lang('user.leader.headline') ?></a>
-                                </li>
-                            <?php endif; ?>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

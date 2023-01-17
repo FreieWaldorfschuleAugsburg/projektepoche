@@ -3,22 +3,15 @@
 namespace App\Controllers;
 
 use App\Entities\User;
-use GuzzleHttp\Client;
 use CodeIgniter\HTTP\RedirectResponse;
-use GuzzleHttp\Exception\GuzzleException;
 use function App\Helpers\deleteDirectoryRecursively;
 use function App\Helpers\downloadFile;
-use function App\Helpers\getFileName;
-use function App\Helpers\getFilePath;
 use function App\Helpers\getImportKeys;
-use function App\Helpers\getUserUploadsFolder;
 use function App\Helpers\readCsvToArray;
 use function App\Helpers\storeFile;
 
-
 class UserController extends BaseController
 {
-
     public function index(): string
     {
         //make sure there are no leftover credentials that could be leaked
@@ -113,10 +106,9 @@ class UserController extends BaseController
         if (is_null($user) && $printAll) {
             $lastUserId = getLastUser()->getId();
             if ($lastUserId > $id) {
-                $nextId = $id + 1 ;
+                $nextId = $id + 1;
                 return $this->response->redirect(base_url("user/print?id=$nextId&printAll=true"));
-            }
-            else return $this->response->redirect(base_url('users/credentials/download'));
+            } else return $this->response->redirect(base_url('users/credentials/download'));
         }
 
         if (is_null($user)) {
@@ -133,7 +125,8 @@ class UserController extends BaseController
         return $this->response->redirect(base_url("user/print?id=$userId&printAll=true"));
     }
 
-    public function printAllBetter(){
+    public function printAllBetter()
+    {
         return $this->render('user/UserPrintAllView');
     }
 

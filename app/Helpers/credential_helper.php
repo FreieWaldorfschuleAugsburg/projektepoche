@@ -1,8 +1,7 @@
 <?php
 
-use \App\Entities\User;
+use App\Entities\User;
 use chillerlan\QRCode\QRCode;
-use Dompdf\Dompdf;
 
 function generateQrCode(string $username, string $password)
 {
@@ -11,9 +10,6 @@ function generateQrCode(string $username, string $password)
     $qr = new QRCode();
     return $qr->render($url);
 }
-
-
-
 
 /**
  * @throws Exception
@@ -28,9 +24,7 @@ function checkCode(string $code): object
     }
 
     return $user;
-
 }
-
 
 function printCredential(User $user): void
 {
@@ -43,10 +37,9 @@ function printCredential(User $user): void
     file_put_contents(WRITEPATH . "/pdf/credentials/$username.pdf", $pdfContents);
 }
 
-
 function generateToken(string $username, string $password): bool|string
 {
-    $plain = json_encode(['name' => $username, 'password' =>$password]);
+    $plain = json_encode(['name' => $username, 'password' => $password]);
     return urlencode(encryptData($plain));
 }
 
@@ -66,10 +59,7 @@ function decryptData(string $data): bool|string
 function validateApiKey(string $keyToValidate): void
 {
     $apiKey = env('app.internal.key');
-
-    if($keyToValidate !== $apiKey){
+    if ($keyToValidate !== $apiKey) {
         throw new Exception('Invalid Api Key');
     }
-
 }
-

@@ -6,7 +6,6 @@ use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\HTTP\IncomingRequest;
 use RecursiveDirectoryIterator;
 
-
 function storeFile(IncomingRequest $request): ?string
 {
     $file = $request->getFile('userUploadFile');
@@ -71,7 +70,6 @@ function deleteDirectoryRecursively(string $path): void
     }
 }
 
-
 function getFilePath(string $fileName): string
 {
     return getUserUploadsFolder() . $fileName;
@@ -81,31 +79,25 @@ function getFilePath(string $fileName): string
 //THE DOWNLOAD SCRIPT
 function downloadFile($filePath)
 {
-    if(!empty($filePath))
-    {
+    if (!empty($filePath)) {
         log_message(2, "Starting download");
         $fileInfo = pathinfo($filePath);
-        $fileName  = $fileInfo['basename'];
-        $fileExtentsion   = $fileInfo['extension'];
+        $fileName = $fileInfo['basename'];
+        $fileExtentsion = $fileInfo['extension'];
         $default_contentType = "application/zip";
         $content_types_list = mimeTypes();
         // to find and use specific content type, check out this IANA page : http://www.iana.org/assignments/media-types/media-types.xhtml
-        if (array_key_exists($fileExtentsion, $content_types_list))
-        {
+        if (array_key_exists($fileExtentsion, $content_types_list)) {
             $contentType = $content_types_list[$fileExtentsion];
+        } else {
+            $contentType = $default_contentType;
         }
-        else
-        {
-            $contentType =  $default_contentType;
-        }
-        if(file_exists($filePath))
-        {
+        if (file_exists($filePath)) {
             $size = filesize($filePath);
             $offset = 0;
             $length = $size;
             //HEADERS FOR PARTIAL DOWNLOAD FACILITY BEGINS
-            if(isset($_SERVER['HTTP_RANGE']))
-            {
+            if (isset($_SERVER['HTTP_RANGE'])) {
                 preg_match('/bytes=(\d+)-(\d+)?/', $_SERVER['HTTP_RANGE'], $matches);
                 $offset = intval($matches[1]);
                 $length = intval($matches[2]) - $offset;
@@ -117,46 +109,37 @@ function downloadFile($filePath)
                 header('Content-Range: bytes ' . $offset . '-' . ($offset + $length) . '/' . $size);
             }//HEADERS FOR PARTIAL DOWNLOAD FACILITY BEGINS
             //USUAL HEADERS FOR DOWNLOAD
-            header("Content-Disposition: attachment;filename=".$fileName);
-            header('Content-Type: '.$contentType);
+            header("Content-Disposition: attachment;filename=" . $fileName);
+            header('Content-Type: ' . $contentType);
             header("Accept-Ranges: bytes");
             header("Pragma: public");
             header("Expires: -1");
             header("Cache-Control: no-cache");
             header("Cache-Control: public, must-revalidate, post-check=0, pre-check=0");
-            header("Content-Length: ".filesize($filePath));
+            header("Content-Length: " . filesize($filePath));
             $chunksize = 8 * (1024 * 1024); //8MB (highest possible fread length)
-            if ($size > $chunksize)
-            {
+            if ($size > $chunksize) {
                 $handle = fopen($filePath, 'rb');
                 $buffer = '';
-                while (!feof($handle) && (connection_status() === CONNECTION_NORMAL))
-                {
+                while (!feof($handle) && (connection_status() === CONNECTION_NORMAL)) {
                     $buffer = fread($handle, $chunksize);
                     print $buffer;
                     ob_flush();
                     flush();
                 }
-                if(connection_status() !== CONNECTION_NORMAL)
-                {
+                if (connection_status() !== CONNECTION_NORMAL) {
                     echo "Connection aborted";
                 }
                 fclose($handle);
-            }
-            else
-            {
+            } else {
                 ob_clean();
                 flush();
                 readfile($filePath);
             }
-        }
-        else
-        {
+        } else {
             echo 'File does not exist!';
         }
-    }
-    else
-    {
+    } else {
         echo 'There is no file to download!';
     }
 }

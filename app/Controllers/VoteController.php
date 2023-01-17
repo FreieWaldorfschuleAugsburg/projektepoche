@@ -8,7 +8,6 @@ use function App\Helpers\getSlots;
 
 class VoteController extends BaseController
 {
-
     public function index(): string
     {
         return $this->render('vote/VotingView');
@@ -19,6 +18,7 @@ class VoteController extends BaseController
         $user = getCurrentUser();
         $votes = $this->request->getPost('votes');
 
+        // Check if necessary parameters are given
         if (!isset($votes)) {
             return $this->redirectWithError($votes, 'vote.voting.error.notVoted');
         }
@@ -28,7 +28,7 @@ class VoteController extends BaseController
 
         $voteId = 1;
         foreach ($slots as $slot) {
-            // Check if current iterated slot is blocked
+            // Check if currently iterated slot is blocked
             if (isSlotBlocked($user, $slot->getId())) {
                 $voteId += count($template->votes);
                 continue;
@@ -51,9 +51,7 @@ class VoteController extends BaseController
         }
 
         // Insert votes
-        foreach ($votes as $key => $value) {
-            insertVote($user->getId(), $key, $value);
-        }
+        insertVotes($user->getId(), $votes);
 
         return redirect('/')->with('success', 'vote.voting.success');
     }
