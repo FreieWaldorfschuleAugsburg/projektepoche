@@ -67,10 +67,8 @@ class VoteController extends BaseController
 
                 // TODO this need attention since it can be executed multiple times... (open/close/open/close) resulting in double membership!
                 foreach (getVotesByUserId($user->getId()) as $votes) {
-                    foreach ($votes as $slotVote) {
-                        // TODO check if already member inside following function before inserting new membership
-                        addProjectMember($slotVote[1], $user->getId());
-                    }
+                    // TODO check if already member inside following function before inserting new membership
+                    addProjectMember($votes[1]->getProjectId(), $user->getId());
                 }
             }
         } else if ($state == VoteState::PUBLIC) {
