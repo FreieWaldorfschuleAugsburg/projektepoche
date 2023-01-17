@@ -62,10 +62,20 @@ class VoteController extends BaseController
         $state = VoteState::from($stateId);
 
         if ($state == VoteState::CLOSED) {
+            foreach (getUsers() as $user) {
+                if (!$user->hasVoted()) continue;
 
-
+                // TODO this need attention since it can be executed multiple times... (open/close/open/close) resulting in double membership!
+                foreach (getVotesByUserId($user->getId()) as $votes) {
+                    foreach ($votes as $slotVote) {
+                        // TODO check if already member inside following function before inserting new membership
+                        addProjectMember($slotVote[1], $user->getId());
+                    }
+                }
+            }
         } else if ($state == VoteState::PUBLIC) {
-
+            // TODO ensure all project conflicts are resolved
+            // TODO develop view to show project selected
         }
 
         setVoteState($state);
