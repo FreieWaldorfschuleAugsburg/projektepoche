@@ -11,6 +11,8 @@ foreach (getSlots() as $slot): ?>
                 <div class="card-body">
                     <div class="accordion accordion-flush" id="slot-<?= $slot->getId() ?>">
                         <?php foreach (getProjectsBySlotId($slot->getId()) as $project): ?>
+                            <?php if (!$project->isSelectable()): continue; endif; ?>
+
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading-<?= $project->getId() ?>">
                                     <button class="accordion-button collapsed" type="button"
@@ -28,8 +30,9 @@ foreach (getSlots() as $slot): ?>
                                             <?= $project->getLeaderShortNameString() ?><br/>
                                             <i class="fas fa-people-group"></i> <?= lang('project.view.maxMembers') ?>:
                                             <?= $project->getMaxMembers() ?>
-                                            <?php if(!empty($project->getRoom())): ?>
-                                                <br/><i class="fas fa-door-closed"></i> <?= lang('project.view.room') ?>:
+                                            <?php if (!empty($project->getRoom())): ?>
+                                                <br/>
+                                                <i class="fas fa-door-closed"></i> <?= lang('project.view.room') ?>:
                                                 <?= $project->getRoom() ?>
                                             <?php endif; ?>
                                         </b>

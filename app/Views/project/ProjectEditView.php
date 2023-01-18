@@ -69,6 +69,18 @@
                                   required><?= $project->getDescription() ?></textarea>
                     </div>
 
+                    <div class="mb-3 form-check">
+                        <label for="selectable"
+                               class="form-check-label"><?= lang('project.fields.selectable.title') ?></label>
+                        <?php if ($project->isSelectable()): ?>
+                            <input type="checkbox" class="form-check-input" id="selectable" name="selectable" value="on"
+                                   checked>
+                        <?php else: ?>
+                            <input type="checkbox" class="form-check-input" id="selectable" name="selectable"
+                                   value="on">
+                        <?php endif; ?>
+                    </div>
+
                     <button type="submit" class="btn btn-primary"><?= lang('project.edit.button') ?></button>
                 </form>
             </div>

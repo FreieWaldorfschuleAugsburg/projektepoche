@@ -20,6 +20,11 @@ return [
             'no' => 'Nein'
         ],
         'description' => 'Beschreibung',
+        'selectable' => [
+            'title' => 'Wählbar?',
+            'yes' => 'Ja',
+            'no' => 'Nein'
+        ],
         'actions' => [
             'title' => 'Aktionen',
             'redistribute' => 'Umverteilen',

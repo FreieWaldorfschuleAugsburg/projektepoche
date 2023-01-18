@@ -32,7 +32,11 @@ class Projects extends Migration
             ],
             'description' => [
                 'type' => 'TEXT',
-            ]
+            ],
+            'selectable' => [
+                'type' => 'TINYINT',
+                'unsigned' => true
+            ],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('slot_id', SLOTS, 'id');

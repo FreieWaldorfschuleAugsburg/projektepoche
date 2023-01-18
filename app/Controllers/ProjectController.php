@@ -34,6 +34,7 @@ class ProjectController extends BaseController
             $memberIds = [];
         }
         $description = $this->request->getPost('description');
+        $selectable = $this->request->getPost('selectable');
 
         if (!isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {
             return redirect('users')->with('error', 'project.error.parameterMissing');
@@ -62,6 +63,8 @@ class ProjectController extends BaseController
         $project->setMaxMembers($maxMembers);
         $project->setRoom($room);
         $project->setDescription($description);
+        $project->setSelectable(isset($selectable) && $selectable == 'on');
+
         insertProject($project, $leaderIds, $memberIds);
 
         return redirect('projects')->with('success', 'project.success.projectCreated');
@@ -150,6 +153,7 @@ class ProjectController extends BaseController
             $memberIds = [];
         }
         $description = $this->request->getPost('description');
+        $selectable = $this->request->getPost('selectable');
 
         if (!isset($id) || !isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {
             return redirect('users')->with('error', 'project.error.parameterMissing');
@@ -182,6 +186,7 @@ class ProjectController extends BaseController
         $project->setMaxMembers($maxMembers);
         $project->setRoom($room);
         $project->setDescription($description);
+        $project->setSelectable(isset($selectable) && $selectable == 'on');
         updateProject($project, $leaderIds, $memberIds);
 
         return redirect('projects')->with('success', 'project.success.projectUpdated');

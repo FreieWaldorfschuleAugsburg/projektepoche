@@ -12,7 +12,8 @@ class Project extends Entity
         'name' => null,
         'max_members' => null,
         'room' => null,
-        'description' => null
+        'description' => null,
+        'selectable' => null
     ];
 
     protected $casts = [
@@ -21,7 +22,8 @@ class Project extends Entity
         'name' => 'string',
         'max_members' => 'integer',
         'room' => 'string',
-        'description' => 'string'
+        'description' => 'string',
+        'selectable' => 'boolean'
     ];
 
     /**
@@ -98,6 +100,19 @@ class Project extends Entity
     }
 
     /**
+     * @return bool
+     */
+    public function isSelectable(): bool
+    {
+        return $this->attributes['selectable'];
+    }
+
+    public function setSelectable(bool $selectable): void
+    {
+        $this->attributes['selectable'] = $selectable;
+    }
+
+    /**
      * @return User[]
      */
     public function getLeaders(): array
@@ -123,18 +138,6 @@ class Project extends Entity
     public function getMembers(): array
     {
         return getProjectMembersByProjectId($this->getId());
-    }
-
-    public function getMemberNameString(): string
-    {
-        $result = "";
-        $members = $this->getMembers();
-        $i = 0;
-        foreach ($members as $member) {
-            $result .= ($i >= 1 ? ", " : "") . $member->getName();
-            $i++;
-        }
-        return $result;
     }
 
     public function hasConflict(): bool

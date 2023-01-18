@@ -130,6 +130,7 @@
                                                                     <option selected
                                                                             disabled><?= lang('vote.voting.select') ?></option>
                                                                     <?php foreach (getProjectsBySlotId($slot->getId()) as $project): ?>
+                                                                        <?php if (!$project->isSelectable()): continue; endif; ?>
                                                                         <?php if ($votes = session('votes')): ?>
                                                                             <?php if (isset($votes[$index]) && $project->getId() == $votes[$index]): ?>
                                                                                 <option value="<?= $project->getId() ?>"

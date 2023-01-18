@@ -51,6 +51,13 @@
                         <textarea class="form-control" id="description" name="description" required></textarea>
                     </div>
 
+                    <div class="mb-3 form-check">
+                        <label for="selectable"
+                               class="form-check-label"><?= lang('project.fields.selectable.title') ?></label>
+                        <input type="checkbox" class="form-check-input" id="selectable" name="selectable" value="on"
+                               checked>
+                    </div>
+
                     <button type="submit" class="btn btn-primary"><?= lang('project.create.button') ?></button>
                 </form>
             </div>

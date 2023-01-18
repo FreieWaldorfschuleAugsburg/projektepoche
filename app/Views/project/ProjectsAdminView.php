@@ -19,6 +19,7 @@
                         <th data-field="room" data-sortable="true"><?= lang('project.fields.room') ?></th>
                         <th data-field="leaders" data-sortable="true"><?= lang('project.fields.leaders') ?></th>
                         <th data-field="members" data-sortable="true"><?= lang('project.fields.members') ?></th>
+                        <th data-field="selectable" data-sortable="true"><?= lang('project.fields.selectable.title') ?></th>
                         <th data-field="conflict" data-sortable="true"><?= lang('project.fields.conflict.title') ?></th>
                         <th data-field="action"><?= lang('project.fields.actions.title') ?></th>
                     </tr>
@@ -35,6 +36,7 @@
                             <td><?= $project->getRoom() ?></td>
                             <td><?= $project->getLeaderShortNameString() ?></td>
                             <td><?= count($project->getMembers()) ?></td>
+                            <td><?= $project->isSelectable() ? lang('project.fields.selectable.yes') : lang('project.fields.selectable.no') ?></td>
                             <td><?= $project->hasConflict() ? lang('project.fields.conflict.yes') : lang('project.fields.conflict.no') ?></td>
                             <td>
                                 <div class="btn-group d-flex gap-2">
