@@ -10,7 +10,7 @@
             <div class="card-body table-responsive">
                 <table class="table table-striped table-bordered" data-locale="<?= service('request')->getLocale(); ?>"
                        data-toggle="table" data-search="true" data-height="1000" data-pagination="true"
-                       data-show-columns="true" data-search-highlight="true" data-show-columns-toggle-all="true">
+                       data-show-columns="true" data-cookie="true" data-cookie-id-table="project" data-search-highlight="true" data-show-columns-toggle-all="true">
                     <thead>
                     <tr>
                         <th data-field="name" data-sortable="true"><?= lang('project.fields.name') ?></th>

@@ -29,8 +29,9 @@ use function App\Helpers\getSlots;
             </div>
             <div class="card-body table-responsive">
                 <table class="table table-striped table-bordered" data-locale="<?= service('request')->getLocale(); ?>"
-                       data-toggle="table" data-search="true" data-height="580" data-pagination="true"
-                       data-show-columns="true" data-search-highlight="true" data-show-columns-toggle-all="true">
+                       data-toggle="table" data-search="true" data-height="1000" data-pagination="true"
+                       data-show-columns="true" data-cookie="true" data-cookie-id-table="vote"
+                       data-search-highlight="true" data-show-columns-toggle-all="true">
                     <thead>
                     <tr>
                         <th data-field="name" data-sortable="true"
