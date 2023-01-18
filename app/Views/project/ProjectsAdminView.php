@@ -9,7 +9,7 @@
             </div>
             <div class="card-body table-responsive">
                 <table class="table table-striped table-bordered" data-locale="<?= service('request')->getLocale(); ?>"
-                       data-toggle="table" data-search="true" data-height="580" data-pagination="true"
+                       data-toggle="table" data-search="true" data-height="1000" data-pagination="true"
                        data-show-columns="true" data-search-highlight="true" data-show-columns-toggle-all="true">
                     <thead>
                     <tr>
