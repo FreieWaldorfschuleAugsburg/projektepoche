@@ -118,14 +118,9 @@ class UserController extends BaseController
         return $this->render('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user->getName(), $user->getPassword())], false, false);
     }
 
-    public function printAll()
-    {
-        $user = getFirstUser();
-        $userId = $user->getId();
-        return $this->response->redirect(base_url("user/print?id=$userId&printAll=true"));
-    }
 
-    public function printAllBetter()
+
+    public function printAll()
     {
         return $this->render('user/UserPrintAllView');
     }

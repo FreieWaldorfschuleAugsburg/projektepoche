@@ -65,72 +65,11 @@
         </div>
     </div>
 </main>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-    async function generatePdf() {
-        window.jsPDF = window.jspdf.jsPDF;
-        const element = document.getElementById('print');
-        return html2canvas(element, {
-            scale: 5,
-            windowWidth: 1000,
-            windowHeight: 1200
-        }).then(async canvas => {
-            const data = canvas.toDataURL('image/jpeg');
-            const aspectRatio = canvas.height / canvas.width;
-            const pdfDocument = new jsPDF({
-                orientation: "portrait",
-                unit: "pt",
-                format: "a4"
-            })
-            const width = pdfDocument.internal.pageSize.width;
-            const height = width * aspectRatio;
-            pdfDocument.addImage(data, 'jpeg', 0, 0, width, height);
-            const base64Pdf = btoa(pdfDocument.output());
-            return await sendPdf(base64Pdf)
-        })
-    }
-
-    function getUserData() {
-        const userId = document.getElementById('userId').innerText
-        const userName = document.getElementById('username').innerText
-        return {userId, userName}
-    }
-
-
-    async function sendPdf(data) {
-        const {userId, userName} = getUserData();
-        const body = {
-            data: data,
-            userId: userId
-        }
-        const url = '<?=base_url('/api/upload')?>'
-        return await fetch(url, {
-            method: "POST",
-            mode: "cors",
-            credentials: "same-origin",
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify(body)
-        })
-    }
-
     document.addEventListener("DOMContentLoaded", async function () {
-        const url = new URL(window.location.href);
-        if (url.searchParams.get('printAll')) {
-            await generatePdf();
-            url.searchParams.set('id', <?=$user->getId() + 1?>)
-            window.location.href = url.href;
-        } else {
-           window.print();
-        }
-
+        window.print();
     });
-
-    // window.addEventListener('afterprint', function () {
-    //     window.location.href = "/users";
-    // })
-
-
+    window.addEventListener('afterprint', function () {
+        window.location.href = "/users";
+    })
 </script>

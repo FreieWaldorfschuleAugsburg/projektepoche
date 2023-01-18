@@ -35,7 +35,6 @@ class ApiController extends BaseController
         return $this->respond($users, 200);
     }
 
-
     public function renderQr(): \CodeIgniter\HTTP\Response
     {
         helper(['api', 'credential']);
