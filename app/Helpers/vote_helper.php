@@ -60,7 +60,9 @@ function insertVotes(int $userId, array $votes): void
         $entities[] = $vote;
     }
 
-    getVoteModel()->insertBatch($entities);
+    if ($entities) {
+        getVoteModel()->insertBatch($entities);
+    }
 }
 
 /**

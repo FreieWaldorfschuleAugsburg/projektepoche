@@ -177,7 +177,10 @@ function insertProjectLeaderMappings(int $projectId, array $leaderIds): void
         $mapping->setProjectId($projectId);
         $mappings[] = $mapping;
     }
-    getProjectLeaderMappingModel()->insertBatch($mappings);
+
+    if ($mappings) {
+        getProjectLeaderMappingModel()->insertBatch($mappings);
+    }
 }
 
 /**
@@ -195,7 +198,10 @@ function insertProjectMemberMappings(int $projectId, array $memberIds): void
         $mapping->setProjectId($projectId);
         $mappings[] = $mapping;
     }
-    getProjectMemberMappingModel()->insertBatch($mappings);
+
+    if ($mappings) {
+        getProjectMemberMappingModel()->insertBatch($mappings);
+    }
 }
 
 /**
