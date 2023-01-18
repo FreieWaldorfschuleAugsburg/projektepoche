@@ -76,39 +76,29 @@ function getFilePath(string $fileName): string
 }
 
 
-//THE DOWNLOAD SCRIPT
-function downloadFile($filePath)
+function downloadFile($filePath): void
 {
     if (!empty($filePath)) {
         log_message(2, "Starting download");
         $fileInfo = pathinfo($filePath);
         $fileName = $fileInfo['basename'];
-        $fileExtentsion = $fileInfo['extension'];
-        $default_contentType = "application/zip";
-        $content_types_list = mimeTypes();
-        // to find and use specific content type, check out this IANA page : http://www.iana.org/assignments/media-types/media-types.xhtml
-        if (array_key_exists($fileExtentsion, $content_types_list)) {
-            $contentType = $content_types_list[$fileExtentsion];
-        } else {
-            $contentType = $default_contentType;
-        }
+        $contentType = "application/zip";
         if (file_exists($filePath)) {
             $size = filesize($filePath);
             $offset = 0;
             $length = $size;
-            //HEADERS FOR PARTIAL DOWNLOAD FACILITY BEGINS
             if (isset($_SERVER['HTTP_RANGE'])) {
                 preg_match('/bytes=(\d+)-(\d+)?/', $_SERVER['HTTP_RANGE'], $matches);
                 $offset = intval($matches[1]);
                 $length = intval($matches[2]) - $offset;
                 $fhandle = fopen($filePath, 'r');
-                fseek($fhandle, $offset); // seek to the requested offset, this is 0 if it's not a partial content request
+                fseek($fhandle, $offset);
                 $data = fread($fhandle, $length);
                 fclose($fhandle);
                 header('HTTP/1.1 206 Partial Content');
                 header('Content-Range: bytes ' . $offset . '-' . ($offset + $length) . '/' . $size);
-            }//HEADERS FOR PARTIAL DOWNLOAD FACILITY BEGINS
-            //USUAL HEADERS FOR DOWNLOAD
+            }
+
             header("Content-Disposition: attachment;filename=" . $fileName);
             header('Content-Type: ' . $contentType);
             header("Accept-Ranges: bytes");
@@ -136,20 +126,8 @@ function downloadFile($filePath)
                 flush();
                 readfile($filePath);
             }
-        } else {
-            echo 'File does not exist!';
         }
-    } else {
-        echo 'There is no file to download!';
     }
 }
 
 
-/* Function to get correct MIME type for download */
-function mimeTypes()
-{
-    /* Just add any required MIME type if you are going to download something not listed here.*/
-    $mime_types = [
-        "zip" => "application/zip"];
-    return $mime_types;
-}

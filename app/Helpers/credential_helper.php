@@ -26,16 +26,6 @@ function checkCode(string $code): object
     return $user;
 }
 
-function printCredential(User $user): void
-{
-    $html = view('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user->getName(), $user->getPassword())]);
-    $domPdf = new Dompdf();
-    $domPdf->loadHtml($html);
-    $domPdf->render();
-    $pdfContents = $domPdf->output();
-    $username = $user->getName();
-    file_put_contents(WRITEPATH . "/pdf/credentials/$username.pdf", $pdfContents);
-}
 
 function generateToken(string $username, string $password): bool|string
 {
@@ -56,10 +46,3 @@ function decryptData(string $data): bool|string
 /**
  * @throws Exception
  */
-function validateApiKey(string $keyToValidate): void
-{
-    $apiKey = env('app.internal.key');
-    if ($keyToValidate !== $apiKey) {
-        throw new Exception('Invalid Api Key');
-    }
-}

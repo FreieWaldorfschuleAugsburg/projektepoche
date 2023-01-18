@@ -4,7 +4,6 @@ namespace Config;
 
 // Create a new instance of our RouteCollection class.
 use App\Filters\AdminFilter;
-use App\Filters\ApiFilter;
 use App\Filters\LoggedInFilter;
 
 $routes = Services::routes();
