@@ -59,24 +59,22 @@ class VoteController extends BaseController
     public function handleStateChange(): RedirectResponse
     {
         $stateId = $this->request->getGet('id');
+
+        // Determine state from id
         $state = VoteState::from($stateId);
 
-        if ($state == VoteState::CLOSED) {
-            foreach (getUsers() as $user) {
-                if (!$user->hasVoted()) continue;
-
-                // TODO this need attention since it can be executed multiple times... (open/close/open/close) resulting in double membership!
-                foreach (getVotesByUserId($user->getId()) as $votes) {
-                    // TODO check if already member inside following function before inserting new membership
-                    addProjectMember($votes[1]->getProjectId(), $user->getId());
-                }
-            }
-        } else if ($state == VoteState::PUBLIC) {
-            // TODO ensure all project conflicts are resolved
-            // TODO develop view to show project selected
-        }
-
+        // Write new state to database
         setVoteState($state);
+        return redirect('voting');
+    }
+
+    public function handleAutoAssign(): RedirectResponse
+    {
+        // TODO this need attention since it can be executed multiple times... (open/close/open/close) resulting in double membership!
+        foreach (getVotesByUserId($user->getId()) as $votes) {
+            // TODO check if already member inside following function before inserting new membership
+            addProjectMember($votes[1]->getProjectId(), $user->getId());
+        }
         return redirect('voting');
     }
 

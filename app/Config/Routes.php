@@ -77,6 +77,7 @@ $routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter
 
 $routes->get('/voting', 'VoteController::index', ['filter' => AdminFilter::class]);
 $routes->get('/voting/state', 'VoteController::handleStateChange', ['filter' => AdminFilter::class]);
+$routes->get('/voting/assign', 'VoteController::handleAutoAssign', ['filter' => AdminFilter::class]);
 $routes->get('/voting/reset', 'VoteController::handleReset', ['filter' => AdminFilter::class]);
 
 $routes->post('/api/upload', 'ApiController::uploadCredentials');

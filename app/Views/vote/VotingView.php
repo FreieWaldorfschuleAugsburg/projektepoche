@@ -18,6 +18,9 @@ use function App\Helpers\getSlots;
                            href="<?= base_url('voting/state') . '?id=1' ?>"><i
                                     class="fas fa-lock-open"></i> <?= lang('vote.buttons.state.open') ?></a>
                         <a class="btn btn-primary btn-sm"
+                           href="<?= base_url('voting/assign') ?>"><i
+                                    class="fas fa-folder-tree"></i> <?= lang('vote.buttons.assign') ?></a>
+                        <a class="btn btn-primary btn-sm"
                            href="<?= base_url('voting/state') . '?id=3' ?>"><i
                                     class="fas fa-bullhorn"></i> <?= lang('vote.buttons.state.public') ?></a>
                     <?php elseif (getVoteState() == VoteState::PUBLIC): ?>
