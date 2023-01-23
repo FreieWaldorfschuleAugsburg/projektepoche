@@ -23,7 +23,7 @@ return [
         'blocked' => 'Blockiert! Diese Zeitschiene ist für dich blockiert.',
         'select' => 'Bitte wählen...',
         'slot' => [
-            'details' => '<b>Wähle pro Zeitschiene drei Projekte in absteigender Priorität!</b> <br/> (d. h. das Projekt, das dir am meisten zusagt, ist das Erste, dass das dir am wenigsten zusagt das Letzte)'
+            'details' => '<b>Wähle pro Zeitschiene drei Projekte in absteigender Priorität!</b> <br/> (d. h. das Projekt, das dir am meisten zusagt, ist das Erste, dass das dir am wenigsten zusagt das Letzte) <br> <div class="alert alert-danger"><b>Öffne vor der Wahl bitte oben das Menü <i>Projekte anzeigen</i> und lese dir die Beschreibungen der Projekte aufmerksam durch. <br/> Eventuell stehen dort Voraussetzungen, die du nicht erfüllen kannst.</b></div>'
         ],
         'global' => [
             'headline' => 'Priorisierung',
