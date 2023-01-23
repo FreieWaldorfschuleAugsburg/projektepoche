@@ -61,8 +61,8 @@ return [
                 'Nun befindest du dich bereits eingeloggt auf der Seite. Viel Spaß!'
             ],
             'loginStepsWithoutQR' => [
-               'Öffne deinen Webbrowser und gehe auf fwaux.de/projektepoche',
-               'Nun wirst du aufgefordert, Zugangsdaten einzugeben. Gib dort die unten aufgeführten Zugangsdaten ein.',
+                'Öffne deinen Webbrowser und gehe auf fwaux.de/projektepoche',
+                'Nun wirst du aufgefordert, Zugangsdaten einzugeben. Gib dort die unten aufgeführten Zugangsdaten ein.',
             ]
         ],
         'credentials' => [
@@ -74,5 +74,9 @@ return [
         'error' => [
             'hasNoProjects' => "Der Benutzer leitet kein Projekt!"
         ]
+    ],
+    'error' => [
+        'parameterMissing' => 'Der angegebene Link ist ungültig!',
+        'codeDeactivated' => 'Aufgrund eines technischen Problems ist der Login mit QR-Code deaktiviert. Bitte melde dich mit deinen Zugangsdaten an!'
     ]
 ];

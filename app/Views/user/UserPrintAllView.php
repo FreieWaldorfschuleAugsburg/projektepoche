@@ -23,7 +23,7 @@
 </div>
 
 
-<main id="print" data-bs-theme="light">
+<main id="print" data-bs-theme="light" style="opacity: 0;">
     <div class="row gx-4 justify-content-center">
         <div class="col-lg-10">
             <div class="text-center">
@@ -92,23 +92,29 @@
 <script>
 
 
-
     let startTime = "";
-    async function generatePdf(userId) {
+
+    async function generatePdf(user) {
         window.jsPDF = window.jspdf.jsPDF;
-        const canvas = await generateCanvas();
+        const canvas = await generateCanvas(user);
         const base64Pdf = await generatePdfFromCanvas(canvas);
         return {
             data: base64Pdf,
-            userId: userId
+            userId: user.id
         }
     }
 
-    async function generateCanvas() {
+    async function generateCanvas(user) {
         const element = document.getElementById('print');
         return await html2canvas(element, {
             onclone: function (clone) {
                 const element = clone.getElementById('print');
+                const nameElement = clone.getElementById('username');
+                const passwordElement = clone.getElementById('password');
+                const qrCodeElement = clone.getElementById('qr');
+                nameElement.value = user.name;
+                passwordElement.value = user.password;
+                qrCodeElement.src = user.qrCodeUrl;
                 element.style.opacity = "1";
             },
             useCORS: true,
@@ -134,9 +140,6 @@
 
 
     async function sendPdf(data) {
-        const body = {
-            users: data,
-        }
         const url = '<?=base_url('users/api/upload/pdf')?>'
         return await fetch(url, {
             method: "POST",
@@ -148,7 +151,6 @@
             body: JSON.stringify(data)
         })
     }
-
 
     function enableDownload() {
         document.getElementById('loading').hidden = true;
@@ -162,18 +164,12 @@
 
     async function printAndPostCredentials() {
         startTime = Date.now();
-        const element = document.getElementById('print');
-        element.style.opacity = "0";
         const users = await fetchUsers();
-        const smallUsers = users.filter(user => {
-            return user.id < 110;
-        })
-        const userData = await Promise.all(users.map(user => {
-                return printCredentials(user)
+        const smallUsers = users.slice(0, 10)
+        await Promise.all(smallUsers.map(async user => {
+            const pdf = await generatePdf(user)
+            sendPdf(pdf).catch(err => console.log(err))
         }))
-       await Promise.all(userData.map(async data => {
-           return await sendPdf(data)
-       }))
 
     }
 
@@ -188,28 +184,9 @@
         ).then(response => response.json())
     }
 
-    async function fetchQrCode(username, password) {
-        return await fetch(
-            '<?=base_url('users/api/generateQr')?>', {
-                method: "POST",
-                credentials: "same-origin",
-                body: JSON.stringify({
-                    username: username,
-                    password: password
-                })
-            }
-        ).then(response => response.json())
-    }
 
     async function printCredentials(user) {
-        const qrCode = await fetchQrCode(user.name, user.password).then(res => res.imageurl)
-        const nameElement = document.getElementById('username');
-        const passwordElement = document.getElementById('password');
-        const qrCodeElement = document.getElementById('qr');
-        nameElement.value = user.name;
-        passwordElement.value = user.password;
-        qrCodeElement.src = qrCode;
-        return await generatePdf(user.id)
+        return await generatePdf(user)
     }
 
     document.addEventListener("DOMContentLoaded", async function () {
@@ -219,14 +196,18 @@
     });
 
 
-    function logTime(){
+    function logTime() {
         const element = document.getElementById('time');
-        element.innerText = ((Date.now() - startTime)/1000).toString();
+        element.innerText = ((Date.now() - startTime) / 1000).toString();
     }
 
     function openDownloadedFile() {
         const url = '<?=base_url('users/credentials/download')?>';
         window.open(url, '_blank');
+    }
+
+    function setError() {
+
     }
 
 

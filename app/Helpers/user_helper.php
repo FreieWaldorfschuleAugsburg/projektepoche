@@ -31,6 +31,30 @@ function getUsers(): array
     return $users;
 }
 
+
+function getUsersWithQrCode(): array
+{
+    helper('credential');
+    $users = getUsers();
+    $usersWithQr = [];
+    foreach ($users as $user) {
+        $qrCodeUrl = generateQrCode($user->getName(), $user->getPassword());
+        $userWithQr = [
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'password' => $user->getPassword(),
+            'qrCodeUrl' => $qrCodeUrl
+        ];
+        $usersWithQr[] = $userWithQr;
+    }
+    usort($usersWithQr, fn($a, $b) => strcmp($a['name'], $b['name']));
+
+    return $usersWithQr;
+
+}
+
+
+
 /**
  * @return User
  * @throws DatabaseException

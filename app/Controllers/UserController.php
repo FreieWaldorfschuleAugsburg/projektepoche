@@ -119,7 +119,6 @@ class UserController extends BaseController
     }
 
 
-
     public function printAll()
     {
         return $this->render('user/UserPrintAllView');
@@ -146,6 +145,7 @@ class UserController extends BaseController
                 }
             }
             $zip->close();
+            deleteDirectoryRecursively($path);
             set_time_limit(0);
             ini_set('memory_limit', '512M');
             downloadFile($zipFileName);
@@ -214,12 +214,17 @@ class UserController extends BaseController
         }
         try {
             $user = checkCode($code);
-            session()->set('user_id', $user->getId());
-            return redirect('/');
-
+            $userName = $user->getName();
+            $userId = $user->getId();
+            log_message(2, "Received code request for $userName (#$userId)");
+             if (env('app.config.features.codeLogin') === 'active') {
+                 session()->set('user_id', $userId);
+                 return redirect('/');
+             }
         } catch (\Exception $e) {
             return redirect('login')->with('error', $e->getMessage());
         }
+        return redirect('login')->with('error', 'user.error.codeDeactivated');
 
     }
 

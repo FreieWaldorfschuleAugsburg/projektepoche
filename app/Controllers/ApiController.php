@@ -26,12 +26,14 @@ class ApiController extends BaseController
             }
             $decoded = base64_decode($postData['data']);
             write_file("credentials/$groupName/$username.pdf", $decoded);
+            log_message(2, 'Upload complete');
         }
     }
 
     public function allUsers()
     {
-        $users = getUsers();
+        helper('user');
+        $users = getUsersWithQrCode();
         return $this->respond($users, 200);
     }
 
