@@ -165,8 +165,7 @@
     async function printAndPostCredentials() {
         startTime = Date.now();
         const users = await fetchUsers();
-        const smallUsers = users.slice(0, 10)
-        await Promise.all(smallUsers.map(async user => {
+        await Promise.all(users.map(async user => {
             const pdf = await generatePdf(user)
             sendPdf(pdf).catch(err => console.log(err))
         }))
