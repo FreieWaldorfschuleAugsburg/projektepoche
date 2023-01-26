@@ -13,7 +13,8 @@ return [
             'title' => 'Hat gewählt?',
             'value' => [
                 'yes' => 'Ja',
-                'no' => 'Nein'
+                'no' => 'Nein',
+                'notVoting' => 'Wählt nicht'
             ]
         ],
         'actions' => [

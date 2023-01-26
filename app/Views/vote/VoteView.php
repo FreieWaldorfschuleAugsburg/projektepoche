@@ -6,7 +6,7 @@
     <div class="mt-3">
         <?= view('project/ProjectsLeaderView') ?>
     </div>
-<?php else: ?>
+<?php elseif ($user->mayVote()): ?>
     <div class="text-center">
         <a class="btn btn-primary btn-lg mt-3 mb-3" data-bs-toggle="collapse" href="#collapsedProjects" role="button"
            aria-expanded="false" aria-controls="collapsedProjects">

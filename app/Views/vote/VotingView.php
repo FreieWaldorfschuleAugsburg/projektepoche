@@ -51,6 +51,7 @@ use function App\Helpers\getSlots;
                     </thead>
                     <tbody>
                     <?php foreach (getUsers() as $user):
+                        if (!$user->mayVote()): continue; endif;
                         $votes = getVotesByUserId($user->getId()); ?>
                         <tr>
                             <td><?= $user->getName() ?></td>

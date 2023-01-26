@@ -9,12 +9,14 @@ class Group extends Entity
     protected $attributes = [
         'id' => null,
         'name' => null,
+        'voting' => null,
         'admin' => null
     ];
 
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
+        'voting' => 'boolean',
         'admin' => 'boolean'
     ];
 
@@ -32,6 +34,14 @@ class Group extends Entity
     public function getName(): string
     {
         return $this->attributes['name'];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVoting(): bool
+    {
+        return $this->attributes['voting'];
     }
 
     /**

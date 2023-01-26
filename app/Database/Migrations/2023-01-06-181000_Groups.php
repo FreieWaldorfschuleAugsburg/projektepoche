@@ -18,11 +18,14 @@ class Groups extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 100
             ],
+            'voting' => [
+                'type' => 'TINYINT',
+                'unsigned' => true
+            ],
             'admin' => [
                 'type' => 'TINYINT',
                 'unsigned' => true
             ],
-
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable(GROUPS);

@@ -38,7 +38,8 @@
                         <th data-field="name" data-sortable="true" scope="col"><?= lang('user.fields.name') ?></th>
                         <th data-field="password" scope="col"><?= lang('user.fields.password') ?></th>
                         <th data-field="group" data-sortable="true" scope="col"><?= lang('user.fields.group') ?></th>
-                        <th data-field="vote" scope="col"><?= lang('user.fields.vote.title') ?></th>
+                        <th data-field="vote" data-sortable="true"
+                            scope="col"><?= lang('user.fields.vote.title') ?></th>
                         <th data-field="action" scope="col"><?= lang('user.fields.actions.title') ?></th>
                     </tr>
                     </thead>
@@ -49,7 +50,7 @@
                                 data-title="<?= $user->getName() ?>"><?= $user->getName() ?></td>
                             <td><?= $user->getPassword() ?></td>
                             <td><?= $user->getGroup()->getName() ?></td>
-                            <td><?= $user->hasVoted() ? lang('user.fields.vote.value.yes') : lang('user.fields.vote.value.no') ?></td>
+                            <td><?= !$user->mayVote() ? lang('user.fields.vote.value.notVoting') : ($user->hasVoted() ? lang('user.fields.vote.value.yes') : lang('user.fields.vote.value.no')) ?></td>
                             <td>
                                 <div class="btn-group d-flex gap-2" role="group">
                                     <a class="btn btn-success btn-sm"
