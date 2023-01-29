@@ -17,7 +17,7 @@
     <div class="mt-3">
         <?= view('project/ProjectsLeaderView') ?>
     </div>
-<?php elseif (getVoteState() == VoteState::PUBLIC): ?>
+<?php elseif (getVoteState() == VoteState::PUBLIC && $user->mayVote() && $user->hasVoted()): ?>
     <div class="row gx-4 mt-3 justify-content-center">
         <div class="col-lg-12">
             <div class="card">

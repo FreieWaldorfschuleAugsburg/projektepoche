@@ -75,6 +75,7 @@ class VoteController extends BaseController
     public function handleAutoAssign(): RedirectResponse
     {
         $users = getUsers();
+        shuffle($users);
         usort($users, fn($a, $b) => $a->getGroupId() - $b->getGroupId());
 
         foreach (getUsers() as $user) {
