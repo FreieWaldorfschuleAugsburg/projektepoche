@@ -15,6 +15,10 @@ class VoteController extends BaseController
 
     public function handleVote(): RedirectResponse
     {
+        if (getVoteState() != VoteState::OPEN) {
+            return $this->redirectWithError([], 'vote.voting.error.voteClosed');
+        }
+
         $user = getCurrentUser();
         $votes = $this->request->getPost('votes');
 

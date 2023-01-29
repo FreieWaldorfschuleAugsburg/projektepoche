@@ -31,6 +31,7 @@ return [
             'details' => '<b>Wähle zwei priorisierte Projekte!</b> <br/> Wähle zwei Projekte aus den neun Projekten, die du oben gewählt hast, aus die dir besonders wichtig sind. <br/> (ev. kannst du dann z. B. in einer anderen Zeitschiene daran teilnehmen)'
         ],
         'error' => [
+            'voteClosed' => 'Die Wahl wurde bereits beendet.',
             'notVoted' => 'Es wurde nicht gewählt.',
             'voteMissing' => 'Es wurden keine Angaben für <b>%s / %s</b> gemacht.',
             'duplicateProject' => 'Projekt in <b>%s</b> doppelt angegeben.',
