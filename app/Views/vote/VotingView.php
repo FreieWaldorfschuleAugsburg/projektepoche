@@ -24,7 +24,7 @@ use function App\Helpers\getSlots;
                            href="<?= base_url('voting/state') . '?id=3' ?>"><i
                                     class="fas fa-bullhorn"></i> <?= lang('vote.buttons.state.public') ?></a>
                     <?php elseif (getVoteState() == VoteState::PUBLIC): ?>
-                        <a class="btn btn-primary btn-sm"
+                        <a class="btn btn-danger btn-sm"
                            href="<?= base_url('voting/reset') ?>"><i
                                     class="fas fa-bullhorn"></i> <?= lang('vote.buttons.reset') ?></a>
                     <?php endif; ?>

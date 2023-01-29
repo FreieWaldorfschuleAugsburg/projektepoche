@@ -60,5 +60,5 @@ return [
         'room' => 'Raum',
         'clock' => 'Uhr'
     ],
-    'leading' => 'Deine Projekte'
+    'leading' => 'Ihre Projekte'
 ];

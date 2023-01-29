@@ -31,6 +31,23 @@ function getProjectById(int $id): ?object
 }
 
 /**
+ * @param int $memberId
+ * @param int $slotId
+ * @return ?Project
+ * @throws DatabaseException
+ */
+function getProjectByMemberIdAndSlotId(int $memberId, int $slotId): ?Project
+{
+    $projects = getProjectsByMemberId($memberId);
+    foreach ($projects as $project) {
+        if ($project->getSlotId() == $slotId) {
+            return $project;
+        }
+    }
+    return null;
+}
+
+/**
  * @param int $slotId
  * @return Project[]
  * @throws DatabaseException
@@ -95,6 +112,22 @@ function getProjectMembersByProjectId(int $projectId): array
         $users[] = $mapping->getUser();
     }
     return $users;
+}
+
+/**
+ * @param int $memberId
+ * @return Project[]
+ * @throws DatabaseException
+ */
+function getProjectsByMemberId(int $memberId): array
+{
+    $mappings = getProjectMemberMappingModel()->where(['user_id' => $memberId])->findAll();
+
+    $projects = [];
+    foreach ($mappings as $mapping) {
+        $projects[] = $mapping->getProject();
+    }
+    return $projects;
 }
 
 /**

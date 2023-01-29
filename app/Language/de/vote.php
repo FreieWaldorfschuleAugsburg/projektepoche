@@ -10,6 +10,7 @@ return [
             'open' => 'Wahl öffnen',
             'public' => 'Ergebnis veröffentlichen',
         ],
+        'assign' => 'Automatische Zuweisung starten',
         'reset' => 'Daten zurücksetzen'
     ],
     'fields' => [
@@ -37,6 +38,11 @@ return [
         'success' => 'Wahl erfolgreich!',
         'submit' => 'Wahl absenden',
         'reportError' => 'Fehler melden'
+    ],
+    'result' => [
+        'headline' => 'Deine Projekte',
+        'details' => '<b>Du wirst folgende Projekte während der Projektepoche besuchen dürfen:</b>',
+        'members' => 'Teilnehmer*innen:'
     ],
     'closed' => [
         'headline' => 'Wahl geschlossen!',

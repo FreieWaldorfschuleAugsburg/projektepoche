@@ -33,6 +33,38 @@
                                     <p class="mt-3">
                                         <?= $project->getDescription() ?>
                                     </p>
+                                    <hr>
+                                    <?php if (getVoteState() == VoteState::PUBLIC): ?>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered"
+                                                   data-locale="<?= service('request')->getLocale(); ?>"
+                                                   data-toggle="table" data-search="true" data-height="300"
+                                                   data-pagination="true"
+                                                   data-show-columns="true" data-cookie="true"
+                                                   data-cookie-id-table="leader-<?= $project->getId() ?>"
+                                                   data-search-highlight="true"
+                                                   data-show-columns-toggle-all="true">
+                                                <thead>
+                                                <tr>
+                                                    <th data-field="name" data-sortable="true"
+                                                        scope="col"><?= lang('user.fields.name') ?></th>
+                                                    <th data-field="group" data-sortable="true"
+                                                        scope="col"><?= lang('user.fields.grade') ?></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php foreach ($project->getMembers() as $user): ?>
+                                                    <tr>
+                                                        <td id="td-id-<?= $user->getId() ?>"
+                                                            class="td-class-<?= $user->getId() ?>"
+                                                            data-title="<?= $user->getName() ?>"><?= $user->getName() ?></td>
+                                                        <td><?= $user->getGroup()->getName() ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

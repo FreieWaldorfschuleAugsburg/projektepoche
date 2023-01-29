@@ -33,6 +33,7 @@
                     <table class="table table-striped table-bordered"
                            data-locale="<?= service('request')->getLocale(); ?>"
                            data-toggle="table" data-search="true" data-height="580" data-pagination="true"
+                           data-cookie="true" data-cookie-id-table="redistribute-<?= $project->getId() ?>"
                            data-show-columns="true" data-search-highlight="true" data-show-columns-toggle-all="true">
                         <thead>
                         <tr>
