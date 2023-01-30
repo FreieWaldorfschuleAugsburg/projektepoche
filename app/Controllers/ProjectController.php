@@ -156,7 +156,7 @@ class ProjectController extends BaseController
         $selectable = $this->request->getPost('selectable');
 
         if (!isset($id) || !isset($name) || !isset($slotId) || !isset($leaderIds) || !isset($description)) {
-            return redirect('users')->with('error', 'project.error.parameterMissing');
+            return redirect('projects')->with('error', 'project.error.parameterMissing');
         }
 
         $slot = getSlotById($slotId);
@@ -190,6 +190,47 @@ class ProjectController extends BaseController
         updateProject($project, $leaderIds, $memberIds);
 
         return redirect('projects')->with('success', 'project.success.projectUpdated');
+    }
+
+    public function printTotal()
+    {
+        if (getVoteState() == \VoteState::OPEN) {
+            return redirect('projects')->with('error', 'project.error.voteStillOpen');
+        }
+
+        return $this->render('project/ProjectPrintTotalView', ['users' => getUsers()], false, false);
+    }
+
+    public function printInfo()
+    {
+        $id = $this->request->getGet('id');
+
+        if (!isset($id)) {
+            return redirect('projects')->with('error', 'project.error.parameterMissing');
+        }
+
+        $project = getProjectById($id);
+        if (is_null($project)) {
+            return redirect('projects')->with('error', 'project.error.invalidProject');
+        }
+
+        return $this->render('project/ProjectPrintInfoView', ['project' => $project], false, false);
+    }
+
+    public function printMembers()
+    {
+        $id = $this->request->getGet('id');
+
+        if (!isset($id)) {
+            return redirect('projects')->with('error', 'project.error.parameterMissing');
+        }
+
+        $project = getProjectById($id);
+        if (is_null($project)) {
+            return redirect('projects')->with('error', 'project.error.invalidProject');
+        }
+
+        return $this->render('project/ProjectPrintMembersView', ['project' => $project], false, false);
     }
 
     public function delete(): RedirectResponse

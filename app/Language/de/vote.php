@@ -37,6 +37,9 @@ return [
             'duplicateProject' => 'Projekt in <b>%s</b> doppelt angegeben.',
         ],
         'success' => 'Wahl erfolgreich!',
+        'stateChangeSuccess' => 'Der Wahlzustand wurde erfolgreich geändert!',
+        'assignSuccess' => 'Die automatische Zuweisung wurde erfolgreich durchgeführt!',
+        'resetSuccess' => 'Alle Daten erfolgreich gelöscht!',
         'submit' => 'Wahl absenden',
         'reportError' => 'Fehler melden'
     ],

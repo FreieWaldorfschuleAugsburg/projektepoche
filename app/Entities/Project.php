@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
+use function App\Helpers\getSlotById;
 
 class Project extends Entity
 {
@@ -53,6 +54,14 @@ class Project extends Entity
     public function getSlotId(): int
     {
         return $this->attributes['slot_id'];
+    }
+
+    /**
+     * @return Slot
+     */
+    public function getSlot(): Slot
+    {
+        return getSlotById($this->getSlotId());
     }
 
     public function setSlotId(int $slotId): void

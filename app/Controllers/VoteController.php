@@ -69,30 +69,32 @@ class VoteController extends BaseController
 
         // Write new state to database
         setVoteState($state);
-        return redirect('voting');
-    }
 
-    public function handleAutoAssign(): RedirectResponse
-    {
-        $users = getUsers();
-        shuffle($users);
-        usort($users, fn($a, $b) => $a->getGroupId() - $b->getGroupId());
+        if ($state == VoteState::CLOSED) {
+            // Automatically put everybody in their first priority project
+            $users = getUsers();
 
-        foreach (getUsers() as $user) {
-            if (!$user->mayVote() || !$user->hasVoted()) continue;
+            // TODO shall we keep it random?
+            shuffle($users);
+            usort($users, fn($a, $b) => $b->getGroupId() - $a->getGroupId());
 
-            foreach (getVotesByUserId($user->getId()) as $votes) {
-                addProjectMember($votes[1]->getProjectId(), $user->getId());
+            foreach ($users as $user) {
+                if (!$user->mayVote() || !$user->hasVoted()) continue;
+
+                foreach (getVotesByUserId($user->getId()) as $votes) {
+                    addProjectMember($votes[1]->getProjectId(), $user->getId());
+                }
             }
         }
-        return redirect('voting');
+
+        return redirect('voting')->with('success', 'vote.voting.stateChangeSuccess');;
     }
 
     public function handleReset(): RedirectResponse
     {
         deleteAllVotes();
         setVoteState(VoteState::CLOSED);
-        return redirect('voting');
+        return redirect('voting')->with('success', 'vote.voting.resetSuccess');
     }
 
     public function redirectWithError($votes, $error, ...$data): RedirectResponse

@@ -18,9 +18,6 @@ use function App\Helpers\getSlots;
                            href="<?= base_url('voting/state') . '?id=1' ?>"><i
                                     class="fas fa-lock-open"></i> <?= lang('vote.buttons.state.open') ?></a>
                         <a class="btn btn-primary btn-sm"
-                           href="<?= base_url('voting/assign') ?>"><i
-                                    class="fas fa-folder-tree"></i> <?= lang('vote.buttons.assign') ?></a>
-                        <a class="btn btn-primary btn-sm"
                            href="<?= base_url('voting/state') . '?id=3' ?>"><i
                                     class="fas fa-bullhorn"></i> <?= lang('vote.buttons.state.public') ?></a>
                     <?php elseif (getVoteState() == VoteState::PUBLIC): ?>
@@ -31,6 +28,12 @@ use function App\Helpers\getSlots;
                 </div>
             </div>
             <div class="card-body table-responsive">
+                <?php if ($success = session('success')): ?>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> <?= lang($success) ?>
+                    </div>
+                <?php endif; ?>
+
                 <table class="table table-striped table-bordered" data-locale="<?= service('request')->getLocale(); ?>"
                        data-toggle="table" data-search="true" data-height="1000" data-pagination="true"
                        data-show-columns="true" data-cookie="true" data-cookie-id-table="vote"

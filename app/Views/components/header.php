@@ -7,10 +7,10 @@
     <meta name="description" content="<?= lang('app.description') ?>"/>
     <meta name="referrer" content="no-referrer">
 
-    <meta property="og:url" content="https://projektepoche.waldorf-augsburg.de/"/>
+    <meta property="og:url" content="<?= base_url('/') ?>"/>
     <meta property="og:title" content="<?= lang('app.name.full') ?>"/>
     <meta property="og:description" content="<?= lang('app.description') ?>"/>
-    <meta property="og:image" content="https://elektronisch.dev/assets/img/logo.png"/>
+    <meta property="og:image" content="<?= base_url('/') ?>/assets/img/logo.png"/>
     <meta property="og:type" content="website"/>
     <meta property="og:locale" content="<?= service('request')->getLocale(); ?>"/>
 

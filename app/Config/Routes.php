@@ -69,6 +69,9 @@ $routes->get('/project/create', 'ProjectController::create', ['filter' => AdminF
 $routes->post('/project/create', 'ProjectController::handleCreate', ['filter' => AdminFilter::class]);
 $routes->get('/project/redistribute', 'ProjectController::redistribute', ['filter' => AdminFilter::class]);
 $routes->get('/project/move', 'ProjectController::handleMove', ['filter' => AdminFilter::class]);
+$routes->get('/project/print/total', 'ProjectController::printTotal', ['filter' => AdminFilter::class]);
+$routes->get('/project/print/info', 'ProjectController::printInfo', ['filter' => AdminFilter::class]);
+$routes->get('/project/print/members', 'ProjectController::printMembers', ['filter' => AdminFilter::class]);
 $routes->get('/project/edit', 'ProjectController::edit', ['filter' => AdminFilter::class]);
 $routes->post('/project/edit', 'ProjectController::handleEdit', ['filter' => AdminFilter::class]);
 $routes->get('/project/delete', 'ProjectController::delete', ['filter' => AdminFilter::class]);
@@ -77,7 +80,6 @@ $routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter
 
 $routes->get('/voting', 'VoteController::index', ['filter' => AdminFilter::class]);
 $routes->get('/voting/state', 'VoteController::handleStateChange', ['filter' => AdminFilter::class]);
-$routes->get('/voting/assign', 'VoteController::handleAutoAssign', ['filter' => AdminFilter::class]);
 $routes->get('/voting/reset', 'VoteController::handleReset', ['filter' => AdminFilter::class]);
 
 $routes->post('/api/upload', 'ApiController::uploadCredentials');

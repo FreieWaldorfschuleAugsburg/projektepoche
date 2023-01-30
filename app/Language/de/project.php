@@ -4,15 +4,16 @@ return [
     'headline' => 'Projekte',
     'buttons' => [
         'create' => 'Projekt erstellen',
+        'print' => 'Gesamtübersicht drucken',
         'back' => 'Zurück'
     ],
     'leader' => 'Kursleitung:',
     'fields' => [
         'name' => 'Name',
-        'slot' => 'Zeitschiene',
+        'slot' => 'ZS',
         'maxMembers' => 'Max. TN',
         'room' => 'Raum',
-        'leaders' => 'Leiter',
+        'leaders' => 'Leitung',
         'members' => 'TN',
         'conflict' => [
             'title' => 'Konflikt?',
@@ -26,15 +27,24 @@ return [
             'no' => 'Nein'
         ],
         'actions' => [
-            'title' => 'Aktionen',
-            'redistribute' => 'Umverteilen',
-            'edit' => 'Editieren',
-            'delete' => 'Löschen'
+            'title' => 'Aktionen'
         ]
     ],
     'create' => [
         'headline' => 'Projekt erstellen',
         'button' => 'Erstellen'
+    ],
+    'error' => [
+        'parameterMissing' => 'Ein notwendiger Parameter fehlt!',
+        'invalidProject' => 'Ein ungültiges Projekt wurde angegeben!',
+        'invalidUser' => 'Ein ungültiger Benutzer wurde angegeben!',
+        'invalidSlot' => 'Ein ungültiger Slot wurde angegeben!',
+        'voteStillOpen' => 'Die Gesamtübersicht kann erst erstellt werden, wenn die Wahl beendet wurde!'
+    ],
+    'success' => [
+        'projectCreated' => 'Projekt erfolgreich erstellt.',
+        'projectUpdated' => 'Projekt erfolgreich editiert.',
+        'projectDeleted' => 'Projekt erfolgreich gelöscht.'
     ],
     'redistribute' => [
         'headline' => 'Projekteilnehmer umverteilen',
@@ -59,6 +69,21 @@ return [
         'maxMembers' => 'Maximale Teilnehmerzahl',
         'room' => 'Raum',
         'clock' => 'Uhr'
+    ],
+    'print' => [
+        'info' => 'Informationen',
+        'members' => [
+            'title' => 'Teilnehmer*innen',
+            'description' => 'Tragen Sie in die nummerierten Spalten die Anwesenheit des Teilnehmers an diesem Tag ein. <br> (✓ = Anwesend, E = fehlt entschuldigt, U = fehlt unentschuldigt)'
+        ],
+        'total' => [
+            'title' => 'Gesamtübersicht'
+        ],
+        'fields' => [
+            'leaders' => 'Projektleitung',
+            'maxMembers' => 'Maximale Teilnehmerzahl',
+            'room' => 'Raum'
+        ]
     ],
     'leading' => 'Ihre Projekte'
 ];

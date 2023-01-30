@@ -1,4 +1,4 @@
-<main id="print" data-bs-theme="light">
+<main id="print">
     <div class="row gx-4 justify-content-center">
         <div class="col-lg-10">
             <div class="text-center">
@@ -9,7 +9,7 @@
             </div>
         </div>
     </div>
-    <div class="row gx-4 mt-3 justify-content-center text-body bg-body" data-bs-theme="light" id="width">
+    <div class="row gx-4 mt-3 justify-content-center text-body bg-body" id="width">
         <div class="col-lg-10">
             <div class="text-center">
                 <div class="card mt-3">
@@ -67,6 +67,7 @@
 </main>
 <script>
     document.addEventListener("DOMContentLoaded", async function () {
+        document.querySelector("html").setAttribute("data-bs-theme", "light");
         window.print();
     });
     window.addEventListener('afterprint', function () {
