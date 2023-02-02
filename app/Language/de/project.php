@@ -77,7 +77,8 @@ return [
             'description' => 'Tragen Sie in die nummerierten Spalten die Anwesenheit des Teilnehmers an diesem Tag ein. <br> (✓ = Anwesend, E = fehlt entschuldigt, U = fehlt unentschuldigt)'
         ],
         'total' => [
-            'title' => 'Gesamtübersicht'
+            'title' => 'Gesamtübersicht',
+            'blocked' => '-/-'
         ],
         'fields' => [
             'leaders' => 'Projektleitung',

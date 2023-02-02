@@ -28,16 +28,11 @@
                         <?php if (!$user->mayVote() || !$user->hasVoted()) continue; ?>
                         <tr>
                             <td><?= $user->getName() ?></td>
-                            <?php
-                            $id = 0;
-                            $projects = getProjectsByMemberId($user->getId()); ?>
-
                             <?php foreach ($slots as $slot): ?>
                                 <?php if (isSlotBlocked($user, $slot->getId())): ?>
-                                    <td><?= lang('vote.votes.noData') ?></td>
+                                    <td><?= lang('project.print.total.blocked') ?></td>
                                 <?php else: ?>
-                                    <td><?= $projects[$id]->getName() ?></td>
-                                    <?php $id++ ?>
+                                    <td><?= getProjectByMemberIdAndSlotId($user->getId(), $slot->getId())->getName() ?></td>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </tr>

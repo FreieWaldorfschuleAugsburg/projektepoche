@@ -127,6 +127,9 @@ function getProjectsByMemberId(int $memberId): array
     foreach ($mappings as $mapping) {
         $projects[] = $mapping->getProject();
     }
+
+    usort($projects, fn($a, $b) => $a->getSlotId() - $b->getSlotId());
+
     return $projects;
 }
 

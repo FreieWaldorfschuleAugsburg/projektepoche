@@ -31,3 +31,13 @@
 </head>
 
 <body>
+
+<?php
+
+if (isset($_SERVER['HTTP_USER_AGENT'])):
+    if (!str_contains($_SERVER['HTTP_USER_AGENT'], 'Chrome')):?>
+        <div class="alert alert-warning">
+            <i class="fas fa-triangle-exclamation"></i> <?= lang('app.incompatibleBrowser') ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
