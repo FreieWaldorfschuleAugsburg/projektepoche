@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <b><?= lang('project.leading') ?></b>
+                <b><?= lang('project.leading.title') ?></b>
             </div>
             <div class="card-body">
                 <div class="accordion accordion-flush" id="ownProjects">
@@ -63,6 +63,10 @@
                                                 <?php endforeach; ?>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="alert alert-danger">
+                                            <i class="fas fa-triangle-exclamation"></i> <?= lang('project.leading.notPublic') ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>

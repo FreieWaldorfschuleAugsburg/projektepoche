@@ -27,7 +27,7 @@
                     <?php foreach ($users as $user): ?>
                         <?php if (!$user->mayVote() || !$user->hasVoted()) continue; ?>
                         <tr>
-                            <td><?= $user->getName() ?></td>
+                            <td><b><?= $user->getName() ?></b></td>
                             <?php foreach ($slots as $slot): ?>
                                 <?php if (isSlotBlocked($user, $slot->getId())): ?>
                                     <td><?= lang('project.print.total.blocked') ?></td>

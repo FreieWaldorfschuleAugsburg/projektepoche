@@ -86,5 +86,8 @@ return [
             'room' => 'Raum'
         ]
     ],
-    'leading' => 'Ihre Projekte'
+    'leading' => [
+        'title' => 'Ihre Projekte',
+        'notPublic' => 'Die Teilnehmerliste steht noch nicht fest, da die Ergebnisse der Projektwahl noch nicht veröffentlicht sind!'
+    ]
 ];
