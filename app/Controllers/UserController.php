@@ -92,7 +92,7 @@ class UserController extends BaseController
         return redirect('users')->with('success', 'user.success.userEdited');
     }
 
-    public function print()
+    public function printCredentials()
     {
         helper('credential');
 
@@ -115,15 +115,28 @@ class UserController extends BaseController
             return redirect('users')->with('error', 'user.error.invalidUser');
         }
 
-        return $this->render('user/UserPrintView', ['user' => $user, 'qr' => generateQrCode($user->getName(), $user->getPassword())], false, false);
+        return $this->render('user/UserPrintCredentialsView', ['user' => $user, 'qr' => generateQrCode($user->getName(), $user->getPassword())], false, false);
     }
 
-
-    public function printAll()
+    public function printProjects()
     {
-        return $this->render('user/UserPrintAllView');
+        $id = $this->request->getGet('id');
+        if (!isset($id)) {
+            return redirect('users')->with('error', 'user.error.parameterMissing');
+        }
+
+        $user = getUserById($id);
+        if (is_null($user)) {
+            return redirect('users')->with('error', 'user.error.invalidUser');
+        }
+
+        return $this->render('user/UserPrintProjectsView', ['user' => $user], false, false);
     }
 
+    public function printAllCredentials()
+    {
+        return $this->render('user/UserPrintAllCredentialsView');
+    }
 
     public function downloadCredentials()
     {
@@ -217,10 +230,10 @@ class UserController extends BaseController
             $userName = $user->getName();
             $userId = $user->getId();
             log_message(2, "Received code request for $userName (#$userId)");
-             if (env('app.config.features.codeLogin') === 'active') {
-                 session()->set('user_id', $userId);
-                 return redirect('/');
-             }
+            if (env('app.config.features.codeLogin') === 'active') {
+                session()->set('user_id', $userId);
+                return redirect('/');
+            }
         } catch (\Exception $e) {
             return redirect('login')->with('error', $e->getMessage());
         }

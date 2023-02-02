@@ -24,7 +24,7 @@
                                 class="fas fa-upload"></i> <?= lang('user.buttons.import') ?></a>
 
                     <a class="btn btn-success btn-sm"
-                       href="<?= base_url('users/print/all') ?>"><i
+                       href="<?= base_url('users/print/all/credentials') ?>"><i
                                 class="fas fa-download"></i> <?= lang('user.buttons.downloadCredentials') ?></a>
                 </div>
             </div>
@@ -40,6 +40,11 @@
                         <th data-field="group" data-sortable="true" scope="col"><?= lang('user.fields.group') ?></th>
                         <th data-field="vote" data-sortable="true"
                             scope="col"><?= lang('user.fields.vote.title') ?></th>
+                        <?php if (getVoteState() == VoteState::CLOSED): ?>
+                            <?php foreach (\App\Helpers\getSlots() as $slot): ?>
+                                <th data-field="<?= $slot->getId() ?>" scope="col"><?= $slot->getName() ?></th>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         <th data-field="action" scope="col"><?= lang('user.fields.actions.title') ?></th>
                     </tr>
                     </thead>
@@ -51,17 +56,34 @@
                             <td><?= $user->getPassword() ?></td>
                             <td><?= $user->getGroup()->getName() ?></td>
                             <td><?= !$user->mayVote() ? lang('user.fields.vote.value.notVoting') : ($user->hasVoted() ? lang('user.fields.vote.value.yes') : lang('user.fields.vote.value.no')) ?></td>
+                            <?php if (getVoteState() == VoteState::CLOSED): ?>
+                                <?php foreach (\App\Helpers\getSlots() as $slot): ?>
+                                    <td>
+                                        <?php if ($user->mayVote() && $user->hasVoted()): ?>
+                                            <?php $project = getProjectByMemberIdAndSlotId($user->getId(), $slot->getId()); ?>
+                                            <?= is_null($project) ? lang('vote.votes.noData') : $project->getName() ?>
+                                        <?php else: ?>
+                                            <?= lang('vote.votes.noData') ?>
+                                        <?php endif; ?>
+                                    </td>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                             <td>
                                 <div class="btn-group d-flex gap-2" role="group">
                                     <a class="btn btn-success btn-sm"
-                                       href="<?= base_url('user/print') . '?id=' . $user->getId() ?>"><i
-                                                class="fas fa-print"></i> <?= lang('user.fields.actions.print') ?></a>
+                                       href="<?= base_url('user/print/credentials') . '?id=' . $user->getId() ?>"><i
+                                                class="fas fa-key"></i></a>
+                                    <?php if ($user->mayVote() && $user->hasVoted()): ?>
+                                        <a class="btn btn-success btn-sm"
+                                           href="<?= base_url('user/print/projects') . '?id=' . $user->getId() ?>"><i
+                                                    class="fas fa-puzzle-piece"></i></a>
+                                    <?php endif; ?>
                                     <a class="btn btn-primary btn-sm"
                                        href="<?= base_url('user/edit') . '?id=' . $user->getId() ?>"><i
-                                                class="fas fa-pen"></i> <?= lang('user.fields.actions.edit') ?></a>
+                                                class="fas fa-pen"></i></a>
                                     <a class="btn btn-danger btn-sm delete"
                                        href="<?= base_url('user/delete') . '?id=' . $user->getId() ?>"><i
-                                                class="fas fa-trash"></i> <?= lang('user.fields.actions.delete') ?></a>
+                                                class="fas fa-trash"></i></a>
                                 </div>
                             </td>
                         </tr>

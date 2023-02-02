@@ -69,6 +69,7 @@ return [
         'credentials' => [
             'headline' => 'Zugangsdaten'
         ],
+        'projects' => 'Projektübersicht für:'
     ],
     'leader' => [
         'headline' => 'Meine Projekte',
