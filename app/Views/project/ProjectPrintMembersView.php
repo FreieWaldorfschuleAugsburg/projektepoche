@@ -20,7 +20,14 @@
                                 <th><?= lang('user.fields.name') ?></th>
                                 <th><?= lang('user.fields.grade') ?></th>
                                 <?php for ($i = 1; $i <= getSettingsValue('days'); $i++): ?>
-                                    <th class="text-center"><?= $i ?></th>
+                                    <?php
+                                    $time = strtotime(getSettingsValue('startDay') . ' + ' . ($i - 1) . ' days');
+                                    $date = date('d.m.', $time);
+                                    $day = date('w', $time);
+                                    ?>
+                                    <?php if ($day != 0 && $day != 6): ?>
+                                        <th class="text-center" style="font-size: 8px"><?= $date ?></th>
+                                    <?php endif; ?>
                                 <?php endfor; ?>
                             </tr>
                             </thead>
@@ -30,7 +37,14 @@
                                     <td><?= $member->getName() ?></td>
                                     <td><?= $member->getGroup()->getName() ?></td>
                                     <?php for ($i = 1; $i <= getSettingsValue('days'); $i++): ?>
-                                        <td></td>
+                                        <?php
+                                        $time = strtotime(getSettingsValue('startDay') . ' + ' . ($i - 1) . ' days');
+                                        $date = date('d.m.', $time);
+                                        $day = date('w', $time);
+                                        ?>
+                                        <?php if ($day != 0 && $day != 6): ?>
+                                            <td></td>
+                                        <?php endif; ?>
                                     <?php endfor; ?>
                                 </tr>
                             <?php endforeach; ?>
