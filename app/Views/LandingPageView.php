@@ -8,6 +8,13 @@
                 <div class="text-center">
                     <h1>Willkommen!</h1>
                 </div>
+
+                <div class="alert alert-success">
+                    <i class="fas fa-bullhorn"></i> <b>Liebe Schüler*innen!</b> Meldet euch jetzt erneut an,
+                    um die Ergebnisse der Projektwahl anzusehen. Die dort angezeigten Kurse werdet ihr während der
+                    Projektepoche besuchen dürfen!
+                </div>
+
                 <p>
                     Vom <b>27. Februar bis zum 10. März</b>, also in den zwei Wochen nach den Faschingsferien, wird der
                     normale Stundenplan ausgesetzt und die Projektepoche stattfinden. In drei Zeitschienen werden
