@@ -42,7 +42,7 @@
                             scope="col"><?= lang('user.fields.vote.title') ?></th>
                         <?php if (getVoteState() == VoteState::CLOSED): ?>
                             <?php foreach (\App\Helpers\getSlots() as $slot): ?>
-                                <th data-field="<?= $slot->getId() ?>" scope="col"><?= $slot->getName() ?></th>
+                                <th data-field="<?= $slot->getId() ?>" data-sortable="true" scope="col"><?= $slot->getName() ?></th>
                             <?php endforeach; ?>
                         <?php endif; ?>
                         <th data-field="action" scope="col"><?= lang('user.fields.actions.title') ?></th>
