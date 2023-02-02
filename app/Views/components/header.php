@@ -36,8 +36,9 @@
 
 if (isset($_SERVER['HTTP_USER_AGENT'])):
     if (!str_contains($_SERVER['HTTP_USER_AGENT'], 'Chrome')):?>
-        <div class="alert alert-warning">
+        <div class="alert alert-warning alert-dismissible fade show">
             <i class="fas fa-triangle-exclamation"></i> <?= lang('app.incompatibleBrowser') ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 <?php endif; ?>
