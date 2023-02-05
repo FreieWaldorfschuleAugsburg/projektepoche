@@ -77,6 +77,8 @@ $routes->get('/project/edit', 'ProjectController::edit', ['filter' => AdminFilte
 $routes->post('/project/edit', 'ProjectController::handleEdit', ['filter' => AdminFilter::class]);
 $routes->get('/project/delete', 'ProjectController::delete', ['filter' => AdminFilter::class]);
 
+$routes->get('/slots', 'SlotController::index', ['filter' => AdminFilter::class]);
+
 $routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter::class]);
 
 $routes->get('/voting', 'VoteController::index', ['filter' => AdminFilter::class]);

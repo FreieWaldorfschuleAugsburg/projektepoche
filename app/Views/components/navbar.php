@@ -24,8 +24,13 @@
                                 <li><a class="dropdown-item" href="<?= base_url('/projects') ?>"><i
                                                 class="fas fa-puzzle-piece"></i> <?= lang('project.headline') ?></a>
                                 </li>
+                                <li><a class="dropdown-item" href="<?= base_url('/slots') ?>"><i
+                                                class="fas fa-list-numeric"></i> <?= lang('slot.headline') ?></a>
+                                </li>
                                 <li><a class="dropdown-item" href="<?= base_url('/voting') ?>"><i
                                                 class="fas fa-poll"></i> <?= lang('vote.headline') ?></a></li>
+                                <li><a class="dropdown-item" href="<?= base_url('/settings') ?>"><i
+                                                class="fas fa-cogs"></i> <?= lang('settings.headline') ?></a></li>
                             </ul>
                         </li>
                     </ul>
