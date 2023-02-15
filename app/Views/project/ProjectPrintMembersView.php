@@ -5,7 +5,7 @@
 
             <h1><u><?= $project->getName() ?></u></h1>
             <p>&nbsp;&nbsp;&nbsp;<?= ($slot = $project->getSlot())->getName() ?> (<?= $slot->getStartTime() ?>
-                - <?= $slot->getEndTime() ?> <?= lang('project.view.clock') ?>)</p>
+                - <?= $slot->getEndTime() ?> <?= lang('project.view.clock') ?>)<br>&nbsp;&nbsp;&nbsp;<b><?= lang('project.fields.leaders') ?>:</b> <?= $project->getLeaderShortNameString() ?></p>
             <hr>
 
             <div class="card mt-3">

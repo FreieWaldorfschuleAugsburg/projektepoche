@@ -5,6 +5,7 @@ return [
     'buttons' => [
         'create' => 'Projekt erstellen',
         'print' => 'Gesamtübersicht drucken',
+        'printOverview' => 'Projektliste drucken',
         'back' => 'Zurück'
     ],
     'leader' => 'Kursleitung:',
@@ -75,6 +76,9 @@ return [
         'members' => [
             'title' => 'Teilnehmer*innen',
             'description' => 'Tragen Sie in die nummerierten Spalten die Anwesenheit des Teilnehmers an diesem Tag ein. <br> (✓ = Anwesend, E = fehlt entschuldigt, U = fehlt unentschuldigt)'
+        ],
+        'overview' => [
+            'title' => 'Projektliste'
         ],
         'total' => [
             'title' => 'Gesamtübersicht',

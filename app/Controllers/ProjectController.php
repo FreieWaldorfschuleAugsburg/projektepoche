@@ -192,6 +192,17 @@ class ProjectController extends BaseController
         return redirect('projects')->with('success', 'project.success.projectUpdated');
     }
 
+    public function printOverview()
+    {
+        if (getVoteState() == \VoteState::OPEN) {
+            return redirect('projects')->with('error', 'project.error.voteStillOpen');
+        }
+
+        $projects = getProjects();
+        usort($projects, fn($a, $b) => $a->getSlotId() - $b->getSlotId());
+        return $this->render('project/ProjectPrintOverviewView', ['projects' => $projects], false, false);
+    }
+
     public function printTotal()
     {
         if (getVoteState() == \VoteState::OPEN) {

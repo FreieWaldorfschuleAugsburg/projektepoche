@@ -70,6 +70,7 @@ $routes->get('/project/create', 'ProjectController::create', ['filter' => AdminF
 $routes->post('/project/create', 'ProjectController::handleCreate', ['filter' => AdminFilter::class]);
 $routes->get('/project/redistribute', 'ProjectController::redistribute', ['filter' => AdminFilter::class]);
 $routes->get('/project/move', 'ProjectController::handleMove', ['filter' => AdminFilter::class]);
+$routes->get('/project/print/overview', 'ProjectController::printOverview', ['filter' => AdminFilter::class]);
 $routes->get('/project/print/total', 'ProjectController::printTotal', ['filter' => AdminFilter::class]);
 $routes->get('/project/print/info', 'ProjectController::printInfo', ['filter' => AdminFilter::class]);
 $routes->get('/project/print/members', 'ProjectController::printMembers', ['filter' => AdminFilter::class]);

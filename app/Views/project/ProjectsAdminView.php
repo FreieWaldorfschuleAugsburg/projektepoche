@@ -20,6 +20,9 @@
                        href="<?= base_url('project/create') ?>"><i
                                 class="fas fa-add"></i> <?= lang('project.buttons.create') ?></a>
                     <a class="btn btn-success btn-sm"
+                       href="<?= base_url('project/print/overview') ?>"><i
+                                class="fas fa-print"></i> <?= lang('project.buttons.printOverview') ?></a>
+                    <a class="btn btn-success btn-sm"
                        href="<?= base_url('project/print/total') ?>"><i
                                 class="fas fa-print"></i> <?= lang('project.buttons.print') ?></a>
                 </div>
