@@ -25,6 +25,7 @@
                     </thead>
                     <tbody>
                     <?php foreach ($projects as $project): ?>
+                        <?php if (!$project->isVisible()): continue; endif; ?>
                         <tr>
                             <td><?= $project->getName() ?></td>
                             <td><?= ($slot = $project->getSlot())->getName() ?> (<?= $slot->getStartTime() ?>

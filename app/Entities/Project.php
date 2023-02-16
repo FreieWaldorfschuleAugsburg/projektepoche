@@ -14,7 +14,8 @@ class Project extends Entity
         'max_members' => null,
         'room' => null,
         'description' => null,
-        'selectable' => null
+        'selectable' => null,
+        'visible' => null
     ];
 
     protected $casts = [
@@ -24,7 +25,8 @@ class Project extends Entity
         'max_members' => 'integer',
         'room' => 'string',
         'description' => 'string',
-        'selectable' => 'boolean'
+        'selectable' => 'boolean',
+        'visible' => 'boolean'
     ];
 
     /**
@@ -119,6 +121,19 @@ class Project extends Entity
     public function setSelectable(bool $selectable): void
     {
         $this->attributes['selectable'] = $selectable;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVisible(): bool
+    {
+        return $this->attributes['visible'];
+    }
+
+    public function setVisible(bool $visible): void
+    {
+        $this->attributes['visible'] = $visible;
     }
 
     /**
