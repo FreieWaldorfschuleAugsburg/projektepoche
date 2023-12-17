@@ -2,7 +2,7 @@
   "name": "freiewaldorfschuleaugsburg/projektepoche",
   "type": "projektepoche",
   "description": "A tool for managing the votes of the projektepoche",
-  "homepage": "https://waldorf-augsburg.de/projektepoche",
+  "homepage": "https://projektepoche.waldorf-augsburg.de",
   "license": "MIT",
   "require": {
     "php": "^8.1",
@@ -35,10 +35,5 @@
   },
   "scripts": {
     "test": "phpunit"
-  },
-  "support": {
-    "forum": "http://forum.codeigniter.com/",
-    "source": "https://github.com/codeigniter4/CodeIgniter4",
-    "slack": "https://codeigniterchat.slack.com"
   }
 }
