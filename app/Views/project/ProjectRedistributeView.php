@@ -68,27 +68,27 @@
                                             <?php $voteId++; ?>
                                         <?php endforeach; ?>
                                         <div class="vr"></div>
-                                        <form action="<?= base_url('project/move') ?>" method="GET">
-                                            <input type="hidden" name="user" value="<?= $member->getId() ?>">
-                                            <input type="hidden" name="slot" value="<?= $project->getSlotId() ?>">
-                                            <input type="hidden" name="project" value="<?= $project->getId() ?>">
+                                        <?= form_open('project/move', 'method="get"') ?>
+                                        <input type="hidden" name="user" value="<?= $member->getId() ?>">
+                                        <input type="hidden" name="slot" value="<?= $project->getSlotId() ?>">
+                                        <input type="hidden" name="project" value="<?= $project->getId() ?>">
 
-                                            <label for="newProject"
-                                                   class="form-label"><?= lang('project.redistribute.fields.actions.manual') ?></label>
-                                            <select class="form-control mb-3" id="newProject" name="newProject"
-                                                    required>
-                                                <option selected
-                                                        disabled><?= lang('vote.voting.select') ?></option>
-                                                <?php foreach (getProjectsBySlotId($project->getSlotId()) as $newProject): ?>
-                                                    <?php if ($newProject->getId() != $project->getId()): ?>
-                                                        <option value="<?= $newProject->getId() ?>"><?= $newProject->getId() ?>
-                                                            : <?= $newProject->getName() ?></option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <button type="submit"
-                                                    class="btn btn-primary"><?= lang('project.redistribute.buttons.submit') ?></button>
-                                        </form>
+                                        <label for="newProject"
+                                               class="form-label"><?= lang('project.redistribute.fields.actions.manual') ?></label>
+                                        <select class="form-control mb-3" id="newProject" name="newProject"
+                                                required>
+                                            <option selected
+                                                    disabled><?= lang('vote.voting.select') ?></option>
+                                            <?php foreach (getProjectsBySlotId($project->getSlotId()) as $newProject): ?>
+                                                <?php if ($newProject->getId() != $project->getId()): ?>
+                                                    <option value="<?= $newProject->getId() ?>"><?= $newProject->getId() ?>
+                                                        : <?= $newProject->getName() ?></option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <button type="submit"
+                                                class="btn btn-primary"><?= lang('project.redistribute.buttons.submit') ?></button>
+                                        <?= form_close() ?>
                                     </div>
                                 </td>
                             </tr>

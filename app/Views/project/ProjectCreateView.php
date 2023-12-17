@@ -8,7 +8,7 @@
                             class="fas fa-backward"></i> <?= lang('project.buttons.back') ?></a>
             </div>
             <div class="card-body">
-                <form action="<?= base_url('project/create') ?>" method="post">
+                <?= form_open('project/create') ?>
                     <div class="mb-3">
                         <label for="name" class="form-label"><?= lang('project.fields.name') ?></label>
                         <input type="text" class="form-control" id="name" name="name" required>
@@ -59,7 +59,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary"><?= lang('project.create.button') ?></button>
-                </form>
+                    <?= form_close() ?>
             </div>
         </div>
     </div>

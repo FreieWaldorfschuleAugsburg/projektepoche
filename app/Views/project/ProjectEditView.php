@@ -8,7 +8,7 @@
                             class="fas fa-backward"></i> <?= lang('project.buttons.back') ?></a>
             </div>
             <div class="card-body">
-                <form action="<?= base_url('project/edit') ?>" method="post">
+                <?php form_open('project/edit') ?>
                     <input type="number" id="id" name="id" value="<?= $project->getId() ?>" hidden>
 
                     <div class="mb-3">
@@ -82,7 +82,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary"><?= lang('project.edit.button') ?></button>
-                </form>
+                <?= form_close() ?>
             </div>
         </div>
     </div>
