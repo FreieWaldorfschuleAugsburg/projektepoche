@@ -6,7 +6,7 @@ use CodeIgniter\Database\Migration;
 
 class ProjectLeaderMapping extends Migration
 {
-    public function up()
+    public function up(): void
     {
         $this->forge->addField([
             'id' => [
@@ -30,7 +30,7 @@ class ProjectLeaderMapping extends Migration
         $this->forge->createTable(LEADERS);
     }
 
-    public function down()
+    public function down(): void
     {
         $this->forge->dropTable(LEADERS);
     }

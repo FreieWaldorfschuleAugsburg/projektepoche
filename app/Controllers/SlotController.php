@@ -11,6 +11,6 @@ class SlotController extends BaseController
 {
     public function index(): string
     {
-        return $this->render('project/SlotsView', ['slots' => getSlots()]);
+        return $this->render('slot/SlotsView', ['slots' => getSlots()]);
     }
 }

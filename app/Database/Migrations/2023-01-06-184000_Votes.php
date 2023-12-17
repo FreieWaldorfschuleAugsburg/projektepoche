@@ -6,7 +6,7 @@ use CodeIgniter\Database\Migration;
 
 class Votes extends Migration
 {
-    public function up()
+    public function up(): void
     {
         $this->forge->addField([
             'id' => [
@@ -35,7 +35,7 @@ class Votes extends Migration
         $this->forge->createTable(VOTES);
     }
 
-    public function down()
+    public function down(): void
     {
         $this->forge->dropTable(VOTES);
     }

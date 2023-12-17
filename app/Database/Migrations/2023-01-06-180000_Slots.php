@@ -6,7 +6,7 @@ use CodeIgniter\Database\Migration;
 
 class Slots extends Migration
 {
-    public function up()
+    public function up(): void
     {
         $this->forge->addField([
             'id' => [

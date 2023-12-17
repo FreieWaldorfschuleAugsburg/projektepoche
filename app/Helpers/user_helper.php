@@ -54,7 +54,6 @@ function getUsersWithQrCode(): array
 }
 
 
-
 /**
  * @return User
  * @throws DatabaseException
