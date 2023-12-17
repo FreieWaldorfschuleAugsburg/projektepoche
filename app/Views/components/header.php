@@ -28,19 +28,6 @@
     <script src="<?= base_url('/') ?>/assets/js/bootstrap-table-cookie.min.js" type="application/javascript"></script>
     <script src="<?= base_url('/') ?>/assets/js/bootstrap-table-locale-all.min.js"></script>
     <script src="<?= base_url('/') ?>/assets/js/summernote-bs5.min.js"></script>
-    <script type="application/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            if (window.matchMedia) {
-                const newColorScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
-                document.documentElement.setAttribute('data-bs-theme', newColorScheme)
-            }
-        });
-
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            const newColorScheme = event.matches ? "dark" : "light";
-            document.documentElement.setAttribute('data-bs-theme', newColorScheme)
-        });
-    </script>
 </head>
 
 <body>
