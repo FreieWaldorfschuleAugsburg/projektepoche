@@ -36,7 +36,7 @@ class BaseController extends Controller
         parent::initController($request, $response, $logger);
     }
 
-    public function render($name, $data = null, $renderNavbar = true, $fullFooter = true): string
+    public function render($name, $data = null, $renderNavbar = true, $renderMain = true, $fullFooter = true): string
     {
         $renderedContent = view('components/header');
 
@@ -44,10 +44,18 @@ class BaseController extends Controller
             $renderedContent .= view('components/navbar');
         }
 
+        if ($renderMain) {
+            $renderedContent .= view('components/main');
+        }
+
         if (!is_null($data)) {
             $renderedContent .= view($name, $data);
         } else {
             $renderedContent .= view($name);
+        }
+
+        if ($renderMain) {
+            $renderedContent .= view('components/main_end');
         }
 
         if ($fullFooter) {

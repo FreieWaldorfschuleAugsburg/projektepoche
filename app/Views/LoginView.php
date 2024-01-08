@@ -1,6 +1,6 @@
-<div class="row gx-4 mt-3 justify-content-center">
-    <div class="col-lg-5">
-        <div class="card">
+<main>
+    <div class="container login">
+        <div class="card login">
             <div class="card-header">
                 <b><?= lang('login.headline') ?></b>
             </div>
@@ -27,4 +27,4 @@
             </div>
         </div>
     </div>
-</div>
+</main>

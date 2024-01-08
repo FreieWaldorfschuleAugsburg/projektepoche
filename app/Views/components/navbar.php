@@ -64,6 +64,3 @@
         </div>
     </div>
 </nav>
-
-<main>
-    <div class="container">
