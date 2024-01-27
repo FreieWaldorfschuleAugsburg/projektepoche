@@ -75,6 +75,11 @@ class Slot extends Entity
         return $this->attributes['start_day'];
     }
 
+    public function getStartDay(): Day
+    {
+
+    }
+
     public function setStartDayId(int $startDayId): void
     {
         $this->attributes['start_day'] = $startDayId;
@@ -83,6 +88,11 @@ class Slot extends Entity
     public function getEndDayId(): int
     {
         return $this->attributes['end_day'];
+    }
+
+    public function getEndDay(): Day
+    {
+
     }
 
     public function setEndDayId(int $endDayId): void

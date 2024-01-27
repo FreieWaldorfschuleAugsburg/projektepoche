@@ -9,6 +9,7 @@ class Vote extends Entity
     protected $attributes = [
         'id' => null,
         'user_id' => null,
+        'slot_id' => null,
         'vote_id' => null,
         'project_id' => null
     ];
@@ -16,6 +17,7 @@ class Vote extends Entity
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'slot_id' => 'integer',
         'vote_id' => 'integer',
         'project_id' => 'integer'
     ];
@@ -39,6 +41,19 @@ class Vote extends Entity
     public function setUserId(int $userId)
     {
         $this->attributes['user_id'] = $userId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSlotId(): int
+    {
+        return $this->attributes['slot_id'];
+    }
+
+    public function setSlotId(int $slotId)
+    {
+        $this->attributes['slot_id'] = $slotId;
     }
 
     /**

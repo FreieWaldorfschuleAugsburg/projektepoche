@@ -2,7 +2,7 @@
 
 use App\Entities\Project;
 use App\Entities\ProjectLeaderMapping;
-use App\Entities\ProjectMemberMapping;
+use App\Entities\Membership;
 use App\Entities\User;
 use App\Models\ProjectLeaderMappingModel;
 use App\Models\ProjectMemberMappingModel;
@@ -141,7 +141,7 @@ function getProjectsByMemberId(int $memberId): array
  */
 function addProjectMember(int $projectId, int $userId): void
 {
-    $mapping = new ProjectMemberMapping();
+    $mapping = new Membership();
     $mapping->setUserId($userId);
     $mapping->setProjectId($projectId);
     getProjectMemberMappingModel()->insert($mapping);
@@ -229,7 +229,7 @@ function insertProjectMemberMappings(int $projectId, array $memberIds): void
 {
     $mappings = [];
     foreach ($memberIds as $id) {
-        $mapping = new ProjectMemberMapping();
+        $mapping = new Membership();
         $mapping->setUserId($id);
         $mapping->setProjectId($projectId);
         $mappings[] = $mapping;

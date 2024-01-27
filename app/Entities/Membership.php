@@ -4,18 +4,20 @@ namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
 
-class ProjectMemberMapping extends Entity
+class Membership extends Entity
 {
     protected $attributes = [
         'id' => null,
         'user_id' => null,
-        'project_id' => null
+        'project_id' => null,
+        'leader' => null
     ];
 
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
-        'project_id' => 'integer'
+        'project_id' => 'integer',
+        'leader' => 'bool'
     ];
 
     /**
@@ -66,5 +68,15 @@ class ProjectMemberMapping extends Entity
     public function getProject(): ?Project
     {
         return getProjectById($this->getProjectId());
+    }
+
+    public function isLeader(): bool
+    {
+        return $this->attributes['leader'];
+    }
+
+    public function setLeader(bool $leader)
+    {
+        $this->attributes['leader'] = $leader;
     }
 }
