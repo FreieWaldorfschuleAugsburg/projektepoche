@@ -26,7 +26,6 @@ function checkCode(string $code): object
     return $user;
 }
 
-
 function generateToken(string $username, string $password): bool|string
 {
     $plain = json_encode(['name' => $username, 'password' => $password]);
@@ -42,7 +41,3 @@ function decryptData(string $data): bool|string
 {
     return openssl_decrypt($data, 'aes-256-cbc', env('app.encryption.key'), 0, env('app.encryption.iv'));
 }
-
-/**
- * @throws Exception
- */

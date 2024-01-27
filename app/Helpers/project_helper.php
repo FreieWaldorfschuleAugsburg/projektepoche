@@ -1,7 +1,6 @@
 <?php
 
 use App\Entities\Project;
-use App\Entities\ProjectLeaderMapping;
 use App\Entities\Membership;
 use App\Entities\User;
 use App\Models\ProjectLeaderMappingModel;
