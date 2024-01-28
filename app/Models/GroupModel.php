@@ -10,10 +10,7 @@ class GroupModel extends Model
     protected $table = GROUPS;
     protected $primaryKey = "id";
     protected $returnType = Group::class;
-
     protected $allowedFields = [
         'name', 'voting', 'admin'
     ];
 }
-
-

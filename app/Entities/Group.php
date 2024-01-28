@@ -39,9 +39,9 @@ class Group extends Entity
     /**
      * @return bool
      */
-    public function isVoting(): bool
+    public function mayVote(): bool
     {
-        return $this->attributes['voting'];
+        return $this->attributes['vote'];
     }
 
     /**

@@ -13,5 +13,4 @@ class ProjectModel extends Model
     protected $allowedFields = [
         'slot_id', 'name', 'max_members', 'room', 'description', 'selectable', 'visible'
     ];
-
 }

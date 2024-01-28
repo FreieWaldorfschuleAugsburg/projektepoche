@@ -10,7 +10,6 @@ class UserModel extends Model
     protected $table = USERS;
     protected $primaryKey = "id";
     protected $returnType = User::class;
-
     protected $allowedFields = [
         'name', 'password', 'group_id'
     ];

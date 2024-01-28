@@ -31,20 +31,4 @@ class Day extends Entity
     {
         return $this->attributes['name'];
     }
-
-    /**
-     * @return bool
-     */
-    public function isVoting(): bool
-    {
-        return $this->attributes['voting'];
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAdmin(): bool
-    {
-        return $this->attributes['admin'];
-    }
 }

@@ -98,7 +98,6 @@ const SLOTS = PREFIX . "slots";
 const PROJECTS = PREFIX . "projects";
 const GROUPS = PREFIX . "groups";
 const USERS = PREFIX . "users";
-const LEADERS = PREFIX . "leaders";
 const MEMBERS = PREFIX . "members";
 const VOTES = PREFIX . "votes";
 const SETTINGS = PREFIX . "settings";
