@@ -1,5 +1,8 @@
 <?php
 
+namespace Config;
+
+// Create a new instance of our RouteCollection class.
 use App\Filters\AdminFilter;
 use App\Filters\LoggedInFilter;
 use CodeIgniter\Router\RouteCollection;
@@ -7,6 +10,26 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+$routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultController('LandingPageController');
+$routes->setDefaultMethod('index');
+$routes->setTranslateURIDashes(false);
+$routes->set404Override();
+$routes->setAutoRoute(true);
+// The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
+// where controller filters or CSRF protection are bypassed.
+// If you don't want to define all routes, please use the Auto Routing (Improved).
+// Set `$autoRoutesImproved` to true in `app/Config/Feature.php` and set the following to true.
+// $routes->setAutoRoute(false);
+
+/*
+ * --------------------------------------------------------------------
+ * Route Definitions
+ * --------------------------------------------------------------------
+ */
+
+// We get a performance increase by specifying the default
+// route since we don't have to scan directories.
 $routes->get('/', 'IndexController::index');
 
 $routes->get('/login', 'AuthenticationController::login');
@@ -25,6 +48,10 @@ $routes->get('/users/credentials/download', 'UserController::downloadCredentials
 $routes->get('/user/delete', 'UserController::delete', ['filter' => AdminFilter::class]);
 $routes->get('user/import', 'UserController::import', ['filter' => AdminFilter::class]);
 $routes->post('user/import', 'UserController::handleImport', ['filter' => AdminFilter::class]);
+
+$routes->get("/test", "ApiController::generateServersidePdf");
+
+
 
 $routes->get('users/api/all', 'ApiController::allUsers', ['filter' => AdminFilter::class]);
 $routes->post('users/api/all/upload/pdf', 'ApiController::uploadAllCredentials', ['filter' => AdminFilter::class]);
