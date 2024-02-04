@@ -1,11 +1,16 @@
 <?php
 
+
 namespace App\Controllers;
 
+
 use Config\Services;
+use Dompdf\Options;
 use function App\Helpers\getSlots;
 use CodeIgniter\API\ResponseTrait;
 use function App\Helpers\parseBody;
+use Dompdf\Dompdf;
+
 
 class ApiController extends BaseController
 {
@@ -46,6 +51,24 @@ class ApiController extends BaseController
         $qrCode = generateQrCode($username, $password);
 
 
+        return Services::response()->setJSON([
+            'imageurl' => $qrCode
+        ])->setStatusCode(200);
+    }
+
+    public function generateServersidePdf()
+    {
+        helper(["api", "credential"]);
+        $username = "MyUser";
+        $password = "MyPassword";
+        $qrCode = generateQrCode($username, $password);
+        $options = new Options();
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('user/CredentialsView', ['username' => $username, 'password' => $password, 'qr' => $qrCode]));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $output = $dompdf->output();
+        file_put_contents('MyUser.pdf', $output);
         return Services::response()->setJSON([
             'imageurl' => $qrCode
         ])->setStatusCode(200);

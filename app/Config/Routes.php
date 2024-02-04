@@ -3,6 +3,7 @@
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
+use App\Controllers\ApiController;
 use App\Filters\AdminFilter;
 use App\Filters\LoggedInFilter;
 
@@ -57,6 +58,10 @@ $routes->get('/users/credentials/download', 'UserController::downloadCredentials
 $routes->get('/user/delete', 'UserController::delete', ['filter' => AdminFilter::class]);
 $routes->get('user/import', 'UserController::import', ['filter' => AdminFilter::class]);
 $routes->post('user/import', 'UserController::handleImport', ['filter' => AdminFilter::class]);
+
+$routes->get("/test", "ApiController::generateServersidePdf");
+
+
 
 $routes->get('users/api/all', 'ApiController::allUsers', ['filter' => AdminFilter::class]);
 $routes->post('users/api/all/upload/pdf', 'ApiController::uploadAllCredentials', ['filter' => AdminFilter::class]);
