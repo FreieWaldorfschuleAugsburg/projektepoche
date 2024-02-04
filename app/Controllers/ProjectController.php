@@ -60,7 +60,7 @@ class ProjectController extends BaseController
         $project = new Project();
         $project->setName($name);
         $project->setSlotId($slotId);
-        $project->setMaxMembers($maxMembers);
+        $project->setCapacity($maxMembers);
         $project->setRoom($room);
         $project->setDescription($description);
         $project->setSelectable(isset($selectable) && $selectable == 'on');
@@ -183,7 +183,7 @@ class ProjectController extends BaseController
 
         $project->setName($name);
         $project->setSlotId($slotId);
-        $project->setMaxMembers($maxMembers);
+        $project->setCapacity($maxMembers);
         $project->setRoom($room);
         $project->setDescription($description);
         $project->setSelectable(isset($selectable) && $selectable == 'on');

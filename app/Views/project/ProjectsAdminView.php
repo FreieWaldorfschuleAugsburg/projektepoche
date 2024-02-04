@@ -54,7 +54,7 @@
                                 data-title="<?= $project->getName() ?>"><?= $project->getName() ?>
                             </td>
                             <td><?= $project->getSlotId() ?></td>
-                            <td><?= $project->getMaxMembers() ?></td>
+                            <td><?= $project->getCapacity() ?></td>
                             <td><?= $project->getRoom() ?></td>
                             <td><?= $project->getLeaderShortNameString() ?></td>
                             <td><?= count($project->getMembers()) ?></td>

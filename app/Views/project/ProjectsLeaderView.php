@@ -23,7 +23,7 @@
                                         <i class="fas fa-user"></i> <?= lang('project.view.leader') ?>:
                                         <?= $project->getLeaderShortNameString() ?><br/>
                                         <i class="fas fa-people-group"></i> <?= lang('project.view.maxMembers') ?>:
-                                        <?= $project->getMaxMembers() ?>
+                                        <?= $project->getCapacity() ?>
                                         <?php if (!empty($project->getRoom())): ?>
                                             <br/><i class="fas fa-door-closed"></i> <?= lang('project.view.room') ?>:
                                             <?= $project->getRoom() ?>

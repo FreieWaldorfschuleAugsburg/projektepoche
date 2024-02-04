@@ -25,7 +25,7 @@
 
 <main id="print" style="opacity: 0;">
     <div class="row gx-4 justify-content-center">
-        <div class="col-lg-10">
+        <div class="col-lg-10 mt-5">
             <div class="text-center">
                 <h1 class="text-body">
                     <?= lang('app.name.break') ?>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="w-100 d-flex justify-content-center">
-                            <img id="qr" class="w-25" src="" alt="">
+                            <img id="qr" src="" alt="">
                         </div>
                     </div>
                 </div>
@@ -87,11 +87,9 @@
         </div>
     </div>
 </main>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-
-
     let startTime = "";
 
     async function generatePdf(user) {
@@ -117,6 +115,7 @@
                 qrCodeElement.src = user.qrCodeUrl;
                 element.style.opacity = "1";
             },
+            allowTaint: true,
             useCORS: true,
             scale: 5,
             windowWidth: 1000,
@@ -137,7 +136,6 @@
         pdfDocument.addImage(data, 'jpeg', 0, 0, width, height);
         return btoa(pdfDocument.output());
     }
-
 
     async function sendPdf(data) {
         const url = '<?=base_url('users/api/upload/pdf')?>'
@@ -161,7 +159,6 @@
         })
     }
 
-
     async function printAndPostCredentials() {
         startTime = Date.now();
         const users = await fetchUsers();
@@ -169,9 +166,7 @@
             const pdf = await generatePdf(user)
             sendPdf(pdf).catch(err => console.log(err))
         }))
-
     }
-
 
     async function fetchUsers() {
         return await fetch(
@@ -182,7 +177,6 @@
             }
         ).then(response => response.json())
     }
-
 
     async function printCredentials(user) {
         return await generatePdf(user)
@@ -195,7 +189,6 @@
         logTime();
         enableDownload();
     });
-
 
     function logTime() {
         const element = document.getElementById('time');
@@ -210,6 +203,4 @@
     function setError() {
 
     }
-
-
 </script>

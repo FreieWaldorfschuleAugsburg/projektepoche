@@ -23,7 +23,7 @@
                     </div>
                     <div class="mb-3">
                         <h6 class="text-body"><?= lang('project.print.fields.maxMembers') ?> </h6>
-                        <input class="form-control" value="<?= $project->getMaxMembers() ?>">
+                        <input class="form-control" value="<?= $project->getCapacity() ?>">
                     </div>
                 </div>
             </div>

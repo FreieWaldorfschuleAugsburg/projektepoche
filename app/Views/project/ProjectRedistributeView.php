@@ -24,7 +24,7 @@
                 <div class="mb-3">
                     <label for="maxMembers" class="form-label"><?= lang('project.fields.maxMembers') ?></label>
                     <input type="number" class="form-control" id="maxMembers" name="maxMembers" min="1"
-                           value="<?= $project->getMaxMembers() ?>" disabled>
+                           value="<?= $project->getCapacity() ?>" disabled>
                 </div>
 
                 <hr>
@@ -47,7 +47,7 @@
                         <?php foreach ($project->getMembers() as $member): ?>
                             <tr id="tr-id-<?= $member->getId() ?>" class="tr-class-<?= $member->getId() ?>">
                                 <td id="td-id-<?= $member->getId() ?>"
-                                    class="td-class-<?= $member->getId() ?> <?= $count > $project->getMaxMembers() ? 'table-danger' : '' ?>"
+                                    class="td-class-<?= $member->getId() ?> <?= $count > $project->getCapacity() ? 'table-danger' : '' ?>"
                                     data-title=" <?= $member->getName() ?>"><?= $member->getName() ?>
                                 </td>
                                 <td>
@@ -62,7 +62,7 @@
                                                     <br/> <?= lang('project.redistribute.fields.actions.auto') ?>
                                                     <b><?= $newProject->getId() ?>: <?= $newProject->getName() ?>
                                                         (<?= count($newProject->getMembers()) ?>
-                                                        / <?= $newProject->getMaxMembers() ?>)</b>
+                                                        / <?= $newProject->getCapacity() ?>)</b>
                                                 </a>
                                             <?php endif; ?>
                                             <?php $voteId++; ?>
