@@ -18,7 +18,7 @@
 
 body {
     font-family: "Fira Sans", sans-serif !important;
-    background-color: #ffefcb !important;
+    background-color: #ffefcb;
     line-height: 1.5rem;
     padding-top: 56px;
 }

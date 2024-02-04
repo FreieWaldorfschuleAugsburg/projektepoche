@@ -15,64 +15,28 @@ use Dompdf\Dompdf;
 class ApiController extends BaseController
 {
     use ResponseTrait;
-
-    public function uploadCredentials()
+    public function printAllCredentials()
     {
-        helper(['filesystem', 'api']);
-        $postData = parseBody($this->request->getBody());
-        $userId = $postData['userId'];
-        $user = getUserById($userId);
-        if ($user && $postData['data']) {
-            $username = str_replace(' ', '_', $user->getName());
+        helper(["api", "credential"]);
+        $users = getUsersWithQrCode();
+        foreach ($users as $user) {
             $groupName = $user->getGroup()->getName();
-
             if (!file_exists("credentials/$groupName")) {
                 mkdir("credentials/$groupName", 0777, true);
             }
-            $decoded = base64_decode($postData['data']);
-            write_file("credentials/$groupName/$username.pdf", $decoded);
-            log_message(2, 'Upload complete');
+            $username = $user->getName();
+            $password = $user->getPassword();
+            $qrCode = generateQrCode($username, $password);
+            $dompdf = new Dompdf([
+                "defaultFont" => "Helvetica",
+            ]);
+            $dompdf->loadHtml(view('user/CredentialsView', ['username' => $username, 'password' => $password, 'qr' => $qrCode]));
+            $dompdf->setPaper('A4');
+            $dompdf->render();
+            $output = $dompdf->output();
+            file_put_contents("credentials/$groupName/$username.pdf", $output);
         }
+        return Services::response()->setJSON(['success' => true])->setStatusCode(200);
     }
-
-    public function allUsers()
-    {
-        helper('user');
-        $users = getUsersWithQrCode();
-        return $this->respond($users, 200);
-    }
-
-    public function renderQr(): \CodeIgniter\HTTP\Response
-    {
-        helper(['api', 'credential']);
-        $data = parseBody($this->request->getBody());
-        $username = $data['username'];
-        $password = $data['password'];
-        $qrCode = generateQrCode($username, $password);
-
-
-        return Services::response()->setJSON([
-            'imageurl' => $qrCode
-        ])->setStatusCode(200);
-    }
-
-    public function generateServersidePdf()
-    {
-        helper(["api", "credential"]);
-        $username = "MyUser";
-        $password = "MyPassword";
-        $qrCode = generateQrCode($username, $password);
-        $options = new Options();
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml(view('user/CredentialsView', ['username' => $username, 'password' => $password, 'qr' => $qrCode]));
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-        $output = $dompdf->output();
-        file_put_contents('MyUser.pdf', $output);
-        return Services::response()->setJSON([
-            'imageurl' => $qrCode
-        ])->setStatusCode(200);
-    }
-
 
 }

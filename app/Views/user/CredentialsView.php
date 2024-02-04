@@ -1,29 +1,33 @@
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
     <title></title>
     <style>
         <?= file_get_contents("./assets/css/boostrap-3.min.css"); ?>
         <?= file_get_contents("./assets/css/style.css"); ?>
         <?= file_get_contents("./assets/css/fontawesome.min.css"); ?>
         <?= file_get_contents("./assets/css/bootstrap-table.min.css"); ?>
+        .test {
+            font-family: 'Montserrat', sans-serif;
+        }
     </style>
 
 </head>
 
 
-<body>
-<div class="row gx-4 justify-content-center">
+<body style="background-color: white">
+<div class="justify-content-center">
     <div class="col-lg-10">
         <div class="text-center">
-            <h1 class="text-body">
+            <h2>
                 <?= lang('app.name.break') ?>
-            </h1>
+            </h2>
         </div>
     </div>
 </div>
-<div class="row gx-4 mt-3 justify-content-center text-body bg-body" id="width">
+<div class="mr-3 row mt-3 text-left justify-content-center text-body bg-body">
     <div class="col-lg-10">
-        <div class="text-center">
+        <div class="">
             <div class="card mt-3">
                 <div class="card-header">
                     <b><?= lang('user.print.guide.headline') ?></b>
@@ -57,11 +61,11 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-body">Benutzername: </h6>
-                                <input class="form-control" value="<?= $username ?>">
+                                <p class="border px-2 rounded-3 py-2 card-header card" ><?=$username?></p>
                             </div>
                             <div class="mb-3">
                                 <h6 class="text-body">Passwort: </h6>
-                                <input class="form-control" value="<?= $password ?>">
+                                <p class="border px-2 rounded-3 py-2 card-header card" ><?=$password?></p>
                             </div>
                         </div>
                     </div>
