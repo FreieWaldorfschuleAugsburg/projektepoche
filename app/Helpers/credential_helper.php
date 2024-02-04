@@ -1,13 +1,15 @@
 <?php
 
 use App\Entities\User;
+use chillerlan\QRCode\Output\QROutputInterface;
 use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 function generateQrCode(string $username, string $password)
 {
     $token = generateToken($username, $password);
     $url = base_url("code?code=$token");
-    $qr = new QRCode();
+    $qr = new QRCode(new QROptions(['outputType' => QROutputInterface::GDIMAGE_PNG]));
     return $qr->render($url);
 }
 

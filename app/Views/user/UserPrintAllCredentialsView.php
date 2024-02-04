@@ -23,7 +23,7 @@
 </div>
 
 
-<main id="print" style="opacity: 0;">
+<main id="print" style="opacity: 0; background-color:white">
     <div class="row gx-4 justify-content-center">
         <div class="col-lg-10 mt-5">
             <div class="text-center">
@@ -113,6 +113,15 @@
                 nameElement.value = user.name;
                 passwordElement.value = user.password;
                 qrCodeElement.src = user.qrCodeUrl;
+
+                /*const newImage = new Image;
+                qrCodeElement.src = user.qrCodeUrl;
+                newImage.src = user.qrCodeUrl;
+                newImage.crossOrigin = 'anonymous';
+                newImage.width = "150";
+                newImage.height = "150";
+                element.appendChild(newImage);*/
+
                 element.style.opacity = "1";
             },
             allowTaint: true,
