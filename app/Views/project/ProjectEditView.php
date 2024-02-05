@@ -8,7 +8,7 @@
                             class="fas fa-backward"></i> <?= lang('project.buttons.back') ?></a>
             </div>
             <div class="card-body">
-                <?php form_open('project/edit') ?>
+                <?= form_open('project/edit') ?>
                     <input type="number" id="id" name="id" value="<?= $project->getId() ?>" hidden>
 
                     <div class="mb-3">
