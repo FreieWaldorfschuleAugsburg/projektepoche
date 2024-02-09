@@ -13,11 +13,27 @@
     <?= view('project/ProjectsUserView') ?>
 </div>
 
+<div class="alert alert-danger">
+    <b>Achtung! Achtung! Achtung!</b>
+    <p>Auch in Zeitschiene 1 musst du drei Angebote wählen, auch wenn du den normalen Unterricht besuchst.<br> <b>Wähle dann:</b><br>
+        Unterricht, Dummy1 und Dummy2<br><br>
+        <b>Für Photovoltaik wählst du: </b><br>
+        Photovoltaik, Dummy1 und Dummy2<br><br>
+        <b>Für Photovoltaik und Informatiktag wählst du:</b><br>
+        Fotovoltaik, Informatiktag, Dummy1<br><br>
+        <b>Qualileute wählen:</b><br>
+        Qualivorbereitung, Dummy1 und Dummy2<br>
+        (Qualileute wählen auch in den anderen Zeitschienen Quali als ersten Kurs, dann beliebige andere Projekte an zwei und drei.)
+    </p>
+</div>
+
 <?php if ($user->isLeader()): ?>
     <div class="mt-3">
         <?= view('project/ProjectsLeaderView') ?>
     </div>
-<?php elseif (getVoteState() == VoteState::PUBLIC && $user->mayVote() && $user->hasVoted()): ?>
+<?php endif; ?>
+
+<?php if (getVoteState() == VoteState::PUBLIC && $user->mayVote() && $user->hasVoted()): ?>
     <div class="row gx-4 mt-3 justify-content-center">
         <div class="col-lg-12">
             <div class="card">
