@@ -51,5 +51,38 @@ class ApiController extends BaseController
         ])->setStatusCode(200);
     }
 
+    public function fixVotes()
+    {
+        /*foreach (getUsers() as $user) {
+            if (!$user->mayVote()) {
+                getVoteModel()->where(['user_id' => $user->getId()])->delete();
+            }
+
+            $twoExists = false;
+            $threeExists = false;
+
+            $rawVotes = getVoteModel()->where(['user_id' => $user->getId()])->findAll();
+            foreach ($rawVotes as $vote) {
+                if ($vote->vote_id == 2) {
+                    $twoExists = true;
+                }
+
+                if ($vote->vote_id == 3) {
+                    $threeExists = true;
+                }
+            }
+
+            if (!$twoExists) {
+                //getVoteModel()->insert(['user_id' => $user->getId(), 'vote_id' => 2, 'project_id' => 73]);
+                echo "Ich würde jetzt an Vote 2 für " . $user->getName() . " 73 setzen<br><br>";
+            }
+
+            if (!$threeExists) {
+                //getVoteModel()->insert(['user_id' => $user->getId(), 'vote_id' => 3, 'project_id' => 73]);
+                echo "Ich würde jetzt an Vote 3 für " . $user->getName() . " 73 setzen<br><br>";
+            }
+
+        }*/
+    }
 
 }

@@ -89,7 +89,7 @@ class User extends Entity
      */
     public function mayVote(): bool
     {
-        return $this->getGroup()->isVoting();
+        return $this->getGroup()->mayVote();
     }
 
     /**

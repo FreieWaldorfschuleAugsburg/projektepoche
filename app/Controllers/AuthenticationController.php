@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 use CodeIgniter\HTTP\RedirectResponse;
 
-class AuthenticationController extends BaseController {
-    
+class AuthenticationController extends BaseController
+{
+
     public function login(): string
     {
-        return $this->render('LoginView');
+        return $this->render('LoginView', null, true, false);
     }
 
     public function handleCredentials(): RedirectResponse
@@ -41,7 +42,8 @@ class AuthenticationController extends BaseController {
         return redirect('/');
     }
 
-    public function errorRedirect($name, $error): RedirectResponse {
+    public function errorRedirect($name, $error): RedirectResponse
+    {
         return redirect('login')->with('name', $name)->with('error', $error);
     }
 }

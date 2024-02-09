@@ -31,7 +31,6 @@ function getUsers(): array
     return $users;
 }
 
-
 function getUsersWithQrCode(): array
 {
     helper('credential');
@@ -52,7 +51,6 @@ function getUsersWithQrCode(): array
     return $usersWithQr;
 
 }
-
 
 /**
  * @return User

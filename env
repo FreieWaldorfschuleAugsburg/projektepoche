@@ -1,0 +1,29 @@
+CI_ENVIRONMENT = production
+
+#--------------------------------------------------------------------
+# APPLICATION
+#--------------------------------------------------------------------
+
+app.baseURL = 'https://projektepoche.waldorf-augsburg.de'
+app.encryption.key = ''
+app.encryption.iv = ''
+
+#--------------------------------------------------------------------
+# ACTIVE DIRECTORY
+#--------------------------------------------------------------------
+
+ad.hosts = ''
+ad.dn = ''
+ad.admin.username = ''
+ad.admin.password = ''
+
+#--------------------------------------------------------------------
+# DATABASE
+#--------------------------------------------------------------------
+
+database.default.hostname = 'elektronisch.dev'
+database.default.database = 'projektepoche'
+database.default.username = 'projektepoche'
+database.default.password = 'projektepoche'
+database.default.DBDriver = 'MySQLi'
+database.default.DBPrefix = ''

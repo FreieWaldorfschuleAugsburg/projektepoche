@@ -1,11 +1,9 @@
 <?php
 
 use App\Entities\Project;
-use App\Entities\ProjectLeaderMapping;
-use App\Entities\ProjectMemberMapping;
+use App\Entities\Membership;
 use App\Entities\User;
-use App\Models\ProjectLeaderMappingModel;
-use App\Models\ProjectMemberMappingModel;
+use App\Models\MembershipModel;
 use App\Models\ProjectModel;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 
@@ -66,7 +64,7 @@ function getProjectsBySlotId(int $slotId): array
  */
 function getProjectsByLeader(int $userId): array
 {
-    $mappings = getProjectLeaderMappingModel()->where(['user_id' => $userId])->findAll();
+    $mappings = getProjectMembershipModel()->where(['user_id' => $userId, 'leader' => true])->findAll();
 
     $projects = [];
     foreach ($mappings as $mapping) {
@@ -79,7 +77,7 @@ function getProjectsByLeader(int $userId): array
 
 function isProjectLeader(int $userId): bool
 {
-    return getProjectLeaderMappingModel()->where(['user_id' => $userId])->countAllResults() > 0;
+    return getProjectMembershipModel()->where(['user_id' => $userId, 'leader' => true])->countAllResults() > 0;
 }
 
 /**
@@ -89,7 +87,7 @@ function isProjectLeader(int $userId): bool
  */
 function getProjectLeadersByProjectId(int $projectId): array
 {
-    $mappings = getProjectLeaderMappingModel()->where(['project_id' => $projectId])->findAll();
+    $mappings = getProjectMembershipModel()->where(['project_id' => $projectId, 'leader' => true])->findAll();
 
     $users = [];
     foreach ($mappings as $mapping) {
@@ -105,7 +103,7 @@ function getProjectLeadersByProjectId(int $projectId): array
  */
 function getProjectMembersByProjectId(int $projectId): array
 {
-    $mappings = getProjectMemberMappingModel()->where(['project_id' => $projectId])->findAll();
+    $mappings = getProjectMembershipModel()->where(['project_id' => $projectId, 'leader' => false])->findAll();
 
     $users = [];
     foreach ($mappings as $mapping) {
@@ -121,7 +119,7 @@ function getProjectMembersByProjectId(int $projectId): array
  */
 function getProjectsByMemberId(int $memberId): array
 {
-    $mappings = getProjectMemberMappingModel()->where(['user_id' => $memberId])->findAll();
+    $mappings = getProjectMembershipModel()->where(['user_id' => $memberId])->findAll();
 
     $projects = [];
     foreach ($mappings as $mapping) {
@@ -141,10 +139,11 @@ function getProjectsByMemberId(int $memberId): array
  */
 function addProjectMember(int $projectId, int $userId): void
 {
-    $mapping = new ProjectMemberMapping();
+    $mapping = new Membership();
     $mapping->setUserId($userId);
     $mapping->setProjectId($projectId);
-    getProjectMemberMappingModel()->insert($mapping);
+    $mapping->setLeader(false);
+    getProjectMembershipModel()->insert($mapping);
 }
 
 /**
@@ -155,7 +154,7 @@ function addProjectMember(int $projectId, int $userId): void
  */
 function removeProjectMember(int $projectId, int $userId): void
 {
-    getProjectMemberMappingModel()->where(['project_id' => $projectId, 'user_id' => $userId])->delete();
+    getProjectMembershipModel()->where(['project_id' => $projectId, 'user_id' => $userId])->delete();
 }
 
 /**
@@ -170,12 +169,9 @@ function updateProject(Project $project, array $leaderIds, array $memberIds): vo
     // Update project entry
     getProjectModel()->save($project);
 
-    // Delete all leaders and re-insert updated leader list
-    getProjectLeaderMappingModel()->where(['project_id' => $project->getId()])->delete();
+    // Delete all memberships and re-insert updated leader list
+    getProjectMembershipModel()->where(['project_id' => $project->getId()])->delete();
     insertProjectLeaderMappings($project->getId(), $leaderIds);
-
-    // Delete all members and re-insert updated member list
-    getProjectMemberMappingModel()->where(['project_id' => $project->getId()])->delete();
     insertProjectMemberMappings($project->getId(), $memberIds);
 }
 
@@ -208,14 +204,15 @@ function insertProjectLeaderMappings(int $projectId, array $leaderIds): void
 {
     $mappings = [];
     foreach ($leaderIds as $id) {
-        $mapping = new ProjectLeaderMapping();
+        $mapping = new Membership();
         $mapping->setUserId($id);
         $mapping->setProjectId($projectId);
+        $mapping->setLeader(true);
         $mappings[] = $mapping;
     }
 
     if ($mappings) {
-        getProjectLeaderMappingModel()->insertBatch($mappings);
+        getProjectMembershipModel()->insertBatch($mappings);
     }
 }
 
@@ -229,14 +226,15 @@ function insertProjectMemberMappings(int $projectId, array $memberIds): void
 {
     $mappings = [];
     foreach ($memberIds as $id) {
-        $mapping = new ProjectMemberMapping();
+        $mapping = new Membership();
         $mapping->setUserId($id);
         $mapping->setProjectId($projectId);
+        $mapping->setLeader(false);
         $mappings[] = $mapping;
     }
 
     if ($mappings) {
-        getProjectMemberMappingModel()->insertBatch($mappings);
+        getProjectMembershipModel()->insertBatch($mappings);
     }
 }
 
@@ -255,13 +253,8 @@ function getProjectModel(): ProjectModel
     return new ProjectModel();
 }
 
-function getProjectLeaderMappingModel(): ProjectLeaderMappingModel
+function getProjectMembershipModel(): MembershipModel
 {
-    return new ProjectLeaderMappingModel();
-}
-
-function getProjectMemberMappingModel(): ProjectMemberMappingModel
-{
-    return new ProjectMemberMappingModel();
+    return new MembershipModel();
 }
 

@@ -11,7 +11,7 @@ class Project extends Entity
         'id' => null,
         'slot_id' => null,
         'name' => null,
-        'max_members' => null,
+        'capacity' => null,
         'room' => null,
         'description' => null,
         'selectable' => null,
@@ -22,7 +22,7 @@ class Project extends Entity
         'id' => 'integer',
         'slot_id' => 'integer',
         'name' => 'string',
-        'max_members' => 'integer',
+        'capacity' => 'integer',
         'room' => 'string',
         'description' => 'string',
         'selectable' => 'boolean',
@@ -74,14 +74,14 @@ class Project extends Entity
     /**
      * @return int
      */
-    public function getMaxMembers(): int
+    public function getCapacity(): int
     {
-        return $this->attributes['max_members'];
+        return $this->attributes['capacity'];
     }
 
-    public function setMaxMembers(int $maxMembers): void
+    public function setCapacity(int $capacity): void
     {
-        $this->attributes['max_members'] = $maxMembers;
+        $this->attributes['capacity'] = $capacity;
     }
 
     /**
@@ -166,6 +166,6 @@ class Project extends Entity
 
     public function hasConflict(): bool
     {
-        return count($this->getMembers()) > $this->getMaxMembers();
+        return count($this->getMembers()) > $this->getCapacity();
     }
 }

@@ -8,7 +8,7 @@
                             class="fas fa-backward"></i> <?= lang('project.buttons.back') ?></a>
             </div>
             <div class="card-body">
-                <form action="<?= base_url('project/edit') ?>" method="post">
+                <?= form_open('project/edit') ?>
                     <input type="number" id="id" name="id" value="<?= $project->getId() ?>" hidden>
 
                     <div class="mb-3">
@@ -31,7 +31,7 @@
                     <div class="mb-3">
                         <label for="maxMembers" class="form-label"><?= lang('project.fields.maxMembers') ?></label>
                         <input type="number" class="form-control" id="maxMembers" name="maxMembers" min="1"
-                               value="<?= $project->getMaxMembers() ?>" required>
+                               value="<?= $project->getCapacity() ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="room" class="form-label"><?= lang('project.fields.room') ?></label>
@@ -82,7 +82,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary"><?= lang('project.edit.button') ?></button>
-                </form>
+                <?= form_close() ?>
             </div>
         </div>
     </div>

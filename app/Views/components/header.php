@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?= service('request')->getLocale(); ?>" data-bs-theme="dark">
+<html lang="<?= service('request')->getLocale(); ?>">
 <head>
     <meta charset="utf-8">
     <title><?= lang('app.name.full') ?></title>
@@ -25,7 +25,7 @@
     <script src="<?= base_url('/') ?>/assets/js/popper.min.js"></script>
     <script src="<?= base_url('/') ?>/assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url('/') ?>/assets/js/bootstrap-table.min.js"></script>
-    <script src="<?= base_url('/') ?>/assets/js/bootstrap-table-cookies.min.js" type="application/javascript"></script>
+    <script src="<?= base_url('/') ?>/assets/js/bootstrap-table-cookie.min.js" type="application/javascript"></script>
     <script src="<?= base_url('/') ?>/assets/js/bootstrap-table-locale-all.min.js"></script>
     <script src="<?= base_url('/') ?>/assets/js/summernote-bs5.min.js"></script>
 </head>

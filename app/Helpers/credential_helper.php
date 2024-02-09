@@ -1,13 +1,15 @@
 <?php
 
 use App\Entities\User;
+use chillerlan\QRCode\Output\QROutputInterface;
 use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 function generateQrCode(string $username, string $password)
 {
     $token = generateToken($username, $password);
     $url = base_url("code?code=$token");
-    $qr = new QRCode();
+    $qr = new QRCode(new QROptions(['outputType' => QROutputInterface::GDIMAGE_PNG]));
     return $qr->render($url);
 }
 
@@ -26,7 +28,6 @@ function checkCode(string $code): object
     return $user;
 }
 
-
 function generateToken(string $username, string $password): bool|string
 {
     $plain = json_encode(['name' => $username, 'password' => $password]);
@@ -42,7 +43,3 @@ function decryptData(string $data): bool|string
 {
     return openssl_decrypt($data, 'aes-256-cbc', env('app.encryption.key'), 0, env('app.encryption.iv'));
 }
-
-/**
- * @throws Exception
- */

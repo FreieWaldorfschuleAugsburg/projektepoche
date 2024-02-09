@@ -11,8 +11,6 @@ class SlotModel extends Model
     protected $primaryKey = 'id';
     protected $returnType = Slot::class;
     protected $allowedFields = [
-        'name', 'start_time', 'end_time'
+        'name', 'start_time', 'end_time', 'start_day', 'end_day'
     ];
-
-
 }

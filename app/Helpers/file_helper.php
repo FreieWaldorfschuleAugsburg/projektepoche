@@ -4,7 +4,9 @@ namespace App\Helpers;
 
 use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\HTTP\IncomingRequest;
+use FilesystemIterator;
 use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 function storeFile(IncomingRequest $request): ?string
 {
@@ -42,7 +44,7 @@ function readCsvToArray(string $fileName): array
 }
 
 
-function getFileName(\CodeIgniter\HTTP\Files\UploadedFile $file): string
+function getFileName(UploadedFile $file): string
 {
     return $file->getRandomName();
 }
@@ -55,9 +57,9 @@ function getUserUploadsFolder(): string
 function deleteDirectoryRecursively(string $path): void
 {
     if (file_exists($path)) {
-        $files = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::CHILD_FIRST);
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($files as $name => $file) {
             if (!$file->isDir()) {
                 $filePath = $file->getRealPath();
@@ -75,7 +77,6 @@ function getFilePath(string $fileName): string
     return getUserUploadsFolder() . $fileName;
 }
 
-
 function downloadFile($filePath): void
 {
     if (!empty($filePath)) {
@@ -85,15 +86,13 @@ function downloadFile($filePath): void
         $contentType = "application/zip";
         if (file_exists($filePath)) {
             $size = filesize($filePath);
-            $offset = 0;
-            $length = $size;
             if (isset($_SERVER['HTTP_RANGE'])) {
                 preg_match('/bytes=(\d+)-(\d+)?/', $_SERVER['HTTP_RANGE'], $matches);
                 $offset = intval($matches[1]);
                 $length = intval($matches[2]) - $offset;
                 $fhandle = fopen($filePath, 'r');
                 fseek($fhandle, $offset);
-                $data = fread($fhandle, $length);
+                fread($fhandle, $length);
                 fclose($fhandle);
                 header('HTTP/1.1 206 Partial Content');
                 header('Content-Range: bytes ' . $offset . '-' . ($offset + $length) . '/' . $size);
@@ -110,7 +109,6 @@ function downloadFile($filePath): void
             $chunksize = 8 * (1024 * 1024); //8MB (highest possible fread length)
             if ($size > $chunksize) {
                 $handle = fopen($filePath, 'rb');
-                $buffer = '';
                 while (!feof($handle) && (connection_status() === CONNECTION_NORMAL)) {
                     $buffer = fread($handle, $chunksize);
                     print $buffer;

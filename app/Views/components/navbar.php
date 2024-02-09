@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-expand-lg navbar-light bg-white border-bottom fixed-top shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="<?= base_url('/') ?>">
             <img src="<?= base_url('/') ?>/assets/img/logo.png" width="30" height="30" class="d-inline-block align-top"
@@ -64,5 +64,3 @@
         </div>
     </div>
 </nav>
-
-<div class="container px-4 mt-4">
