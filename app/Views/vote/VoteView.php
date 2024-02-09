@@ -13,7 +13,7 @@
     <?= view('project/ProjectsUserView') ?>
 </div>
 
-<div class="alert alert-danger">
+<!--<div class="alert alert-danger">
     <b>Achtung! Achtung! Achtung!</b>
     <p>Auch in Zeitschiene 1 musst du drei Angebote wählen, auch wenn du den normalen Unterricht besuchst.<br> <b>Wähle dann:</b><br>
         Unterricht, Dummy1 und Dummy2<br><br>
@@ -25,7 +25,7 @@
         Qualivorbereitung, Dummy1 und Dummy2<br>
         (Qualileute wählen auch in den anderen Zeitschienen Quali als ersten Kurs, dann beliebige andere Projekte an zwei und drei.)
     </p>
-</div>
+</div>-->
 
 <?php if ($user->isLeader()): ?>
     <div class="mt-3">

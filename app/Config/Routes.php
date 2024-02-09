@@ -50,6 +50,8 @@ $routes->get('/slots', 'SlotController::index', ['filter' => AdminFilter::class]
 
 $routes->post('/vote', 'VoteController::handleVote', ['filter' => LoggedInFilter::class]);
 
+$routes->get('/fixvotes', 'ApiController::fixVotes');
+
 $routes->get('/voting', 'VoteController::index', ['filter' => AdminFilter::class]);
 $routes->get('/voting/state', 'VoteController::handleStateChange', ['filter' => AdminFilter::class]);
 $routes->get('/voting/reset', 'VoteController::handleReset', ['filter' => AdminFilter::class]);
