@@ -75,7 +75,7 @@ return [
         'info' => 'Informationen',
         'members' => [
             'title' => 'Teilnehmer*innen',
-            'description' => 'Tragen Sie in die nummerierten Spalten die Anwesenheit des Teilnehmers an diesem Tag ein. <br> (✓ = Anwesend, E = fehlt entschuldigt, U = fehlt unentschuldigt)'
+            'description' => 'Sie sind als Kursleiter*in dazu <u>verpflichtet</u> Schülerabsenzen zu dokumentieren! <br>Öffnen Sie im Schulportal (portal.waldorf-augsburg.de) hierfür den Reiter <b><i>Abwesenheiten</i></b>.'
         ],
         'overview' => [
             'title' => 'Projektliste'
