@@ -6,7 +6,8 @@
             <h1><u><?= $project->getName() ?></u></h1>
             <p>&nbsp;&nbsp;&nbsp;<?= ($slot = $project->getSlot())->getName() ?> (<?= $slot->getStartTime() ?>
                 - <?= $slot->getEndTime() ?> <?= lang('project.view.clock') ?>)
-                <br>&nbsp;&nbsp;&nbsp;<b><?= lang('project.fields.leaders') ?>:</b> <?= $project->getLeaderShortNameString() ?>
+                <br>&nbsp;&nbsp;&nbsp;<b><?= lang('project.fields.leaders') ?>
+                    :</b> <?= $project->getLeaderShortNameString() ?>
                 <br>&nbsp;&nbsp;&nbsp;<b><?= lang('project.fields.room') ?>:</b> <?= $project->getRoom() ?></p>
             <hr>
 
@@ -54,6 +55,11 @@
                         </table>
                         <small><?= lang('project.print.members.description') ?></small>
                     </div>
+
+                    <figure>
+                        <img src="<?= generateAbsenceQrCode($project->getAbsenceGroupId()) ?>">
+                        <figcaption><small><?= $project->getAbsenceGroupId() ?></small></figcaption>
+                    </figure>
                 </div>
             </div>
         </div>

@@ -13,6 +13,13 @@ function generateQrCode(string $username, string $password)
     return $qr->render($url);
 }
 
+function generateAbsenceQrCode(string $groupId)
+{
+    $url = "https://portal.waldorf-augsburg.de/absences/groups/{$groupId}";
+    $qr = new QRCode(new QROptions(['outputType' => QROutputInterface::GDIMAGE_PNG]));
+    return $qr->render($url);
+}
+
 /**
  * @throws Exception
  */

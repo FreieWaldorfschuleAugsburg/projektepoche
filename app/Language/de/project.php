@@ -75,7 +75,7 @@ return [
         'info' => 'Informationen',
         'members' => [
             'title' => 'Teilnehmer*innen',
-            'description' => 'Sie sind als Kursleiter*in dazu <u>verpflichtet</u> Schülerabsenzen zu dokumentieren! <br>Öffnen Sie im Schulportal (portal.waldorf-augsburg.de) hierfür den Reiter <b><i>Abwesenheiten</i></b>.'
+            'description' => 'Sie sind als Kursleiter*in dazu <u>verpflichtet</u> Schülerabsenzen zu dokumentieren! <br>Öffnen Sie hierfür über untenstehenden QR-Code das <b><i>Schulportal</i></b>.'
         ],
         'overview' => [
             'title' => 'Projektliste'

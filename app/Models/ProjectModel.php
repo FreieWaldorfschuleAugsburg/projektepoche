@@ -11,6 +11,6 @@ class ProjectModel extends Model
     protected $primaryKey = "id";
     protected $returnType = Project::class;
     protected $allowedFields = [
-        'slot_id', 'name', 'capacity', 'room', 'description', 'selectable', 'visible'
+        'slot_id', 'name', 'capacity', 'room', 'description', 'selectable', 'visible', 'absence_group_id'
     ];
 }

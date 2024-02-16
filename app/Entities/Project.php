@@ -15,7 +15,8 @@ class Project extends Entity
         'room' => null,
         'description' => null,
         'selectable' => null,
-        'visible' => null
+        'visible' => null,
+        'absence_group_id' => null,
     ];
 
     protected $casts = [
@@ -26,7 +27,8 @@ class Project extends Entity
         'room' => 'string',
         'description' => 'string',
         'selectable' => 'boolean',
-        'visible' => 'boolean'
+        'visible' => 'boolean',
+        'absence_group_id' => 'string',
     ];
 
     /**
@@ -134,6 +136,19 @@ class Project extends Entity
     public function setVisible(bool $visible): void
     {
         $this->attributes['visible'] = $visible;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbsenceGroupId(): string
+    {
+        return $this->attributes['absence_group_id'];
+    }
+
+    public function setAbsenceGroupId(string $absenceGroupId): void
+    {
+        $this->attributes['absence_group_id'] = $absenceGroupId;
     }
 
     /**
