@@ -14,6 +14,29 @@
     <meta property="og:type" content="website"/>
     <meta property="og:locale" content="<?= service('request')->getLocale(); ?>"/>
 
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = "//matomo.waldorf-augsburg.de/";
+            _paq.push(['setTrackerUrl', u + 'matomo.php']);
+            _paq.push(['setSiteId', '7']);
+
+            <?php if($user = getCurrentUser()): ?>
+                _paq.push(['setUserId', '<?= $user->getName() ?>']);
+            <?php endif; ?>
+
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.async = true;
+            g.src = u + 'matomo.js';
+            s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+
     <link href="<?= base_url('/') ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?= base_url('/') ?>/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url('/') ?>/assets/img/logo.png" rel="icon">
