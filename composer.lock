@@ -167,16 +167,16 @@
         },
         {
             "name": "codeigniter4/framework",
-            "version": "v4.5.1",
+            "version": "v4.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "9b2cd730db29d14ac6e760fb15c4bcac15184ec4"
+                "reference": "be27314371eece7ff3ac7c13d5b2f39f95038dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/9b2cd730db29d14ac6e760fb15c4bcac15184ec4",
-                "reference": "9b2cd730db29d14ac6e760fb15c4bcac15184ec4",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/be27314371eece7ff3ac7c13d5b2f39f95038dfa",
+                "reference": "be27314371eece7ff3ac7c13d5b2f39f95038dfa",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +237,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2024-04-14T04:18:29+00:00"
+            "time": "2024-06-25T02:18:23+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
